@@ -32,7 +32,7 @@ project.
 ~~~ xml
 <dependency>
   <groupId>com.github.zafarkhaja</groupId>
-  <artifactId>java-semver</artifactId>
+  <artifactId>jsemver</artifactId>
   <version>0.9.0</version>
 </dependency>
 ~~~
@@ -41,7 +41,7 @@ project.
 ~~~ xml
 <dependency>
   <groupId>com.github.zafarkhaja</groupId>
-  <artifactId>java-semver</artifactId>
+  <artifactId>jsemver</artifactId>
   <version>0.10.0-SNAPSHOT</version>
 </dependency>
 ~~~
