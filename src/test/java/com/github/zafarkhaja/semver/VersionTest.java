@@ -26,9 +26,14 @@ package com.github.zafarkhaja.semver;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
+
 import static com.github.zafarkhaja.semver.expr.CompositeExpression.Helper.gte;
 import static com.github.zafarkhaja.semver.expr.CompositeExpression.Helper.lt;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -313,6 +318,32 @@ public class VersionTest {
             Version v = Version.valueOf("2.0.0-beta");
             assertTrue(v.satisfies(gte("1.0.0").and(lt("2.0.0"))));
             assertFalse(v.satisfies(gte("2.0.0").and(lt("3.0.0"))));
+        }
+
+        @Test
+        public void shouldCheckIfMajorVersionCompatible() {
+            Version v2 = Version.valueOf("1.2.3");
+            Version v3 = Version.valueOf("2.0.0");
+            assertTrue(v1.isMajorVersionCompatible(v2));
+            assertFalse(v1.isMajorVersionCompatible(v3));
+        }
+
+        @Test
+        public void shouldCheckIfMinorVersionCompatible() {
+            Version v1 = Version.valueOf("1.1.1");
+            Version v2 = Version.valueOf("1.1.2");
+            Version v3 = Version.valueOf("1.2.3");
+            assertTrue(v1.isMinorVersionCompatible(v2));
+            assertFalse(v1.isMinorVersionCompatible(v3));
+        }
+
+        @Test
+        public void shouldParseLongPatchVersionCorrectly() {
+            try {
+                Version.valueOf("3.2.1477710197605");
+            } catch (NumberFormatException e) {
+                fail("Incorrectly got number format exception. " + e.getLocalizedMessage());
+            }
         }
     }
 
