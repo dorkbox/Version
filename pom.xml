@@ -9,7 +9,7 @@
   </parent>
 
   <groupId>com.github.zafarkhaja</groupId>
-  <artifactId>java-semver</artifactId>
+  <artifactId>jsemver</artifactId>
   <version>0.9.0</version>
   <packaging>jar</packaging>
 
