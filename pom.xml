@@ -4,7 +4,7 @@
 
   <groupId>com.github.zafarkhaja</groupId>
   <artifactId>jsemver</artifactId>
-  <version>0.11.1</version>
+  <version>0.11.0</version>
   <packaging>jar</packaging>
 
   <name>Java SemVer</name>

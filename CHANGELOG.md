@@ -1,6 +1,18 @@
 Java SemVer Changelog
 =====================
 
+### 0.11.0 (Oct 29, 2016) ###
+* [Support long versions](https://github.com/lbordowitz/jsemver/commit/38bacfe8c1331b3cb5dfebb5639e6aee51e9b79e)
+
+### 0.10.0 (Oct 24, 2016) ###
+* [Add methods for checking major and minor compatibility](https://github.com/zafarkhaja/jsemver/commit/f6abcf5dd79ea9ee8e076cdeff71644012c1f7ac)
+* [Fix Travis build](https://github.com/zafarkhaja/jsemver/commit/a34d6f2a7631d576304b91e6e388cd0c776edd58)
+* [Upgrade the POM for easy deployment](https://github.com/zafarkhaja/jsemver/commit/2a77345c5f5a58aa67edb675b437bb5b2eb17e10)
+* [Fix a typo in CHANGELOG](https://github.com/zafarkhaja/jsemver/commit/c1de46d8b62fe0aa0df08d89424060a894335eb6)
+
+### 0.9.1 (Sep 18, 2015) ###
+* [Convert to Eclipse plugin](https://github.com/OSSIndex/jsemver/commit/ac1d5121e3e2e2a11de67347de4044ce615523d9)
+
 ### 0.9.0 (Mar 19, 2015) ###
 * [[#7](https://github.com/zafarkhaja/jsemver/issues/6)] Implemented internal DSL for the SemVer Expressions and Ranges
 * [[PR#18](https://github.com/zafarkhaja/jsemver/pull/18)] Introduced partial compatibility with `node-semver` ranges
