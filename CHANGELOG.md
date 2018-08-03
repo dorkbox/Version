@@ -1,5 +1,15 @@
-Java SemVer Changelog
+Java Semantic Versioning Changelog
 =====================
+
+### 1.0 (Aug 3, 2018) ###
+* Updated to Semantic Versioning 2.1, with optional patch information exception
+    * If the patch version information is excluded (or the major/minor version is incremented), then the patch version is dropped. The patch version information is only used if non-zero.
+* Added Gradle build files
+* Added License files
+* Renamed Version.valueOf -> Version.from
+* Renamed Version.forInteger -> Version.from
+
+
 
 ### 0.11.0 (Oct 29, 2016) ###
 * [Support long versions](https://github.com/lbordowitz/jsemver/commit/38bacfe8c1331b3cb5dfebb5639e6aee51e9b79e)
