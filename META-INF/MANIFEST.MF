@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: jsemver
-Bundle-SymbolicName: jsemver
-Bundle-Version: 0.11.0.qualifier
-Export-Package: com.github.zafarkhaja.semver,
- com.github.zafarkhaja.semver.expr,
- com.github.zafarkhaja.semver.util
+Bundle-Name: SemanticVersioning
+Bundle-SymbolicName: SemanticVersioning
+Bundle-Version: 1.0
+Export-Package: com.dorkbox.semver,
+ com.dorkbox.semver.expr,
+ com.dorkbox.semver.util
