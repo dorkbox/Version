@@ -53,35 +53,32 @@ The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL 
 
 Installation
 ------------
-To install the Java SemanticVersioning library add the following dependency to your Maven
-project.
+To install the Java SemanticVersioning library add the following dependency to your project.
 
-**Current stable version**
+**Maven**
 ~~~ xml
 <dependency>
   <groupId>com.dorkbox</groupId>
-  <artifactId>SemanticVersioning</artifactId>
-  <version>0.9.0</version>
+  <artifactId>Version</artifactId>
+  <version>1.0</version>
 </dependency>
 ~~~
 
-**Development version**
+**Gradle**
 ~~~ xml
-<dependency>
-  <groupId>com.dorkbox</groupId>
-  <artifactId>SemanticVersioning</artifactId>
-  <version>0.10.0-SNAPSHOT</version>
-</dependency>
+dependencies {
+    ...
+    compile "com.dorkbox:Version:1.0.0"
+}
 ~~~
-**NOTE**: To use the development version you need to add the SNAPSHOT repository
-to your `pom.xml` file: http://oss.sonatype.org/content/repositories/snapshots/.
+
 
 Usage
 -----
-Below are some common use cases for the Java SemVer library.
+Below are some common use cases for the library.
 
 ### Creating Versions ###
-The main class of the Java SemVer library is `Version` which implements the
+The main class of the library is `Version` which implements the
 Facade design pattern. By design, the `Version` class is made immutable by
 making its constructors package-private, so that it can not be subclassed or
 directly instantiated. Instead of public constructors, the `Version` class
@@ -207,7 +204,7 @@ be of good use in better understanding some of the decisions made regarding the
 incrementor methods.
 
 ### Comparing Versions ###
-Comparing versions with Java SemVer is easy. The `Version` class implements the
+Comparing versions is easy. The `Version` class implements the
 `Comparable` interface, it also overrides the `Object.equals` method and provides
 some more methods for convenient comparing.
 
@@ -239,7 +236,7 @@ boolean result = v1.equals(v2); // true
 ~~~
 
 Sometimes, however, you might want to compare versions with the build metadata
-in mind. For such cases Java SemVer provides a _comparator_ `Version.BUILD_AWARE_ORDER`
+in mind. For such cases the library provides a _comparator_ `Version.BUILD_AWARE_ORDER`
 and a convenience method `Version.compareWithBuildsTo`.
 
 ~~~ java
@@ -299,7 +296,7 @@ other interesting capabilities of the SemVer Expressions external DSL.
 
 Exception Handling
 ------------------
-There are two types of errors that may arise while using Java SemVer
+There are two types of errors that may arise while using the library
 * `IllegalArgumentException` is thrown when the passed value is `NULL` or empty
   if a method accepts `string` argument or a negative integer if a method accepts
   `int` arguments.
@@ -315,9 +312,9 @@ There are two types of errors that may arise while using Java SemVer
 
 Bugs and Features
 -----------------
-Bug reports and feature requests can be submitted at https://git.dorkbox.com/dorkbox/SemanticVersioning/issues.
+Bug reports and feature requests can be submitted at https://git.dorkbox.com/dorkbox/Version/issues.
 
 
 License
 -------
-Java SemVer is licensed under the MIT License - see the `LICENSE` file for details.
+Java Semantic Versioning is licensed under the MIT License - see the `LICENSE` file for details.

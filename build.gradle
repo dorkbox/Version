@@ -57,9 +57,9 @@ project.description = 'Java Semantic Versioning with patch info exclusion'
 project.group = 'com.dorkbox'
 project.version = '1.0.0'
 
-project.ext.name = 'Semantic Versioning'
-project.ext.id = 'SemanticVersioning'
-project.ext.url = 'https://git.dorkbox.com/dorkbox/SemanticVersioning'
+project.ext.name = 'Version'
+project.ext.id = 'Version'
+project.ext.url = 'https://git.dorkbox.com/dorkbox/Version'
 
 
 sourceCompatibility = 1.6
