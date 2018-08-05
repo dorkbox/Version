@@ -2,8 +2,12 @@ Java Semantic Versioning Changelog
 =====================
 
 ### 1.0 (Aug 3, 2018) ###
-* Updated to Semantic Versioning 2.1, with optional patch information exception
-    * If the patch version information is excluded (or the major/minor version is incremented), then the patch version is dropped. The patch version information is only used if non-zero.
+* Updated to Semantic Versioning 2.0-dorkbox, with optional patch information exception
+    * If the patch version information is excluded (or the major/minor version is incremented), then the patch version is dropped.
+    * The patch version information is only used if non-zero, or if it was explicitly added. 
+        * Version.from("1.2.0").toString() == "1.2.0"
+        * Version.from("1.2.3").toString() == "1.2.3"
+        * Version.from("1.2").toString() == "1.2"
 * Added Gradle build files
 * Added License files
 * Renamed Version.valueOf -> Version.from
