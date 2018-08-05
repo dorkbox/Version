@@ -1,5 +1,3 @@
-import java.nio.file.Paths
-
 /*
  * Copyright 2018 dorkbox, llc
  *
@@ -16,6 +14,9 @@ import java.nio.file.Paths
  * limitations under the License.
  */
 
+import java.nio.file.Paths
+import java.time.Instant
+
 buildscript {
     // load properties from custom location
     def propsFile = Paths.get("${projectDir}/../../gradle.properties").toAbsolutePath().normalize().toFile()
@@ -30,28 +31,29 @@ buildscript {
         maven {url "https://plugins.gradle.org/m2/"}
     }
     dependencies {
-        classpath "gradle.plugin.com.dorkbox:Licensing:1.2.1"
-        classpath "gradle.plugin.com.dorkbox:Licensing:1.2.1:sources"
+        classpath "gradle.plugin.com.dorkbox:Licensing:1.2.2"
+        classpath "gradle.plugin.com.dorkbox:Licensing:1.2.2:sources"
     }
 }
 
 
 plugins {
     id 'java'
-    id 'java-gradle-plugin'
     id 'maven-publish'
     id 'signing'
 
-    id "org.jetbrains.kotlin.jvm" version "1.2.51"
+    id "org.jetbrains.kotlin.jvm" version "1.2.60"
 
     // close and release on sonatype
     id 'io.codearte.nexus-staging' version '0.11.0'
+
+    id "com.dorkbox.CrossCompile" version "1.0.0"
 }
 
 apply plugin: "com.dorkbox.Licensing"
 
 
-project.description = 'Java Semantic Versioning following semver.org'
+project.description = 'Java Semantic Versioning with patch info exclusion'
 project.group = 'com.dorkbox'
 project.version = '1.0.0'
 
@@ -81,6 +83,15 @@ tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
 }
 
+tasks.withType(Jar) {
+    duplicatesStrategy DuplicatesStrategy.FAIL
+
+    manifest {
+        attributes['Implementation-Version'] = project.version
+        attributes['Build-Date'] = Instant.now().toString()
+    }
+}
+
 repositories {
     jcenter()
 }
@@ -94,14 +105,6 @@ sourceSets {
         java {
             setSrcDirs Collections.singletonList('src')
         }
-
-        resources {
-            setSrcDirs Collections.singletonList('resources')
-
-            srcDirs '.'
-            include 'LICENSE*'
-            include 'META-INF/*.*'
-        }
     }
 
     test {
@@ -111,5 +114,101 @@ sourceSets {
     }
 }
 
+/////////////////////////////
+////    Maven Publishing + Release
+/////////////////////////////
+task sourceJar(type: Jar) {
+    description = "Creates a JAR that contains the source code."
 
+    from sourceSets.main.allSource
 
+    classifier = "sources"
+}
+
+task javaDocJar(type: Jar) {
+    description = "Creates a JAR that contains the javadocs."
+
+    classifier = "javadoc"
+}
+
+// for testing, we don't publish to maven central, but only to local maven
+publishing {
+    publications {
+        SemanticVersioning(MavenPublication) {
+            from components.java
+
+            artifact(javaDocJar)
+            artifact(sourceJar)
+
+            groupId project.group
+            artifactId project.ext.id
+            version project.version
+
+            pom {
+                withXml {
+                    // eliminate logback compile dependencies (no need in maven central POMs)
+                    def root = asNode()
+
+                    root.dependencies.'*'.findAll() {
+                        it.groupId.text() == "ch.qos.logback" && it.artifactId.text() == "logback-classic"
+                    }.each() {
+                        it.parent().remove(it)
+                    }
+                }
+
+                name = project.ext.id
+                url = project.ext.url
+                description = project.description
+
+                issueManagement {
+                    url = "${project.ext.url}/issues".toString()
+                    system = 'Gitea Issues'
+                }
+
+                organization {
+                    name = 'dorkbox, llc'
+                    url = 'https://dorkbox.com'
+                }
+
+                developers {
+                    developer {
+                        name = 'dorkbox, llc'
+                        email = 'email@dorkbox.com'
+                    }
+                }
+
+                scm {
+                    url = project.ext.url
+                    connection = "scm:${project.ext.url}.git".toString()
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            credentials {
+                username sonatypeUsername
+                password sonatypePassword
+            }
+        }
+    }
+}
+
+signing {
+    required {hasProperty('sonatypeUsername')}
+    sign publishing.publications.SemanticVersioning
+}
+
+// we don't use maven with the plugin (it's uploaded separately to gradle plugins)
+tasks.withType(PublishToMavenRepository) {
+    onlyIf {
+        repository == publishing.repositories.maven && publication == publishing.publications.SemanticVersioning
+    }
+}
+tasks.withType(PublishToMavenLocal) {
+    onlyIf {
+        publication == publishing.publications.SemanticVersioning
+    }
+}

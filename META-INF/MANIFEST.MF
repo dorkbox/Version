@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: SemanticVersioning
-Bundle-SymbolicName: SemanticVersioning
-Bundle-Version: 1.0
-Export-Package: com.dorkbox.semver,
- com.dorkbox.semver.expr,
- com.dorkbox.semver.util
