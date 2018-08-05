@@ -96,6 +96,22 @@ class NormalVersionTest {
 
         @Test
         public
+        void mustResetPatchToZeroWhenMajorIsIncrementedAnPatchIsIgnoredForString() {
+            NormalVersion v = new NormalVersion(1, 2, 3);
+            NormalVersion incremented = v.incrementMajor();
+            assertEquals("2.0", incremented.toString());
+        }
+
+        @Test
+        public
+        void mustResetPatchToZeroWhenMinorIsIncrementedAnPatchIsIgnoredForString() {
+            NormalVersion v = new NormalVersion(1, 2, 3);
+            NormalVersion incremented = v.incrementMinor();
+            assertEquals("1.3", incremented.toString());
+        }
+
+        @Test
+        public
         void mustTakeTheFormOfXDotYDotZWhereXyzAreNonNegativeIntegers() {
             NormalVersion v = new NormalVersion(1, 2, 3);
             assertEquals("1.2.3", v.toString());
