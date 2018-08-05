@@ -1,7 +1,7 @@
 Java Semantic Versioning
 ============================
 
-A Java implementation of the Semantic Versioning Specification, as per ([http://semver.org](http://semver.org/spec/v2.0.0.html)) modified to exclude the patch version information if zero and not specified. This is a breaking change when comparing strings to the original Semantic Versioning Specification by Tom Preston-Werner. When comparing Version objects, it is non-breaking.
+A Java implementation of the Semantic Versioning Specification, as per ([http://semver.org](http://semver.org/spec/v2.0.0.html)) **modified** to exclude the patch version information if zero and not specified. This is a breaking change when comparing strings to the original Semantic Versioning Specification by Tom Preston-Werner. When comparing Version objects, it is non-breaking.
 
 ### Versioning ###
 
