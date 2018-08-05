@@ -206,6 +206,17 @@ nexusStaging {
     password sonatypePassword
 }
 
+// output the release URL in the console
+releaseRepository.doLast {
+    def URL = 'https://oss.sonatype.org/content/repositories/releases/'
+    def projectName = project.group.toString().replaceAll('\\.', '/')
+    def name = project.ext.id
+    def version = project.version
+
+    println("Maven URL: ${URL}${projectName}/${name}/${version}/")
+}
+
+
 // we don't use maven with the plugin (it's uploaded separately to gradle plugins)
 tasks.withType(PublishToMavenRepository) {
     onlyIf {
