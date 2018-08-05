@@ -90,7 +90,7 @@ provides few _static factory methods_.
 One of the methods is the `Version.from` method.
 
 ~~~ java
-import com.dorkbox.semver.Version;
+import com.dorkbox.version.Version;
 
 Version v = Version.from("1.0.0-rc.1+build.1");
 
@@ -108,7 +108,7 @@ String str = v.toString(); // "1.0.0-rc.1+build.1"
 The other static factory method is `Version.from` which is also overloaded to allow fewer arguments.
 
 ~~~ java
-import com.dorkbox.semver.Version;
+import com.dorkbox.version.Version;
 
 Version v1 = Version.from(1);
 Version v2 = Version.from(1, 2);
@@ -118,7 +118,7 @@ Version v3 = Version.from(1, 2, 3);
 Another way to create a `Version` is to use a _builder_ class `Version.Builder`.
 
 ~~~ java
-import com.dorkbox.semver.Version;
+import com.dorkbox.version.Version;
 
 Version.Builder builder = new Version.Builder("1.0.0");
 builder.setPreReleaseVersion("rc.1");
@@ -144,7 +144,7 @@ version incrementors has an overloaded method that takes a pre-release version
 as an argument.
 
 ~~~ java
-import com.dorkbox.semver.Version;
+import com.dorkbox.version.Version;
 
 Version v1 = Version.from("1.2.3");
 
@@ -168,7 +168,7 @@ There are also incrementer methods for the pre-release version and the build
 metadata.
 
 ~~~ java
-import com.dorkbox.semver.Version;
+import com.dorkbox.version.Version;
 
 // Incrementing the pre-release version
 Version v1 = Version.from("1.2.3-rc");        // considered as "rc.0"
@@ -185,7 +185,7 @@ When incrementing the normal or pre-release versions the build metadata is
 always dropped.
 
 ~~~ java
-import com.dorkbox.semver.Version;
+import com.dorkbox.version.Version;
 
 Version v1 = Version.from("1.2.3-beta+build");
 
@@ -212,7 +212,7 @@ Comparing versions with Java SemVer is easy. The `Version` class implements the
 some more methods for convenient comparing.
 
 ~~~ java
-import com.dorkbox.semver.Version;
+import com.dorkbox.version.Version;
 
 Version v1 = Version.from("1.0.0-rc.1+build.1");
 Version v2 = Version.from("1.3.7+build.2.b8f12d7");
@@ -229,7 +229,7 @@ boolean result = v1.lessThanOrEqualTo(v2);     // true
 When determining version precedence the build metadata is ignored (SemVer p.10).
 
 ~~~ java
-import com.dorkbox.semver.Version;
+import com.dorkbox.version.Version;
 
 Version v1 = Version.from("1.0.0+build.1");
 Version v2 = Version.from("1.0.0+build.2");
@@ -243,7 +243,7 @@ in mind. For such cases Java SemVer provides a _comparator_ `Version.BUILD_AWARE
 and a convenience method `Version.compareWithBuildsTo`.
 
 ~~~ java
-import com.dorkbox.semver.Version;
+import com.dorkbox.version.Version;
 
 Version v1 = Version.from("1.0.0+build.1");
 Version v2 = Version.from("1.0.0+build.2");
@@ -258,7 +258,7 @@ int result     = v1.compareWithBuildsTo(v2);  // < 0
 
 SemVer Expressions API (Ranges)
 ----------------------
-Java SemVer supports the SemVer Expressions API which is implemented as both
+Semantic Versioning library supports the SemVer Expressions API which is implemented as both
 internal DSL and external DSL. The entry point for the API are
 the `Version.satisfies` methods.
 
@@ -268,8 +268,8 @@ interface. For convenience, it also provides the `Helper` class with static
 helper methods.
 
 ~~~ java
-import com.dorkbox.semver.Version;
-import static com.dorkbox.semver.expr.CompositeExpression.Helper.*;
+import com.dorkbox.version.Version;
+import static com.dorkbox.version.expr.CompositeExpression.Helper.*;
 
 Version v = Version.from("1.0.0-beta");
 boolean result = v.satisfies(gte("1.0.0").and(lt("2.0.0")));  // false
@@ -280,7 +280,7 @@ The BNF grammar for the external DSL can be found in the corresponding
 [issue](https://github.com/zafarkhaja/jsemver/issues/1).
 
 ~~~ java
-import com.dorkbox.semver.Version;
+import com.dorkbox.version.Version;
 
 Version v = Version.from("1.0.0-beta");
 boolean result = v.satisfies(">=1.0.0 & <2.0.0");  // false
@@ -299,7 +299,7 @@ other interesting capabilities of the SemVer Expressions external DSL.
 
 Exception Handling
 ------------------
-There are two types of errors that may arrise while using Java SemVer
+There are two types of errors that may arise while using Java SemVer
 * `IllegalArgumentException` is thrown when the passed value is `NULL` or empty
   if a method accepts `string` argument or a negative integer if a method accepts
   `int` arguments.
