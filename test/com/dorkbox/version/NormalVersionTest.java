@@ -110,6 +110,21 @@ class NormalVersionTest {
             assertEquals("1.3", incremented.toString());
         }
 
+
+        @Test
+        public
+        void patchMustBeRemovedWhenNotSpecified() {
+            NormalVersion v = new NormalVersion(1, 2);
+            assertEquals("1.2", v.toString());
+        }
+
+        @Test
+        public
+        void patchMustBeRemainWhenSpecified() {
+            NormalVersion v = new NormalVersion(1, 2,0);
+            assertEquals("1.2.0", v.toString());
+        }
+
         @Test
         public
         void mustTakeTheFormOfXDotYDotZWhereXyzAreNonNegativeIntegers() {
