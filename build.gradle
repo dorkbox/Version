@@ -201,6 +201,11 @@ signing {
     sign publishing.publications.SemanticVersioning
 }
 
+nexusStaging {
+    username sonatypeUsername
+    password sonatypePassword
+}
+
 // we don't use maven with the plugin (it's uploaded separately to gradle plugins)
 tasks.withType(PublishToMavenRepository) {
     onlyIf {
