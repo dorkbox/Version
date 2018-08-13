@@ -26,11 +26,11 @@ buildscript {
     propsFile.withInputStream {props.load(it)}
     props.each {key, val -> project.ext.set(key, val)}
 
-    // for license sources
     repositories {
         maven {url "https://plugins.gradle.org/m2/"}
     }
     dependencies {
+        // for license sources
         classpath "gradle.plugin.com.dorkbox:Licensing:1.2.2"
         classpath "gradle.plugin.com.dorkbox:Licensing:1.2.2:sources"
     }
@@ -47,9 +47,11 @@ plugins {
     // close and release on sonatype
     id 'io.codearte.nexus-staging' version '0.11.0'
 
-    id "com.dorkbox.CrossCompile" version "1.0.0"
+    id "com.dorkbox.CrossCompile" version "1.0.1"
+    id "com.dorkbox.VersionUpdate" version "1.0"
 }
 
+// this is the only way to also get the source code for IDE auto-complete
 apply plugin: "com.dorkbox.Licensing"
 
 
