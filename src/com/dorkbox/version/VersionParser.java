@@ -503,6 +503,7 @@ class VersionParser implements Parser<Version> {
             }
             break;
         } while (true);
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
         return new MetadataVersion(idents.toArray(new String[idents.size()]));
     }
 
@@ -532,6 +533,7 @@ class VersionParser implements Parser<Version> {
             }
             break;
         } while (true);
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
         return new MetadataVersion(idents.toArray(new String[idents.size()]));
     }
 
