@@ -80,7 +80,7 @@ class Version implements Comparable<Version>, Serializable {
         /**
          * The build metadata string.
          */
-        private String build;
+        private String metaData;
 
         /**
          * Constructs a {@code Builder} instance.
@@ -118,8 +118,8 @@ class Version implements Comparable<Version>, Serializable {
             if (isFilled(preRelease)) {
                 sb.append(PRE_RELEASE_PREFIX).append(preRelease);
             }
-            if (isFilled(build)) {
-                sb.append(BUILD_PREFIX).append(build);
+            if (isFilled(metaData)) {
+                sb.append(BUILD_PREFIX).append(metaData);
             }
             return VersionParser.parseValidSemVer(sb.toString());
         }
@@ -139,13 +139,13 @@ class Version implements Comparable<Version>, Serializable {
         /**
          * Sets the build metadata.
          *
-         * @param build the string representation of the build metadata
+         * @param metaData the string representation of the build metadata
          *
          * @return this builder instance
          */
         public
-        Builder setBuildMetadata(String build) {
-            this.build = build;
+        Builder setBuildMetadata(String metaData) {
+            this.metaData = metaData;
             return this;
         }
 
