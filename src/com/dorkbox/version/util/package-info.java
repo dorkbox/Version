@@ -26,6 +26,5 @@
  * This package provides some useful utility classes.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.7.0
  */
 package com.dorkbox.version.util;

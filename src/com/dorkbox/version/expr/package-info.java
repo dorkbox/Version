@@ -29,6 +29,5 @@
  * parses the specified expressions and returns the Abstract Syntax Tree.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.7.0
  */
 package com.dorkbox.version.expr;

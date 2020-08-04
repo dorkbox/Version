@@ -31,7 +31,6 @@ import com.dorkbox.version.Version;
  * the {@code ExpressionParser} class.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.7.0
  */
 public
 interface Expression {

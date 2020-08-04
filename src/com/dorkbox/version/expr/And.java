@@ -29,7 +29,6 @@ import com.dorkbox.version.Version;
  * Expression for the logical "and" operator.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.7.0
  */
 class And implements Expression {
 

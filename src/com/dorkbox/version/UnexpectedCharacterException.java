@@ -25,8 +25,8 @@ package com.dorkbox.version;
 
 import java.util.Arrays;
 
-import com.dorkbox.version.util.UnexpectedElementException;
 import com.dorkbox.version.VersionParser.CharType;
+import com.dorkbox.version.util.UnexpectedElementException;
 
 /**
  * Thrown when attempting to consume a character of unexpected types.
@@ -34,7 +34,6 @@ import com.dorkbox.version.VersionParser.CharType;
  * This exception is a wrapper exception extending {@code ParseException}.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.8.0
  */
 public
 class UnexpectedCharacterException extends ParseException {

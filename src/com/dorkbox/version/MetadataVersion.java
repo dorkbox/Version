@@ -31,7 +31,6 @@ import java.util.Arrays;
  * the pre-release version and the build metadata.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.2.0
  */
 class MetadataVersion implements Comparable<MetadataVersion>, Serializable {
 

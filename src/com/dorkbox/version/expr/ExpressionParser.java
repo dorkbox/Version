@@ -57,7 +57,6 @@ import com.dorkbox.version.util.UnexpectedElementException;
  * A parser for the SemVer Expressions.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.7.0
  */
 public
 class ExpressionParser implements Parser<Expression> {

@@ -26,10 +26,10 @@ package com.dorkbox.version;
 import java.io.Serializable;
 import java.util.Comparator;
 
+import com.dorkbox.version.expr.Expression;
 import com.dorkbox.version.expr.ExpressionParser;
 import com.dorkbox.version.expr.LexerException;
 import com.dorkbox.version.expr.UnexpectedTokenException;
-import com.dorkbox.version.expr.Expression;
 
 /**
  * The {@code Version} class is the main class of the Java SemVer library.
@@ -38,7 +38,6 @@ import com.dorkbox.version.expr.Expression;
  * It is also immutable, which makes the class thread-safe.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.1.0
  */
 public
 class Version implements Comparable<Version>, Serializable {
@@ -237,7 +236,6 @@ class Version implements Comparable<Version>, Serializable {
      * @throws IllegalArgumentException if the input string is {@code NULL} or empty
      * @throws ParseException when invalid version string is provided
      * @throws UnexpectedCharacterException is a special case of {@code ParseException}
-     * @since 1.0.0
      */
     public static
     Version from(String version) {
@@ -253,7 +251,6 @@ class Version implements Comparable<Version>, Serializable {
      * @return a new instance of the {@code Version} class
      *
      * @throws IllegalArgumentException if a negative double is passed
-     * @since 1.0.0
      */
     public static
     Version from(double majorAndMinor) {
@@ -273,7 +270,6 @@ class Version implements Comparable<Version>, Serializable {
      * @return a new instance of the {@code Version} class
      *
      * @throws IllegalArgumentException if a negative integer is passed
-     * @since 1.0.0
      */
     public static
     Version from(int major) {
@@ -290,7 +286,6 @@ class Version implements Comparable<Version>, Serializable {
      * @return a new instance of the {@code Version} class
      *
      * @throws IllegalArgumentException if a negative integer is passed
-     * @since 1.0.0
      */
     public static
     Version from(int major, int minor) {
@@ -308,7 +303,6 @@ class Version implements Comparable<Version>, Serializable {
      * @return a new instance of the {@code Version} class
      *
      * @throws IllegalArgumentException if a negative integer is passed
-     * @since 1.0.0
      */
     public static
     Version from(int major, int minor, int patch) {
@@ -670,8 +664,6 @@ class Version implements Comparable<Version>, Serializable {
      *
      * @return {@code true} if this version is compatible with
      *         the other version or {@code false} otherwise
-     *
-     * @since 0.10.0
      */
     public
     boolean isMajorVersionCompatible(Version other) {
@@ -689,8 +681,6 @@ class Version implements Comparable<Version>, Serializable {
      *
      * @return {@code true} if this version is compatible with
      *         the other version or {@code false} otherwise
-     *
-     * @since 0.10.0
      */
     public
     boolean isMinorVersionCompatible(Version other) {
@@ -740,7 +730,6 @@ class Version implements Comparable<Version>, Serializable {
      * @throws ParseException in case of a general parse error
      * @throws LexerException when encounters an illegal character
      * @throws UnexpectedTokenException when comes across an unexpected token
-     * @since 0.7.0
      */
     public
     boolean satisfies(String expr) {
@@ -757,8 +746,6 @@ class Version implements Comparable<Version>, Serializable {
      *
      * @return {@code true} if this version satisfies the specified
      *         SemVer Expression or {@code false} otherwise
-     *
-     * @since 0.9.0
      */
     public
     boolean satisfies(Expression expr) {

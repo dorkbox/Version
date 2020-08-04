@@ -32,7 +32,6 @@ import com.dorkbox.version.util.Stream.ElementType;
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
  * @see Stream#consume(Stream.ElementType...)
- * @since 0.7.0
  */
 public
 class UnexpectedElementException extends RuntimeException {

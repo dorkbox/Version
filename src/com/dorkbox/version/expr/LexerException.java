@@ -30,7 +30,6 @@ import com.dorkbox.version.ParseException;
  * an illegal character is encountered.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.7.0
  */
 public
 class LexerException extends ParseException {

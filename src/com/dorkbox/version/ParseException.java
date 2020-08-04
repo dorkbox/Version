@@ -27,7 +27,6 @@ package com.dorkbox.version;
  * Thrown to indicate an error during the parsing.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.7.0
  */
 public
 class ParseException extends RuntimeException {

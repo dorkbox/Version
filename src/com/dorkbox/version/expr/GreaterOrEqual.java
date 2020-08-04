@@ -29,7 +29,6 @@ import com.dorkbox.version.Version;
  * Expression for the comparison "greater than or equal to" operator.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.7.0
  */
 class GreaterOrEqual implements Expression {
 

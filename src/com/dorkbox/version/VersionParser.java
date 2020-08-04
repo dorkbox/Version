@@ -42,7 +42,6 @@ import com.dorkbox.version.util.UnexpectedElementException;
  * A parser for the SemVer Version.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.7.0
  */
 class VersionParser implements Parser<Version> {
 

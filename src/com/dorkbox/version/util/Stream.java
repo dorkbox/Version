@@ -37,7 +37,6 @@ import com.dorkbox.version.expr.ExpressionParser;
  * @author Zafar Khaja <zafarkhaja@gmail.com>
  * @see com.dorkbox.version.VersionParser
  * @see ExpressionParser
- * @since 0.7.0
  */
 public
 class Stream<E> implements Iterable<E> {

@@ -30,6 +30,5 @@
  * pattern.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.1.0
  */
 package com.dorkbox.version;

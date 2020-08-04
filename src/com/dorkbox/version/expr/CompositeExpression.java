@@ -32,7 +32,6 @@ import com.dorkbox.version.Version;
  * SemVer Expressions using fluent interface.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
- * @since 0.9.0
  */
 public
 class CompositeExpression implements Expression {
