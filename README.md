@@ -1,13 +1,20 @@
 Java Semantic Versioning
 ============================
 
-A Java implementation of the Semantic Versioning Specification, as per ([http://semver.org](http://semver.org/spec/v2.0.0.html)) **modified** to exclude the patch version information if zero and not specified. This is a breaking change when comparing strings to the original Semantic Versioning Specification by Tom Preston-Werner. When comparing Version objects, it is non-breaking.
+A Java implementation of the Semantic Versioning Specification, as per ([http://semver.org](http://semver.org/spec/v2.0.0.html
+)) **modified** to exclude the patch version information if zero or not specified. It is additionally **modified**  to permit parsing
+ build information after a final '.', such that 4.1.0.Final will parse a build as "Final".
+
+This is a breaking change when comparing strings to the original Semantic Versioning Specification by Tom Preston-Werner. When comparing
+ Version objects, it is non-breaking, and is breaking when writing Version strings.
 
 ### Versioning ###
 
 Semantic Versioning Specification (SemVer v2.0.0-dorkbox)
 
-Modified to exclude patch version information if zero. 
+1. Modified to exclude patch version information.
+1. Modified to permit reading build metadata after a final . (with, or without the patch number)
+
 Creative Commons - CC BY 3.0, by Tom Preston-Werner.
 
 The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in ([RFC 2119](http://tools.ietf.org/html/rfc2119)).
@@ -60,7 +67,7 @@ To install the Java SemanticVersioning library add the following dependency to y
 <dependency>
   <groupId>com.dorkbox</groupId>
   <artifactId>Version</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
 </dependency>
 ~~~
 
@@ -68,7 +75,7 @@ To install the Java SemanticVersioning library add the following dependency to y
 ~~~ xml
 dependencies {
     ...
-    compile "com.dorkbox:Version:1.0.0"
+    compile "com.dorkbox:Version:1.1"
 }
 ~~~
 

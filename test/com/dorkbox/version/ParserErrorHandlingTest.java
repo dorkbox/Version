@@ -53,33 +53,35 @@ class ParserErrorHandlingTest {
     @Parameters(name = "{0}")
     public static
     Collection<Object[]> parameters() {
-        return Arrays.asList(new Object[][] {{"1", null, 1, new CharType[] {DOT}},
-                                             {"1 ", ' ', 1, new CharType[] {DOT}},
-                                             {"1.", null, 2, new CharType[] {DIGIT}},
-                                            // {"1.2", null, 3, new CharType[] {DOT}},  // exception to semver, is that 1.2 is permitted (ie: leaving out the patch number)
-                                             {"1.2.", null, 4, new CharType[] {DIGIT}},
-                                             {"a.b.c", 'a', 0, new CharType[] {DIGIT}},
-                                             {"1.b.c", 'b', 2, new CharType[] {DIGIT}},
-                                             {"1.2.c", 'c', 4, new CharType[] {DIGIT}},
-                                             {"!.2.3", '!', 0, new CharType[] {DIGIT}},
-                                             {"1.!.3", '!', 2, new CharType[] {DIGIT}},
-                                             {"1.2.!", '!', 4, new CharType[] {DIGIT}},
-                                             {"v1.2.3", 'v', 0, new CharType[] {DIGIT}},
-                                             {"1.2.3-", null, 6, new CharType[] {DIGIT, LETTER, HYPHEN}},
-                                             {"1.2. 3", ' ', 4, new CharType[] {DIGIT}},
-                                             {"1.2.3=alpha", '=', 5, new CharType[] {HYPHEN, PLUS, EOI}},
-                                             {"1.2.3~beta", '~', 5, new CharType[] {HYPHEN, PLUS, EOI}},
-                                             {"1.2.3-be$ta", '$', 8, new CharType[] {PLUS, EOI}},
-                                             {"1.2.3+b1+b2", '+', 8, new CharType[] {EOI}},
-                                             {"1.2.3-rc!", '!', 8, new CharType[] {PLUS, EOI}},
-                                             {"1.2.3-+", '+', 6, new CharType[] {DIGIT, LETTER, HYPHEN}},
-                                             {"1.2.3-@", '@', 6, new CharType[] {DIGIT, LETTER, HYPHEN}},
-                                             {"1.2.3+@", '@', 6, new CharType[] {DIGIT, LETTER, HYPHEN}},
-                                             {"1.2.3-rc.", null, 9, new CharType[] {DIGIT, LETTER, HYPHEN}},
-                                             {"1.2.3+b.", null, 8, new CharType[] {DIGIT, LETTER, HYPHEN}},
-                                             {"1.2.3-b.+b", '+', 8, new CharType[] {DIGIT, LETTER, HYPHEN}},
-                                             {"1.2.3-rc..", '.', 9, new CharType[] {DIGIT, LETTER, HYPHEN}},
-                                             {"1.2.3-a+b..", '.', 10, new CharType[] {DIGIT, LETTER, HYPHEN}},});
+        return Arrays.asList(new Object[][] {
+                 {"1", null, 1, new CharType[] {DOT}},
+                 {"1 ", ' ', 1, new CharType[] {DOT}},
+                 {"1.", null, 2, new CharType[] {DIGIT}},
+                // {"1.2", null, 3, new CharType[] {DOT}},  // exception to semver, is that 1.2 is permitted (ie: leaving out the patch number)
+                 {"1.2.", null, 4, new CharType[] {DIGIT}},
+                 {"a.b.c", 'a', 0, new CharType[] {DIGIT}},
+                 {"1.b.c", 'b', 2, new CharType[] {DIGIT}},
+                // {"1.2.c", 'c', 4, new CharType[] {DIGIT}}, // exception to semver. "c" can be the build (ie: when leaving out the patch number)
+                 {"!.2.3", '!', 0, new CharType[] {DIGIT}},
+                 {"1.!.3", '!', 2, new CharType[] {DIGIT}},
+                 {"1.2.!", '!', 4, new CharType[] {DIGIT}},
+                 {"v1.2.3", 'v', 0, new CharType[] {DIGIT}},
+                 {"1.2.3-", null, 6, new CharType[] {DIGIT, LETTER, HYPHEN}},
+                 {"1.2. 3", ' ', 4, new CharType[] {DIGIT}},
+                 {"1.2.3=alpha", '=', 5, new CharType[] {HYPHEN, PLUS, EOI}},
+                 {"1.2.3~beta", '~', 5, new CharType[] {HYPHEN, PLUS, EOI}},
+                 {"1.2.3-be$ta", '$', 8, new CharType[] {PLUS, EOI}},
+                 {"1.2.3+b1+b2", '+', 8, new CharType[] {EOI}},
+                 {"1.2.3-rc!", '!', 8, new CharType[] {PLUS, EOI}},
+                 {"1.2.3-+", '+', 6, new CharType[] {DIGIT, LETTER, HYPHEN}},
+                 {"1.2.3-@", '@', 6, new CharType[] {DIGIT, LETTER, HYPHEN}},
+                 {"1.2.3+@", '@', 6, new CharType[] {DIGIT, LETTER, HYPHEN}},
+                 {"1.2.3-rc.", null, 9, new CharType[] {DIGIT, LETTER, HYPHEN}},
+                 {"1.2.3+b.", null, 8, new CharType[] {DIGIT, LETTER, HYPHEN}},
+                 {"1.2.3-b.+b", '+', 8, new CharType[] {DIGIT, LETTER, HYPHEN}},
+                 {"1.2.3-rc..", '.', 9, new CharType[] {DIGIT, LETTER, HYPHEN}},
+                 {"1.2.3-a+b..", '.', 10, new CharType[] {DIGIT, LETTER, HYPHEN}},
+                 });
     }
     private final String invalidVersion;
     private final Character unexpected;

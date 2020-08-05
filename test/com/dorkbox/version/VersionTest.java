@@ -52,6 +52,69 @@ class VersionTest {
     public static
     class CoreFunctionalityTest {
 
+        // MODIFY TEST
+        @Test
+        public
+        void mayHaveFinalDot() {
+            // not valid, but we should STILL be able to parse it (we just cannot write it).
+            Version v = Version.from("4.1.50.Final");
+            assertEquals("Final", v.getBuildMetadata());
+        }
+
+        // MODIFY TEST
+        @Test
+        public
+        void mayHaveFinalModifiedDot() {
+            // not valid, but we should STILL be able to parse it (we just cannot write it).
+            Version v = Version.from("4.1.Final");
+            assertEquals("Final", v.getBuildMetadata());
+        }
+
+        // MODIFY TEST
+        @Test
+        public
+        void mayHaveNumbersAsBuild() {
+            // not valid, but we should STILL be able to parse it (we just cannot write it).
+            Version v = Version.from("4.5.4.201711221230-r");
+            assertEquals("201711221230-r", v.getBuildMetadata());
+        }
+
+
+        // MODIFY TEST
+        @Test
+        public
+        void mayHaveFinalModifiedBuild() {
+            // not valid, but we should STILL be able to parse it (we just cannot write it).
+            Version v = Version.from("4.1+build");
+            assertEquals("build", v.getBuildMetadata());
+        }
+
+        // MODIFY TEST
+        @Test
+        public
+        void mayHaveBuildOrPreReleaseAppendedWithPlus() {
+            // not valid, but we should STILL be able to parse it (we just cannot write it).
+            Version v = Version.from("4.1-alpha");
+            assertEquals("alpha", v.getPreReleaseVersion());
+        }
+        // MODIFY TEST
+        @Test
+        public
+        void modifiedShouldBeAbleToCompareWithoutIgnoringBuildMetadata() {
+            Version v1 = Version.from("1.3-beta+build.1");
+            Version v2 = Version.from("1.3-beta+build.2");
+            assertTrue(0 == v1.compareTo(v2));
+            assertTrue(0 > v1.compareWithBuildsTo(v2));
+        }
+
+
+        @Test
+        public
+        void mayHavePreReleaseAppendedWithHyphen() {
+            Version v = Version.from("1.2-alpha");
+            assertEquals("alpha", v.getPreReleaseVersion());
+        }
+
         @Test
         public
         void mayHaveBuildFollowingPatchOrPreReleaseAppendedWithPlus() {
@@ -162,8 +225,17 @@ class VersionTest {
         @Test
         public
         void shouldCorrectlyCompareAllVersionsFromSpecification() {
-            String[] versions = {"1.0.0-alpha", "1.0.0-alpha.1", "1.0.0-alpha.beta", "1.0.0-beta", "1.0.0-beta.2", "1.0.0-beta.11", "1.0.0-rc.1", "1.0.0",
-                                 "2.0.0", "2.1.0", "2.1.1"};
+            String[] versions = {"1.0.0-alpha",
+                                 "1.0.0-alpha.1",
+                                 "1.0.0-alpha.beta",
+                                 "1.0.0-beta",
+                                 "1.0.0-beta.2",
+                                 "1.0.0-beta.11",
+                                 "1.0.0-rc.1",
+                                 "1.0.0",
+                                 "2.0.0",
+                                 "2.1.0",
+                                 "2.1.1"};
             for (int i = 1; i < versions.length; i++) {
                 Version v1 = Version.from(versions[i - 1]);
                 Version v2 = Version.from(versions[i]);
@@ -551,8 +623,17 @@ class VersionTest {
         @Test
         public
         void shouldCorrectlyCompareAllVersionsWithBuildMetadata() {
-            String[] versions = {"1.0.0-alpha", "1.0.0-alpha.1", "1.0.0-beta.2", "1.0.0-beta.11", "1.0.0-rc.1", "1.0.0-rc.1+build.1", "1.0.0", "1.0.0+0.3.7",
-                                 "1.3.7+build", "1.3.7+build.2.b8f12d7", "1.3.7+build.11.e0f985a"};
+            String[] versions = {"1.0.0-alpha",
+                                 "1.0.0-alpha.1",
+                                 "1.0.0-beta.2",
+                                 "1.0.0-beta.11",
+                                 "1.0.0-rc.1",
+                                 "1.0.0-rc.1+build.1",
+                                 "1.0.0",
+                                 "1.0.0+0.3.7",
+                                 "1.3.7+build",
+                                 "1.3.7+build.2.b8f12d7",
+                                 "1.3.7+build.11.e0f985a"};
             for (int i = 1; i < versions.length; i++) {
                 Version v1 = Version.from(versions[i - 1]);
                 Version v2 = Version.from(versions[i]);
@@ -584,8 +665,18 @@ class VersionTest {
         @Test
         public
         void shouldSerializeAndDeserialize() throws IOException, ClassNotFoundException {
-            String[] versions = {"1.0.0-alpha", "1.0.0-alpha.1", "1.0.0-beta.2", "1.0.0-beta.11", "1.0.0-rc.1", "1.0.0-rc.1+build.1", "1.0.0", "1.0.0+0.3.7",
-                                 "1.3.7+build", "1.3.7+build.2.b8f12d7", "1.3.7+build.11.e0f985a"};
+            String[] versions = {"1.0.0-alpha",
+                                 "1.0.0-alpha.1",
+                                 "1.0.0-beta.2",
+                                 "1.0.0-beta.11",
+                                 "1.0.0-rc.1",
+                                 "1.0.0-rc.1+build.1",
+                                 "1.0.0",
+                                 "1.0.0+0.3.7",
+                                 "1.3.7+build",
+                                 "1.3.7+build.2.b8f12d7",
+                                 "1.3.7+build.11.e0f985a"};
+
             for (int i = 1; i < versions.length; i++) {
                 Version v1a = Version.from(versions[i - 1]);
                 byte[] v1ba = pickle(v1a);

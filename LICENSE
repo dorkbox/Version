@@ -1,4 +1,4 @@
- - Version - 
+ - Version - Java Semantic Versioning with patch info exclusion
    https://git.dorkbox.com/dorkbox/Version
    Copyright 2018 - MIT License
      dorkbox, llc
@@ -7,4 +7,3 @@
      Larry Bordowitz <lbordowitz@yahoo-inc.com>
      Martin Rüegg <martin.rueegg@bristolpound.org> <martin.rueegg@metaworx.ch>
      Zafar Khaja <zafarkhaja@gmail.com>
-   Java Semantic Versioning with patch info exclusion

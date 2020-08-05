@@ -556,17 +556,45 @@ class VersionParser implements Parser<Version> {
         MetadataVersion preRelease = MetadataVersion.NULL;
         MetadataVersion build = MetadataVersion.NULL;
 
+        // if we have no patch information, then we have an EXCEPTION to SemVer
+        if (!normal.patchSpecified) {
+            // EXCEPTION TO SEMVER
+            if (checkNextCharacter(LETTER, DIGIT)) {
+                // NOTE: build INSTEAD OF patch is not valid for semver, however when parsing we want to ALLOW parsing as much.
+                // straight away to 4.1.Final
+                // this is not valid semver, but we want to parse it anyways.
+                // when writing this information, IT WILL NOT be in the format, as it will follow semver.
+                build = parseBuild();
+            }
+
+            // we can have other info.
+            if (!checkNextCharacter(HYPHEN, PLUS, EOI)) {
+                // fail. but we want to be specific with the error
+                consumeNextCharacter(DIGIT);
+            }
+        }
+
+        // EXCEPTION TO SEMVER
+        if (checkNextCharacter(DOT)) {
+            // NOTE: DOT is not valid for semver, however when parsing we want to ALLOW parsing as much.
+            consumeNextCharacter(DOT);
+            // straight away to 4.1.50.Final
+            // straight away to 4.5.4.201711221230-r
+            // this is not valid semver, but we want to parse it anyways.
+            // when writing this information, IT WILL NOT be in the format, as it will follow semver.
+            build = parseBuild();
+        }
+
         Character next = consumeNextCharacter(HYPHEN, PLUS, EOI);
         if (HYPHEN.isMatchedBy(next)) {
             preRelease = parsePreRelease();
             next = consumeNextCharacter(PLUS, EOI);
-            if (PLUS.isMatchedBy(next)) {
-                build = parseBuild();
-            }
         }
-        else if (PLUS.isMatchedBy(next)) {
+
+        if (PLUS.isMatchedBy(next)) {
             build = parseBuild();
         }
+
         consumeNextCharacter(EOI);
         return new Version(normal, preRelease, build);
     }
@@ -576,7 +604,9 @@ class VersionParser implements Parser<Version> {
      *
      * <pre>
      * {@literal
+     * <version core> ::= <major> "." <minor>
      * <version core> ::= <major> "." <minor> "." <patch>
+     * <version core> ::= <major> "." <minor> "." <build>
      * }
      * </pre>
      *
@@ -591,12 +621,16 @@ class VersionParser implements Parser<Version> {
 
         if (checkNextCharacter(DOT)) {
             consumeNextCharacter(DOT);
-            long patch = Long.parseLong(numericIdentifier());
-            return new NormalVersion(major, minor, patch);
+
+            if (checkNextCharacter(DIGIT)) {
+                long patch = Long.parseLong(numericIdentifier());
+                return new NormalVersion(major, minor, patch);
+            } else if (checkNextCharacter(EOI)) {
+                throw new ParseException("Unexpected end of information");
+            }
         }
-        else {
-            return new NormalVersion(major, minor);
-        }
+
+        return new NormalVersion(major, minor);
     }
 
     /**
