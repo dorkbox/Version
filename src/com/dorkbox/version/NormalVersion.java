@@ -50,7 +50,7 @@ class NormalVersion implements Comparable<NormalVersion>, Serializable {
      * The patch version number.
      */
     private final long patch;
-    private final boolean patchSpecified;
+    protected final boolean patchSpecified;
 
     /**
      * Constructs a {@code NormalVersion} with the
