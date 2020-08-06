@@ -29,6 +29,7 @@ import static com.dorkbox.version.VersionParser.CharType.EOI;
 import static com.dorkbox.version.VersionParser.CharType.HYPHEN;
 import static com.dorkbox.version.VersionParser.CharType.LETTER;
 import static com.dorkbox.version.VersionParser.CharType.PLUS;
+import static com.dorkbox.version.VersionParser.CharType.SPACE;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -83,6 +84,23 @@ class VersionParser implements Parser<Version> {
                     return false;
                 }
                 return (chr >= 'a' && chr <= 'z') || (chr >= 'A' && chr <= 'Z');
+            }
+        }, SPACE {
+            /**
+             * Checks if the specified element matches this type.
+             *
+             * @param chr the element to be tested
+             *
+             * @return {@code true} if the element matches this type
+             *         or {@code false} otherwise
+             */
+            @Override
+            public
+            boolean isMatchedBy(Character chr) {
+                if (chr == null) {
+                    return false;
+                }
+                return chr == ' ';
             }
         }, DOT {
             /**
@@ -556,11 +574,10 @@ class VersionParser implements Parser<Version> {
         MetadataVersion preRelease = MetadataVersion.NULL;
         MetadataVersion build = MetadataVersion.NULL;
 
-        // if we have no patch information, then we have an EXCEPTION to SemVer
-        if (!normal.patchSpecified) {
-            // EXCEPTION TO SEMVER
+        // EXCEPTION to SemVer??
+        if (!(normal.minorSpecified && normal.patchSpecified)) {
             if (checkNextCharacter(LETTER, DIGIT)) {
-                // NOTE: build INSTEAD OF patch is not valid for semver, however when parsing we want to ALLOW parsing as much.
+                // NOTE: build INSTEAD OF minor/patch is not valid for semver, however when parsing we want to ALLOW parsing as much.
                 // straight away to 4.1.Final
                 // this is not valid semver, but we want to parse it anyways.
                 // when writing this information, IT WILL NOT be in the format, as it will follow semver.
@@ -569,6 +586,11 @@ class VersionParser implements Parser<Version> {
 
             // we can have other info.
             if (!checkNextCharacter(HYPHEN, PLUS, EOI)) {
+                if (!normal.minorSpecified && checkNextCharacter(SPACE)) {
+                    // fail. but we want to be specific with the error
+                    consumeNextCharacter(DOT);
+                }
+
                 // fail. but we want to be specific with the error
                 consumeNextCharacter(DIGIT);
             }
@@ -583,6 +605,11 @@ class VersionParser implements Parser<Version> {
             // this is not valid semver, but we want to parse it anyways.
             // when writing this information, IT WILL NOT be in the format, as it will follow semver.
             build = parseBuild();
+        }
+
+        if (checkNextCharacter(SPACE)) {
+            // fail. but we want to be specific with the error
+            consumeNextCharacter(DIGIT);
         }
 
         Character next = consumeNextCharacter(HYPHEN, PLUS, EOI);
@@ -604,6 +631,7 @@ class VersionParser implements Parser<Version> {
      *
      * <pre>
      * {@literal
+     * <version core> ::= <major>
      * <version core> ::= <major> "." <minor>
      * <version core> ::= <major> "." <minor> "." <patch>
      * <version core> ::= <major> "." <minor> "." <build>
@@ -615,6 +643,11 @@ class VersionParser implements Parser<Version> {
     private
     NormalVersion parseVersionCore() {
         long major = Long.parseLong(numericIdentifier());
+        if (!checkNextCharacter(DOT)) {
+            // only major!
+            return new NormalVersion(major);
+        }
+
         consumeNextCharacter(DOT);
 
         long minor = Long.parseLong(numericIdentifier());

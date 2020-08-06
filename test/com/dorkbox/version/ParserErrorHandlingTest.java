@@ -54,7 +54,8 @@ class ParserErrorHandlingTest {
     public static
     Collection<Object[]> parameters() {
         return Arrays.asList(new Object[][] {
-                 {"1", null, 1, new CharType[] {DOT}},
+                // {"1", null, 1, new CharType[] {DOT}}, // exception to semver, is that '1' is permitted (ie: leaving out the minor number)
+                 {"1.FINAL", 'F', 2, new CharType[] {DIGIT}},  // double check for exception to SEMVER
                  {"1 ", ' ', 1, new CharType[] {DOT}},
                  {"1.", null, 2, new CharType[] {DIGIT}},
                 // {"1.2", null, 3, new CharType[] {DOT}},  // exception to semver, is that 1.2 is permitted (ie: leaving out the patch number)

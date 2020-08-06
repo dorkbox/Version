@@ -45,12 +45,25 @@ class NormalVersion implements Comparable<NormalVersion>, Serializable {
      * The minor version number.
      */
     private final long minor;
+    protected final boolean minorSpecified;
 
     /**
      * The patch version number.
      */
     private final long patch;
     protected final boolean patchSpecified;
+
+    /**
+     * Constructs a {@code NormalVersion} with the
+     * major version number.
+     *
+     * @param major the major version number
+     *
+     * @throws IllegalArgumentException if one of the version numbers is a negative integer
+     */
+    NormalVersion(long major) {
+        this(major, 0, 0, false, false);
+    }
 
     /**
      * Constructs a {@code NormalVersion} with the
@@ -62,7 +75,7 @@ class NormalVersion implements Comparable<NormalVersion>, Serializable {
      * @throws IllegalArgumentException if one of the version numbers is a negative integer
      */
     NormalVersion(long major, long minor) {
-        this(major, minor, 0, false);
+        this(major, minor, 0, true, false);
     }
 
     /**
@@ -76,7 +89,7 @@ class NormalVersion implements Comparable<NormalVersion>, Serializable {
      * @throws IllegalArgumentException if one of the version numbers is a negative integer
      */
     NormalVersion(long major, long minor, long patch) {
-        this(major, minor, patch, true);
+        this(major, minor, patch, true, true);
     }
 
     /**
@@ -86,12 +99,13 @@ class NormalVersion implements Comparable<NormalVersion>, Serializable {
      * @param major the major version number
      * @param minor the minor version number
      * @param patch the patch version number
+     * @param minorSpecified true if the minor version number was specified
      * @param patchSpecified true if the patch version number was specified
      *
      * @throws IllegalArgumentException if one of the version numbers is a negative integer
      */
     private
-    NormalVersion(long major, long minor, long patch, boolean patchSpecified) {
+    NormalVersion(long major, long minor, long patch, boolean minorSpecified, boolean patchSpecified) {
         if (major < 0 || minor < 0 || patch < 0) {
             throw new IllegalArgumentException("Major, minor and patch versions MUST be non-negative integers.");
         }
@@ -99,6 +113,7 @@ class NormalVersion implements Comparable<NormalVersion>, Serializable {
         this.major = major;
         this.minor = minor;
         this.patch = patch;
+        this.minorSpecified = minorSpecified;
         this.patchSpecified = patchSpecified;
     }
 
@@ -210,28 +225,36 @@ class NormalVersion implements Comparable<NormalVersion>, Serializable {
     /**
      * Increments the major version number.
      *
+     * 1.2.3 -> 1.2
+     * 1 -> 1.0
+     *
      * @return a new instance of the {@code NormalVersion} class
      */
     NormalVersion incrementMajor() {
-        return new NormalVersion(major + 1, 0, 0, false);
+        return new NormalVersion(major + 1, 0, 0, true, false);
     }
 
     /**
      * Increments the minor version number.
      *
+     * 1.2.3 -> 1.3
+     * 1.2 -> 1.3
+     *
      * @return a new instance of the {@code NormalVersion} class
      */
     NormalVersion incrementMinor() {
-        return new NormalVersion(major, minor + 1, 0, false);
+        return new NormalVersion(major, minor + 1, 0, false, false);
     }
 
     /**
      * Increments the patch version number.
      *
+     * 1.2.3 -> 1.2.4
+     *
      * @return a new instance of the {@code NormalVersion} class
      */
     NormalVersion incrementPatch() {
-        return new NormalVersion(major, minor, patch + 1, true);
+        return new NormalVersion(major, minor, patch + 1, true, true);
     }
 
     /**
@@ -246,7 +269,10 @@ class NormalVersion implements Comparable<NormalVersion>, Serializable {
     @Override
     public
     String toString() {
-        if (!patchSpecified && patch == 0) {
+        if (!minorSpecified && !patchSpecified && minor == 0 && patch == 0) {
+            return String.format("%d", major);
+        }
+        else if (!patchSpecified && patch == 0) {
             return String.format("%d.%d", major, minor);
         }
         else {

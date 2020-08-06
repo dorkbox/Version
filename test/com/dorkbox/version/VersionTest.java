@@ -55,6 +55,16 @@ class VersionTest {
         // MODIFY TEST
         @Test
         public
+        void onlyMajor() {
+            // not valid, but we should STILL be able to parse it (we just cannot write it).
+            Version v = Version.from("20180813");
+            assertEquals(20180813, v.getMajorVersion());
+            assertEquals(0, v.getMinorVersion());
+        }
+
+        // MODIFY TEST
+        @Test
+        public
         void mayHaveFinalDot() {
             // not valid, but we should STILL be able to parse it (we just cannot write it).
             Version v = Version.from("4.1.50.Final");
