@@ -24,18 +24,18 @@ plugins {
 
     id("com.dorkbox.CrossCompile") version "1.0.1"
     id("com.dorkbox.GradleUtils") version "1.8"
-    id("com.dorkbox.Licensing") version "2.0.36"
+    id("com.dorkbox.Licensing") version "2.1"
     id("com.dorkbox.VersionUpdate") version "1.7"
     id("com.dorkbox.GradlePublish") version "1.3"
 
-    kotlin("jvm") version "1.3.60"
+    kotlin("jvm") version "1.3.72"
 }
 
 object Extras {
     // set for the project
     const val description = "Java Semantic Versioning with exceptions. Minor/Patch number optional and build-after-final-dot (minor/patch) permitted."
     const val group = "com.dorkbox"
-    const val version = "2.3.1"
+    const val version = "2.4"
 
     // set as project.ext
     const val name = "Version"

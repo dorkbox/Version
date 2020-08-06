@@ -222,7 +222,7 @@ class Version implements Comparable<Version>, Serializable {
      */
     public static
     String getVersion() {
-        return "2.3";
+        return "2.4";
     }
 
     /**
