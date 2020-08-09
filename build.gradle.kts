@@ -24,7 +24,7 @@ plugins {
 
     id("com.dorkbox.CrossCompile") version "1.0.1"
     id("com.dorkbox.GradleUtils") version "1.8"
-    id("com.dorkbox.Licensing") version "2.1"
+    id("com.dorkbox.Licensing") version "2.2"
     id("com.dorkbox.VersionUpdate") version "1.7"
     id("com.dorkbox.GradlePublish") version "1.3"
 
