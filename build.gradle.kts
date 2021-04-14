@@ -20,15 +20,12 @@ gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS   // always show th
 gradle.startParameter.warningMode = WarningMode.All
 
 plugins {
-    java
+    id("com.dorkbox.GradleUtils") version "2.5"
+    id("com.dorkbox.Licensing") version "2.6"
+    id("com.dorkbox.VersionUpdate") version "2.3"
+    id("com.dorkbox.GradlePublish") version "1.11"
 
-    id("com.dorkbox.CrossCompile") version "1.0.1"
-    id("com.dorkbox.GradleUtils") version "1.8"
-    id("com.dorkbox.Licensing") version "2.2"
-    id("com.dorkbox.VersionUpdate") version "1.7"
-    id("com.dorkbox.GradlePublish") version "1.3"
-
-    kotlin("jvm") version "1.3.72"
+    kotlin("jvm") version "1.4.32"
 }
 
 object Extras {
@@ -43,9 +40,8 @@ object Extras {
     const val vendor = "Dorkbox LLC"
     const val vendorUrl = "https://dorkbox.com"
     const val url = "https://git.dorkbox.com/dorkbox/Version"
-    val buildDate = Instant.now().toString()
 
-    val JAVA_VERSION = JavaVersion.VERSION_1_6.toString()
+    val buildDate = Instant.now().toString()
 }
 
 ///////////////////////////////
@@ -53,6 +49,8 @@ object Extras {
 ///////////////////////////////
 GradleUtils.load("$projectDir/../../gradle.properties", Extras)
 GradleUtils.fixIntellijPaths()
+GradleUtils.defaultResolutionStrategy()
+GradleUtils.compileConfiguration(JavaVersion.VERSION_1_8)
 
 licensing {
     license(License.MIT) {
@@ -91,34 +89,10 @@ sourceSets {
 
 repositories {
     mavenLocal() // this must be first!
-    jcenter()
-}
-
-///////////////////////////////
-//////    Task defaults
-///////////////////////////////
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-
-    sourceCompatibility = Extras.JAVA_VERSION
-    targetCompatibility = Extras.JAVA_VERSION
-}
-
-tasks.withType<Jar> {
-    duplicatesStrategy = DuplicatesStrategy.FAIL
-}
-
-tasks.compileJava.get().apply {
-    println("\tCompiling classes to Java $sourceCompatibility")
-}
-
-tasks.withType<Jar> {
-    duplicatesStrategy = DuplicatesStrategy.FAIL
+    mavenCentral()
 }
 
 tasks.jar.get().apply {
-    duplicatesStrategy = DuplicatesStrategy.FAIL
-
     manifest {
         // https://docs.oracle.com/javase/tutorial/deployment/jar/packageman.html
         attributes["Name"] = Extras.name
@@ -134,24 +108,6 @@ tasks.jar.get().apply {
         attributes["Automatic-Module-Name"] = Extras.id
     }
 }
-
-configurations.all {
-    resolutionStrategy {
-        // fail eagerly on version conflict (includes transitive dependencies)
-        // e.g. multiple different versions of the same dependency (group and name are equal)
-        failOnVersionConflict()
-
-        // if there is a version we specified, USE THAT VERSION (over transitive versions)
-        preferProjectModules()
-
-        // cache dynamic versions for 10 minutes
-        cacheDynamicVersionsFor(10 * 60, "seconds")
-
-        // don't cache changing modules at all
-        cacheChangingModulesFor(0, "seconds")
-    }
-}
-
 
 dependencies {
     testImplementation("junit:junit:4.12")
