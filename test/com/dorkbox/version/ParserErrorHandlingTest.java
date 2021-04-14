@@ -23,12 +23,7 @@
  */
 package com.dorkbox.version;
 
-import static com.dorkbox.version.VersionParser.CharType.DIGIT;
-import static com.dorkbox.version.VersionParser.CharType.DOT;
-import static com.dorkbox.version.VersionParser.CharType.EOI;
-import static com.dorkbox.version.VersionParser.CharType.HYPHEN;
-import static com.dorkbox.version.VersionParser.CharType.LETTER;
-import static com.dorkbox.version.VersionParser.CharType.PLUS;
+import static com.dorkbox.version.VersionParser.CharType.*;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -67,15 +62,15 @@ class ParserErrorHandlingTest {
                  {"1.!.3", '!', 2, new CharType[] {DIGIT}},
                  {"1.2.!", '!', 4, new CharType[] {DIGIT}},
                  {"v1.2.3", 'v', 0, new CharType[] {DIGIT}},
-                 {"1.2.3-", null, 6, new CharType[] {DIGIT, LETTER, HYPHEN}},
+                 {"1.2.3-", null, 6, new CharType[] {DIGIT, LETTER, HYPHEN, UNDER_SCORE}},
                  {"1.2. 3", ' ', 4, new CharType[] {DIGIT}},
-                 {"1.2.3=alpha", '=', 5, new CharType[] {HYPHEN, PLUS, EOI}},
-                 {"1.2.3~beta", '~', 5, new CharType[] {HYPHEN, PLUS, EOI}},
+                 {"1.2.3=alpha", '=', 5, new CharType[] {HYPHEN, PLUS, UNDER_SCORE, EOI}},
+                 {"1.2.3~beta", '~', 5, new CharType[] {HYPHEN, PLUS, UNDER_SCORE, EOI}},
                  {"1.2.3-be$ta", '$', 8, new CharType[] {PLUS, EOI}},
                  {"1.2.3+b1+b2", '+', 8, new CharType[] {EOI}},
                  {"1.2.3-rc!", '!', 8, new CharType[] {PLUS, EOI}},
-                 {"1.2.3-+", '+', 6, new CharType[] {DIGIT, LETTER, HYPHEN}},
-                 {"1.2.3-@", '@', 6, new CharType[] {DIGIT, LETTER, HYPHEN}},
+                 {"1.2.3-+", '+', 6, new CharType[] {DIGIT, LETTER, HYPHEN, UNDER_SCORE}},
+                 {"1.2.3-@", '@', 6, new CharType[] {DIGIT, LETTER, HYPHEN, UNDER_SCORE}},
                  {"1.2.3+@", '@', 6, new CharType[] {DIGIT, LETTER, HYPHEN}},
                  {"1.2.3-rc.", null, 9, new CharType[] {DIGIT, LETTER, HYPHEN}},
                  {"1.2.3+b.", null, 8, new CharType[] {DIGIT, LETTER, HYPHEN}},

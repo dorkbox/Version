@@ -30,6 +30,7 @@ import static com.dorkbox.version.VersionParser.CharType.HYPHEN;
 import static com.dorkbox.version.VersionParser.CharType.LETTER;
 import static com.dorkbox.version.VersionParser.CharType.PLUS;
 import static com.dorkbox.version.VersionParser.CharType.SPACE;
+import static com.dorkbox.version.VersionParser.CharType.UNDER_SCORE;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -152,6 +153,23 @@ class VersionParser implements Parser<Version> {
                     return false;
                 }
                 return chr == '+';
+            }
+        }, UNDER_SCORE {
+            /**
+             * Checks if the specified element matches this type.
+             *
+             * @param chr the element to be tested
+             *
+             * @return {@code true} if the element matches this type
+             *         or {@code false} otherwise
+             */
+            @Override
+            public
+            boolean isMatchedBy(Character chr) {
+                if (chr == null) {
+                    return false;
+                }
+                return chr == '_';
             }
         }, EOI {
             /**
@@ -540,7 +558,7 @@ class VersionParser implements Parser<Version> {
      */
     private
     MetadataVersion parsePreRelease() {
-        ensureValidLookahead(DIGIT, LETTER, HYPHEN);
+        ensureValidLookahead(DIGIT, LETTER, HYPHEN, UNDER_SCORE);
         List<String> idents = new ArrayList<String>();
         do {
             idents.add(preReleaseIdentifier());
@@ -585,7 +603,7 @@ class VersionParser implements Parser<Version> {
             }
 
             // we can have other info.
-            if (!checkNextCharacter(HYPHEN, PLUS, EOI)) {
+            if (!checkNextCharacter(HYPHEN, PLUS, UNDER_SCORE, EOI)) {
                 if (!normal.minorSpecified && checkNextCharacter(SPACE)) {
                     // fail. but we want to be specific with the error
                     consumeNextCharacter(DOT);
@@ -612,8 +630,12 @@ class VersionParser implements Parser<Version> {
             consumeNextCharacter(DIGIT);
         }
 
-        Character next = consumeNextCharacter(HYPHEN, PLUS, EOI);
+        Character next = consumeNextCharacter(HYPHEN, PLUS, UNDER_SCORE, EOI);
         if (HYPHEN.isMatchedBy(next)) {
+            preRelease = parsePreRelease();
+            next = consumeNextCharacter(PLUS, EOI);
+        }
+        if (UNDER_SCORE.isMatchedBy(next)) {
             preRelease = parsePreRelease();
             next = consumeNextCharacter(PLUS, EOI);
         }

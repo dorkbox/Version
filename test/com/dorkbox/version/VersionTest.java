@@ -93,20 +93,30 @@ class VersionTest {
         // MODIFY TEST
         @Test
         public
-        void mayHaveFinalModifiedBuild() {
+        void mayHavePreRelease() {
             // not valid, but we should STILL be able to parse it (we just cannot write it).
-            Version v = Version.from("4.1+build");
-            assertEquals("build", v.getBuildMetadata());
+            Version v = Version.from("4.1-alpha");
+            assertEquals("alpha", v.getPreReleaseVersion());
         }
 
         // MODIFY TEST
         @Test
         public
-        void mayHaveBuildOrPreReleaseAppendedWithPlus() {
+        void mayHavePreReleaseWithUnderscore() {
             // not valid, but we should STILL be able to parse it (we just cannot write it).
-            Version v = Version.from("4.1-alpha");
+            Version v = Version.from("4.1_alpha");
             assertEquals("alpha", v.getPreReleaseVersion());
         }
+
+        // MODIFY TEST
+        @Test
+        public
+        void mayHaveBuildAppendedWithPlus() {
+            // not valid, but we should STILL be able to parse it (we just cannot write it).
+            Version v = Version.from("4.1+alpha");
+            assertEquals("alpha", v.getBuildMetadata());
+        }
+
         // MODIFY TEST
         @Test
         public
@@ -117,13 +127,6 @@ class VersionTest {
             assertTrue(0 > v1.compareWithBuildsTo(v2));
         }
 
-
-        @Test
-        public
-        void mayHavePreReleaseAppendedWithHyphen() {
-            Version v = Version.from("1.2-alpha");
-            assertEquals("alpha", v.getPreReleaseVersion());
-        }
 
         @Test
         public

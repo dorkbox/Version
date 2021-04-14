@@ -10,11 +10,12 @@ This is a breaking change when comparing strings to the original Semantic Versio
 
 ### Versioning ###
 
-Semantic Versioning Specification (SemVer v2.3-dorkbox)
+Semantic Versioning Specification (SemVer v2.5-dorkbox)
 
 1. Modified to exclude minor version information.
 1. Modified to exclude patch version information.
 1. Modified to permit reading build metadata after a final . (with, or without the patch number)
+1. Modified to permit reading pre-release information following '_' (in addition to '-')
 
 Creative Commons - CC BY 3.0, by Tom Preston-Werner.
 
