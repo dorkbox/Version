@@ -1,7 +1,7 @@
  - Version - Java Semantic Versioning with exceptions. Minor/Patch number optional and build-after-final-dot (minor/patch) permitted.
    [MIT License]
    https://git.dorkbox.com/dorkbox/Version
-   Copyright 2020
+   Copyright 2021
      Dorkbox LLC
      G. Richard Bellamy
      Kenduck
