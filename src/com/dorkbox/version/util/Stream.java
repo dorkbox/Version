@@ -113,7 +113,8 @@ class Stream<E> implements Iterable<E> {
      *
      * @throws UnexpectedElementException if the next element is of an unexpected type
      */
-    public
+    @SafeVarargs
+    public final
     <T extends ElementType<E>> E consume(T... expected) {
         E lookahead = lookahead(1);
         for (ElementType<E> type : expected) {
@@ -134,7 +135,8 @@ class Stream<E> implements Iterable<E> {
      *
      * @return true if the expected elements are in the stream
      */
-    public
+    @SafeVarargs
+    public final
     <T extends ElementType<E>> boolean contains(T... expected) {
         E lookahead = lookahead(1);
         for (ElementType<E> type : expected) {
@@ -269,7 +271,8 @@ class Stream<E> implements Iterable<E> {
      * @return {@code true} if the next element is of the expected types
      *         or {@code false} otherwise
      */
-    public
+    @SafeVarargs
+    public final
     <T extends ElementType<E>> boolean positiveLookahead(T... expected) {
         for (ElementType<E> type : expected) {
             if (type.isMatchedBy(lookahead(1))) {
@@ -292,7 +295,8 @@ class Stream<E> implements Iterable<E> {
      * @return {@code true} if there is an element of the expected types
      *         before the specified type or {@code false} otherwise
      */
-    public
+    @SafeVarargs
+    public final
     <T extends ElementType<E>> boolean positiveLookaheadBefore(ElementType<E> before, T... expected) {
         E lookahead;
         for (int i = 1; i <= elements.length; i++) {
@@ -322,7 +326,8 @@ class Stream<E> implements Iterable<E> {
      * @return {@code true} if there is an element of the expected types
      *         until the specified position or {@code false} otherwise
      */
-    public
+    @SafeVarargs
+    public final
     <T extends ElementType<E>> boolean positiveLookaheadUntil(int until, T... expected) {
         for (int i = 1; i <= until; i++) {
             for (ElementType<E> type : expected) {
