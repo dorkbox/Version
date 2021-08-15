@@ -17,20 +17,22 @@
 import java.time.Instant
 
 gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS   // always show the stacktrace!
-gradle.startParameter.warningMode = WarningMode.All
 
 plugins {
-    id("com.dorkbox.GradleUtils") version "2.5"
-    id("com.dorkbox.Licensing") version "2.6"
+    id("com.dorkbox.GradleUtils") version "2.9"
+    id("com.dorkbox.Licensing") version "2.9"
     id("com.dorkbox.VersionUpdate") version "2.3"
     id("com.dorkbox.GradlePublish") version "1.11"
 
-    kotlin("jvm") version "1.4.32"
+    kotlin("jvm") version "1.5.21"
 }
 
 object Extras {
-    // set for the project
-    const val description = "Java Semantic Versioning with exceptions. Minor/Patch number optional and build-after-final-dot (minor/patch) permitted."
+    // - Minor/Patch number optional
+    // - underscore permitted for prerelease status
+    // - build-after-final-dot (minor/patch)
+    const val description = "Java Semantic Versioning with exceptions."
+
     const val group = "com.dorkbox"
     const val version = "2.4"
 
@@ -48,9 +50,9 @@ object Extras {
 /////  assign 'Extras'
 ///////////////////////////////
 GradleUtils.load("$projectDir/../../gradle.properties", Extras)
-GradleUtils.fixIntellijPaths()
-GradleUtils.defaultResolutionStrategy()
+GradleUtils.defaults()
 GradleUtils.compileConfiguration(JavaVersion.VERSION_1_8)
+GradleUtils.jpms(JavaVersion.VERSION_1_9)
 
 licensing {
     license(License.MIT) {
@@ -67,31 +69,6 @@ licensing {
 }
 
 
-sourceSets {
-    main {
-        java {
-            setSrcDirs(listOf("src"))
-
-            // want to include java files for the source. 'setSrcDirs' resets includes...
-            include("**/*.java")
-        }
-    }
-
-    test {
-        java {
-            setSrcDirs(listOf("test"))
-
-            // want to include java files for the source. 'setSrcDirs' resets includes...
-            include("**/*.java")
-        }
-    }
-}
-
-repositories {
-    mavenLocal() // this must be first!
-    mavenCentral()
-}
-
 tasks.jar.get().apply {
     manifest {
         // https://docs.oracle.com/javase/tutorial/deployment/jar/packageman.html
@@ -104,12 +81,12 @@ tasks.jar.get().apply {
         attributes["Implementation-Title"] = "${Extras.group}.${Extras.id}"
         attributes["Implementation-Version"] = Extras.buildDate
         attributes["Implementation-Vendor"] = Extras.vendor
-
-        attributes["Automatic-Module-Name"] = Extras.id
     }
 }
 
 dependencies {
+    implementation("com.dorkbox:Updates:1.1")
+
     testImplementation("junit:junit:4.12")
 }
 
