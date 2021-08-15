@@ -36,14 +36,14 @@ class ExpressionParserTest {
     void shouldParseCaretRange() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression expr1 = parser.parse("^1");
-        assertTrue(expr1.interpret(Version.from("1.2.3")));
-        assertFalse(expr1.interpret(Version.from("3.2.1")));
+        assertTrue(expr1.interpret(new Version("1.2.3")));
+        assertFalse(expr1.interpret(new Version("3.2.1")));
         Expression expr2 = parser.parse("^0.2");
-        assertTrue(expr2.interpret(Version.from("0.2.3")));
-        assertFalse(expr2.interpret(Version.from("0.3.0")));
+        assertTrue(expr2.interpret(new Version("0.2.3")));
+        assertFalse(expr2.interpret(new Version("0.3.0")));
         Expression expr3 = parser.parse("^0.0.3");
-        assertTrue(expr3.interpret(Version.from("0.0.3")));
-        assertFalse(expr3.interpret(Version.from("0.0.4")));
+        assertTrue(expr3.interpret(new Version("0.0.3")));
+        assertFalse(expr3.interpret(new Version("0.0.4")));
     }
 
     @Test
@@ -51,8 +51,8 @@ class ExpressionParserTest {
     void shouldParseComplexExpressions() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression expr = parser.parse("((>=1.0.1 & <2) | (>=3.0 & <4)) & ((1-1.5) & (~1.5))");
-        assertTrue(expr.interpret(Version.from("1.5.0")));
-        assertFalse(expr.interpret(Version.from("2.5.0")));
+        assertTrue(expr.interpret(new Version("1.5.0")));
+        assertFalse(expr.interpret(new Version("2.5.0")));
     }
 
     @Test
@@ -60,7 +60,7 @@ class ExpressionParserTest {
     void shouldParseEqualComparisonRange() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression eq = parser.parse("=1.0.0");
-        assertTrue(eq.interpret(Version.from("1.0.0")));
+        assertTrue(eq.interpret(new Version("1.0.0")));
     }
 
     @Test
@@ -68,7 +68,7 @@ class ExpressionParserTest {
     void shouldParseEqualComparisonRangeIfOnlyFullVersionGiven() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression eq = parser.parse("1.0.0");
-        assertTrue(eq.interpret(Version.from("1.0.0")));
+        assertTrue(eq.interpret(new Version("1.0.0")));
     }
 
     @Test
@@ -76,8 +76,8 @@ class ExpressionParserTest {
     void shouldParseExpressionWithMultipleParentheses() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression expr = parser.parse("((1))");
-        assertTrue(expr.interpret(Version.from("1.2.3")));
-        assertFalse(expr.interpret(Version.from("2.0.0")));
+        assertTrue(expr.interpret(new Version("1.2.3")));
+        assertFalse(expr.interpret(new Version("2.0.0")));
     }
 
     @Test
@@ -85,7 +85,7 @@ class ExpressionParserTest {
     void shouldParseGreaterComparisonRange() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression gt = parser.parse(">1.0.0");
-        assertTrue(gt.interpret(Version.from("1.2.3")));
+        assertTrue(gt.interpret(new Version("1.2.3")));
     }
 
     @Test
@@ -93,8 +93,8 @@ class ExpressionParserTest {
     void shouldParseGreaterOrEqualComparisonRange() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression ge = parser.parse(">=1.0.0");
-        assertTrue(ge.interpret(Version.from("1.0.0")));
-        assertTrue(ge.interpret(Version.from("1.2.3")));
+        assertTrue(ge.interpret(new Version("1.0.0")));
+        assertTrue(ge.interpret(new Version("1.2.3")));
     }
 
     @Test
@@ -102,8 +102,8 @@ class ExpressionParserTest {
     void shouldParseHyphenRange() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression range = parser.parse("1.0.0 - 2.0.0");
-        assertTrue(range.interpret(Version.from("1.2.3")));
-        assertFalse(range.interpret(Version.from("3.2.1")));
+        assertTrue(range.interpret(new Version("1.2.3")));
+        assertFalse(range.interpret(new Version("3.2.1")));
     }
 
     @Test
@@ -111,7 +111,7 @@ class ExpressionParserTest {
     void shouldParseLessComparisonRange() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression lt = parser.parse("<1.2.3");
-        assertTrue(lt.interpret(Version.from("1.0.0")));
+        assertTrue(lt.interpret(new Version("1.0.0")));
     }
 
     @Test
@@ -119,8 +119,8 @@ class ExpressionParserTest {
     void shouldParseLessOrEqualComparisonRange() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression le = parser.parse("<=1.2.3");
-        assertTrue(le.interpret(Version.from("1.0.0")));
-        assertTrue(le.interpret(Version.from("1.2.3")));
+        assertTrue(le.interpret(new Version("1.0.0")));
+        assertTrue(le.interpret(new Version("1.2.3")));
     }
 
     @Test
@@ -128,8 +128,8 @@ class ExpressionParserTest {
     void shouldParseMultipleRangesJoinedWithAnd() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression and = parser.parse(">=1.0.0 & <2.0.0");
-        assertTrue(and.interpret(Version.from("1.2.3")));
-        assertFalse(and.interpret(Version.from("3.2.1")));
+        assertTrue(and.interpret(new Version("1.2.3")));
+        assertFalse(and.interpret(new Version("3.2.1")));
     }
 
     @Test
@@ -137,8 +137,8 @@ class ExpressionParserTest {
     void shouldParseMultipleRangesJoinedWithOr() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression or = parser.parse("1.* | =2.0.0");
-        assertTrue(or.interpret(Version.from("1.2.3")));
-        assertFalse(or.interpret(Version.from("2.1.0")));
+        assertTrue(or.interpret(new Version("1.2.3")));
+        assertFalse(or.interpret(new Version("2.1.0")));
     }
 
     @Test
@@ -146,7 +146,7 @@ class ExpressionParserTest {
     void shouldParseNotEqualComparisonRange() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression ne = parser.parse("!=1.0.0");
-        assertTrue(ne.interpret(Version.from("1.2.3")));
+        assertTrue(ne.interpret(new Version("1.2.3")));
     }
 
     @Test
@@ -154,14 +154,14 @@ class ExpressionParserTest {
     void shouldParseNotExpression() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression not1 = parser.parse("!(1)");
-        assertTrue(not1.interpret(Version.from("2.0.0")));
-        assertFalse(not1.interpret(Version.from("1.2.3")));
+        assertTrue(not1.interpret(new Version("2.0.0")));
+        assertFalse(not1.interpret(new Version("1.2.3")));
         Expression not2 = parser.parse("0.* & !(>=1 & <2)");
-        assertTrue(not2.interpret(Version.from("0.5.0")));
-        assertFalse(not2.interpret(Version.from("1.0.1")));
+        assertTrue(not2.interpret(new Version("0.5.0")));
+        assertFalse(not2.interpret(new Version("1.0.1")));
         Expression not3 = parser.parse("!(>=1 & <2) & >=2");
-        assertTrue(not3.interpret(Version.from("2.0.0")));
-        assertFalse(not3.interpret(Version.from("1.2.3")));
+        assertTrue(not3.interpret(new Version("2.0.0")));
+        assertFalse(not3.interpret(new Version("1.2.3")));
     }
 
     @Test
@@ -169,8 +169,8 @@ class ExpressionParserTest {
     void shouldParseParenthesizedExpression() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression expr = parser.parse("(1)");
-        assertTrue(expr.interpret(Version.from("1.2.3")));
-        assertFalse(expr.interpret(Version.from("2.0.0")));
+        assertTrue(expr.interpret(new Version("1.2.3")));
+        assertFalse(expr.interpret(new Version("2.0.0")));
     }
 
     @Test
@@ -178,9 +178,9 @@ class ExpressionParserTest {
     void shouldParsePartialVersionRange() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression expr1 = parser.parse("1");
-        assertTrue(expr1.interpret(Version.from("1.2.3")));
+        assertTrue(expr1.interpret(new Version("1.2.3")));
         Expression expr2 = parser.parse("2.0");
-        assertTrue(expr2.interpret(Version.from("2.0.9")));
+        assertTrue(expr2.interpret(new Version("2.0.9")));
     }
 
     @Test
@@ -188,14 +188,14 @@ class ExpressionParserTest {
     void shouldParseTildeRange() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression expr1 = parser.parse("~1");
-        assertTrue(expr1.interpret(Version.from("1.2.3")));
-        assertFalse(expr1.interpret(Version.from("3.2.1")));
+        assertTrue(expr1.interpret(new Version("1.2.3")));
+        assertFalse(expr1.interpret(new Version("3.2.1")));
         Expression expr2 = parser.parse("~1.2");
-        assertTrue(expr2.interpret(Version.from("1.2.3")));
-        assertFalse(expr2.interpret(Version.from("2.0.0")));
+        assertTrue(expr2.interpret(new Version("1.2.3")));
+        assertFalse(expr2.interpret(new Version("2.0.0")));
         Expression expr3 = parser.parse("~1.2.3");
-        assertTrue(expr3.interpret(Version.from("1.2.3")));
-        assertFalse(expr3.interpret(Version.from("1.3.0")));
+        assertTrue(expr3.interpret(new Version("1.2.3")));
+        assertFalse(expr3.interpret(new Version("1.3.0")));
     }
 
     @Test
@@ -203,13 +203,13 @@ class ExpressionParserTest {
     void shouldParseWildcardRange() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression expr1 = parser.parse("1.*");
-        assertTrue(expr1.interpret(Version.from("1.2.3")));
-        assertFalse(expr1.interpret(Version.from("3.2.1")));
+        assertTrue(expr1.interpret(new Version("1.2.3")));
+        assertFalse(expr1.interpret(new Version("3.2.1")));
         Expression expr2 = parser.parse("1.2.x");
-        assertTrue(expr2.interpret(Version.from("1.2.3")));
-        assertFalse(expr2.interpret(Version.from("1.3.2")));
+        assertTrue(expr2.interpret(new Version("1.2.3")));
+        assertFalse(expr2.interpret(new Version("1.3.2")));
         Expression expr3 = parser.parse("X");
-        assertTrue(expr3.interpret(Version.from("1.2.3")));
+        assertTrue(expr3.interpret(new Version("1.2.3")));
     }
 
     @Test
@@ -217,8 +217,8 @@ class ExpressionParserTest {
     void shouldRespectPrecedenceWhenUsedWithParentheses() {
         ExpressionParser parser = new ExpressionParser(new Lexer());
         Expression expr1 = parser.parse("(~1.0 & <2.0) | >2.0");
-        assertTrue(expr1.interpret(Version.from("2.5.0")));
+        assertTrue(expr1.interpret(new Version("2.5.0")));
         Expression expr2 = parser.parse("~1.0 & (<2.0 | >2.0)");
-        assertFalse(expr2.interpret(Version.from("2.5.0")));
+        assertFalse(expr2.interpret(new Version("2.5.0")));
     }
 }

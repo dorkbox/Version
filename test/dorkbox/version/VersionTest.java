@@ -34,8 +34,6 @@ import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
-import dorkbox.version.Version;
-
 /**
  * @author Zafar Khaja <zafarkhaja@gmail.com>
  */
@@ -51,7 +49,7 @@ class VersionTest {
         public
         void onlyMajor() {
             // not valid, but we should STILL be able to parse it (we just cannot write it).
-            Version v = Version.from("20180813");
+            Version v = new Version("20180813");
             assertEquals(20180813, v.getMajorVersion());
             assertEquals(0, v.getMinorVersion());
         }
@@ -61,7 +59,7 @@ class VersionTest {
         public
         void mayHaveFinalDot() {
             // not valid, but we should STILL be able to parse it (we just cannot write it).
-            Version v = Version.from("4.1.50.Final");
+            Version v = new Version("4.1.50.Final");
             assertEquals("Final", v.getBuildMetadata());
         }
 
@@ -70,7 +68,7 @@ class VersionTest {
         public
         void mayHaveFinalModifiedDot() {
             // not valid, but we should STILL be able to parse it (we just cannot write it).
-            Version v = Version.from("4.1.Final");
+            Version v = new Version("4.1.Final");
             assertEquals("Final", v.getBuildMetadata());
         }
 
@@ -79,7 +77,7 @@ class VersionTest {
         public
         void mayHaveNumbersAsBuild() {
             // not valid, but we should STILL be able to parse it (we just cannot write it).
-            Version v = Version.from("4.5.4.201711221230-r");
+            Version v = new Version("4.5.4.201711221230-r");
             assertEquals("201711221230-r", v.getBuildMetadata());
         }
 
@@ -89,7 +87,7 @@ class VersionTest {
         public
         void mayHavePreRelease() {
             // not valid, but we should STILL be able to parse it (we just cannot write it).
-            Version v = Version.from("4.1-alpha");
+            Version v = new Version("4.1-alpha");
             assertEquals("alpha", v.getPreReleaseVersion());
         }
 
@@ -98,7 +96,7 @@ class VersionTest {
         public
         void mayHavePreReleaseWithUnderscore() {
             // not valid, but we should STILL be able to parse it (we just cannot write it).
-            Version v = Version.from("4.1_alpha");
+            Version v = new Version("4.1_alpha");
             assertEquals("alpha", v.getPreReleaseVersion());
         }
 
@@ -107,7 +105,7 @@ class VersionTest {
         public
         void mayHaveBuildAppendedWithPlus() {
             // not valid, but we should STILL be able to parse it (we just cannot write it).
-            Version v = Version.from("4.1+alpha");
+            Version v = new Version("4.1+alpha");
             assertEquals("alpha", v.getBuildMetadata());
         }
 
@@ -115,8 +113,8 @@ class VersionTest {
         @Test
         public
         void modifiedShouldBeAbleToCompareWithoutIgnoringBuildMetadata() {
-            Version v1 = Version.from("1.3-beta+build.1");
-            Version v2 = Version.from("1.3-beta+build.2");
+            Version v1 = new Version("1.3-beta+build.1");
+            Version v2 = new Version("1.3-beta+build.2");
             assertTrue(0 == v1.compareTo(v2));
             assertTrue(0 > v1.compareWithBuildsTo(v2));
         }
@@ -125,22 +123,22 @@ class VersionTest {
         @Test
         public
         void mayHaveBuildFollowingPatchOrPreReleaseAppendedWithPlus() {
-            Version v = Version.from("1.2.3+build");
+            Version v = new Version("1.2.3+build");
             assertEquals("build", v.getBuildMetadata());
         }
 
         @Test
         public
         void mayHavePreReleaseFollowingPatchAppendedWithHyphen() {
-            Version v = Version.from("1.2.3-alpha");
+            Version v = new Version("1.2.3-alpha");
             assertEquals("alpha", v.getPreReleaseVersion());
         }
 
         @Test
         public
         void preReleaseShouldHaveLowerPrecedenceThanAssociatedNormal() {
-            Version v1 = Version.from("1.3.7");
-            Version v2 = Version.from("1.3.7-alpha");
+            Version v1 = new Version("1.3.7");
+            Version v2 = new Version("1.3.7-alpha");
             assertTrue(0 < v1.compareTo(v2));
             assertTrue(0 > v2.compareTo(v1));
         }
@@ -148,8 +146,8 @@ class VersionTest {
         @Test
         public
         void shouldBeAbleToCompareWithoutIgnoringBuildMetadata() {
-            Version v1 = Version.from("1.3.7-beta+build.1");
-            Version v2 = Version.from("1.3.7-beta+build.2");
+            Version v1 = new Version("1.3.7-beta+build.1");
+            Version v2 = new Version("1.3.7-beta+build.2");
             assertTrue(0 == v1.compareTo(v2));
             assertTrue(0 > v1.compareWithBuildsTo(v2));
         }
@@ -157,7 +155,7 @@ class VersionTest {
         @Test
         public
         void shouldBeImmutable() {
-            Version version = Version.from("1.2.3-alpha+build");
+            Version version = new Version("1.2.3-alpha+build");
 
             Version incementedMajor = version.incrementMajorVersion();
             assertNotSame(version, incementedMajor);
@@ -184,9 +182,9 @@ class VersionTest {
         @Test
         public
         void shouldCheckIfMajorVersionCompatible() {
-            Version v1 = Version.from("1.0.0");
-            Version v2 = Version.from("1.2.3");
-            Version v3 = Version.from("2.0.0");
+            Version v1 = new Version("1.0.0");
+            Version v2 = new Version("1.2.3");
+            Version v3 = new Version("2.0.0");
             assertTrue(v1.isMajorVersionCompatible(v2));
             assertFalse(v1.isMajorVersionCompatible(v3));
         }
@@ -194,9 +192,9 @@ class VersionTest {
         @Test
         public
         void shouldCheckIfMajorVersionCompatibleSimple() {
-            Version v1 = Version.from("1.0");
-            Version v2 = Version.from("1.2");
-            Version v3 = Version.from("2.0");
+            Version v1 = new Version("1.0");
+            Version v2 = new Version("1.2");
+            Version v3 = new Version("2.0");
             assertTrue(v1.isMajorVersionCompatible(v2));
             assertFalse(v1.isMajorVersionCompatible(v3));
         }
@@ -204,9 +202,9 @@ class VersionTest {
         @Test
         public
         void shouldCheckIfMinorVersionCompatible() {
-            Version v1 = Version.from("1.1.1");
-            Version v2 = Version.from("1.1.2");
-            Version v3 = Version.from("1.2.3");
+            Version v1 = new Version("1.1.1");
+            Version v2 = new Version("1.1.2");
+            Version v3 = new Version("1.2.3");
             assertTrue(v1.isMinorVersionCompatible(v2));
             assertFalse(v1.isMinorVersionCompatible(v3));
         }
@@ -214,9 +212,9 @@ class VersionTest {
         @Test
         public
         void shouldCheckIfMinorVersionCompatibleSimple() {
-            Version v1 = Version.from("1.1");
-            Version v2 = Version.from("1.1");
-            Version v3 = Version.from("1.2");
+            Version v1 = new Version("1.1");
+            Version v2 = new Version("1.1");
+            Version v3 = new Version("1.2");
             assertTrue(v1.isMinorVersionCompatible(v2));
             assertFalse(v1.isMinorVersionCompatible(v3));
         }
@@ -224,7 +222,7 @@ class VersionTest {
         @Test
         public
         void shouldCheckIfVersionSatisfiesExpression() {
-            Version v = Version.from("2.0.0-beta");
+            Version v = new Version("2.0.0-beta");
             assertTrue(v.satisfies(gte("1.0.0").and(lt("2.0.0"))));
             assertFalse(v.satisfies(gte("2.0.0").and(lt("3.0.0"))));
         }
@@ -244,8 +242,8 @@ class VersionTest {
                                  "2.1.0",
                                  "2.1.1"};
             for (int i = 1; i < versions.length; i++) {
-                Version v1 = Version.from(versions[i - 1]);
-                Version v2 = Version.from(versions[i]);
+                Version v1 = new Version(versions[i - 1]);
+                Version v2 = new Version(versions[i]);
                 assertTrue(v1.lessThan(v2));
             }
         }
@@ -253,7 +251,7 @@ class VersionTest {
         @Test
         public
         void shouldDropBuildMetadataWhenIncrementing() {
-            Version v = Version.from("1.2.3-alpha+build");
+            Version v = new Version("1.2.3-alpha+build");
 
             Version major1 = v.incrementMajorVersion();
             assertEquals("2.0", major1.toString());
@@ -274,7 +272,7 @@ class VersionTest {
         @Test
         public
         void shouldDropBuildMetadataWhenIncrementingPreReleaseVersion() {
-            Version v1 = Version.from("1.0.0-beta.1+build");
+            Version v1 = new Version("1.0.0-beta.1+build");
             Version v2 = v1.incrementPreReleaseVersion();
             assertEquals("1.0.0-beta.2", v2.toString());
         }
@@ -282,7 +280,7 @@ class VersionTest {
         @Test
         public
         void shouldDropBuildMetadataWhenSettingPreReleaseVersion() {
-            Version v1 = Version.from("1.0.0-alpha+build");
+            Version v1 = new Version("1.0.0-alpha+build");
             Version v2 = v1.setPreReleaseVersion("beta");
             assertEquals("1.0.0-beta", v2.toString());
         }
@@ -290,8 +288,8 @@ class VersionTest {
         @Test
         public
         void shouldHaveGreaterThanMethodReturningBoolean() {
-            Version v1 = Version.from("2.3.7");
-            Version v2 = Version.from("1.3.7");
+            Version v1 = new Version("2.3.7");
+            Version v2 = new Version("1.3.7");
             assertTrue(v1.greaterThan(v2));
             assertFalse(v2.greaterThan(v1));
             assertFalse(v1.greaterThan(v1));
@@ -300,8 +298,8 @@ class VersionTest {
         @Test
         public
         void shouldHaveGreaterThanOrEqualToMethodReturningBoolean() {
-            Version v1 = Version.from("2.3.7");
-            Version v2 = Version.from("1.3.7");
+            Version v1 = new Version("2.3.7");
+            Version v2 = new Version("1.3.7");
             assertTrue(v1.greaterThanOrEqualTo(v2));
             assertFalse(v2.greaterThanOrEqualTo(v1));
             assertTrue(v1.greaterThanOrEqualTo(v1));
@@ -310,8 +308,8 @@ class VersionTest {
         @Test
         public
         void shouldHaveLessThanMethodReturningBoolean() {
-            Version v1 = Version.from("2.3.7");
-            Version v2 = Version.from("1.3.7");
+            Version v1 = new Version("2.3.7");
+            Version v2 = new Version("1.3.7");
             assertFalse(v1.lessThan(v2));
             assertTrue(v2.lessThan(v1));
             assertFalse(v1.lessThan(v1));
@@ -320,8 +318,8 @@ class VersionTest {
         @Test
         public
         void shouldHaveLessThanOrEqualToMethodReturningBoolean() {
-            Version v1 = Version.from("2.3.7");
-            Version v2 = Version.from("1.3.7");
+            Version v1 = new Version("2.3.7");
+            Version v2 = new Version("1.3.7");
             assertFalse(v1.lessThanOrEqualTo(v2));
             assertTrue(v2.lessThanOrEqualTo(v1));
             assertTrue(v1.lessThanOrEqualTo(v1));
@@ -330,7 +328,7 @@ class VersionTest {
         @Test
         public
         void shouldHaveStaticFactoryMethod() {
-            Version v = Version.from("1.0.0-rc.1+build.1");
+            Version v = new Version("1.0.0-rc.1+build.1");
             assertEquals(1, v.getMajorVersion());
             assertEquals(0, v.getMinorVersion());
             assertEquals(0, v.getPatchVersion());
@@ -342,9 +340,9 @@ class VersionTest {
         @Test
         public
         void shouldIgnoreBuildMetadataWhenDeterminingVersionPrecedence() {
-            Version v1 = Version.from("1.3.7-beta");
-            Version v2 = Version.from("1.3.7-beta+build.1");
-            Version v3 = Version.from("1.3.7-beta+build.2");
+            Version v1 = new Version("1.3.7-beta");
+            Version v2 = new Version("1.3.7-beta+build.1");
+            Version v3 = new Version("1.3.7-beta+build.2");
             assertTrue(0 == v1.compareTo(v2));
             assertTrue(0 == v1.compareTo(v3));
             assertTrue(0 == v2.compareTo(v3));
@@ -353,7 +351,7 @@ class VersionTest {
         @Test
         public
         void shouldIncrementMajorVersionWithPreReleaseIfProvided() {
-            Version v = Version.from("1.2.3");
+            Version v = new Version("1.2.3");
             Version incrementedMajor = v.incrementMajorVersion("beta");
             assertEquals("2.0-beta", incrementedMajor.toString());
         }
@@ -361,7 +359,7 @@ class VersionTest {
         @Test
         public
         void shouldIncrementMinorVersionWithPreReleaseIfProvided() {
-            Version v = Version.from("1.2.3");
+            Version v = new Version("1.2.3");
             Version incrementedMinor = v.incrementMinorVersion("alpha");
             assertEquals("1.3-alpha", incrementedMinor.toString());
         }
@@ -369,7 +367,7 @@ class VersionTest {
         @Test
         public
         void shouldIncrementPatchVersionWithPreReleaseIfProvided() {
-            Version v = Version.from("1.2.3");
+            Version v = new Version("1.2.3");
             Version incrementedPatch = v.incrementPatchVersion("rc");
             assertEquals("1.2.4-rc", incrementedPatch.toString());
         }
@@ -377,9 +375,9 @@ class VersionTest {
         @Test
         public
         void shouldOverrideEqualsMethod() {
-            Version v1 = Version.from("2.3.7");
-            Version v2 = Version.from("2.3.7");
-            Version v3 = Version.from("1.3.7");
+            Version v1 = new Version("2.3.7");
+            Version v2 = new Version("2.3.7");
+            Version v3 = new Version("1.3.7");
             assertTrue(v1.equals(v1));
             assertTrue(v1.equals(v2));
             assertFalse(v1.equals(v3));
@@ -389,7 +387,7 @@ class VersionTest {
         public
         void shouldParseLongPatchVersionCorrectly() {
             try {
-                Version.from("3.2.1477710197605");
+                new Version("3.2.1477710197605");
             } catch (NumberFormatException e) {
                 fail("Incorrectly got number format exception. " + e.getLocalizedMessage());
             }
@@ -398,7 +396,7 @@ class VersionTest {
         @Test
         public
         void shouldProvideIncrementBuildMetadataMethod() {
-            Version v1 = Version.from("1.0.0+build.1");
+            Version v1 = new Version("1.0.0+build.1");
             Version v2 = v1.incrementBuildMetadata();
             assertEquals("1.0.0+build.2", v2.toString());
         }
@@ -406,7 +404,7 @@ class VersionTest {
         @Test
         public
         void shouldProvideIncrementMajorVersionMethod() {
-            Version v = Version.from("1.2.3");
+            Version v = new Version("1.2.3");
             Version incrementedMajor = v.incrementMajorVersion();
             assertEquals("2.0", incrementedMajor.toString());
         }
@@ -414,7 +412,7 @@ class VersionTest {
         @Test
         public
         void shouldProvideIncrementMinorVersionMethod() {
-            Version v = Version.from("1.2.3");
+            Version v = new Version("1.2.3");
             Version incrementedMinor = v.incrementMinorVersion();
             assertEquals("1.3", incrementedMinor.toString());
         }
@@ -422,7 +420,7 @@ class VersionTest {
         @Test
         public
         void shouldProvideIncrementPatchVersionMethod() {
-            Version v = Version.from("1.2.3");
+            Version v = new Version("1.2.3");
             Version incrementedPatch = v.incrementPatchVersion();
             assertEquals("1.2.4", incrementedPatch.toString());
         }
@@ -430,7 +428,7 @@ class VersionTest {
         @Test
         public
         void shouldProvideIncrementPreReleaseVersionMethod() {
-            Version v1 = Version.from("1.0.0-beta.1");
+            Version v1 = new Version("1.0.0-beta.1");
             Version v2 = v1.incrementPreReleaseVersion();
             assertEquals("1.0.0-beta.2", v2.toString());
         }
@@ -438,7 +436,7 @@ class VersionTest {
         @Test
         public
         void shouldProvideSetBuildMetadataMethod() {
-            Version v1 = Version.from("1.0.0");
+            Version v1 = new Version("1.0.0");
             Version v2 = v1.setBuildMetadata("build");
             assertEquals("1.0.0+build", v2.toString());
         }
@@ -446,7 +444,7 @@ class VersionTest {
         @Test
         public
         void shouldProvideSetPreReleaseVersionMethod() {
-            Version v1 = Version.from("1.0.0");
+            Version v1 = new Version("1.0.0");
             Version v2 = v1.setPreReleaseVersion("alpha");
             assertEquals("1.0.0-alpha", v2.toString());
         }
@@ -454,7 +452,7 @@ class VersionTest {
         @Test
         public
         void shouldThrowExceptionWhenIncrementingBuildIfItsNull() {
-            Version v1 = Version.from("1.0.0");
+            Version v1 = new Version("1.0.0");
             try {
                 v1.incrementBuildMetadata();
             } catch (NullPointerException e) {
@@ -466,7 +464,7 @@ class VersionTest {
         @Test
         public
         void shouldThrowExceptionWhenIncrementingPreReleaseIfItsNull() {
-            Version v1 = Version.from("1.0.0");
+            Version v1 = new Version("1.0.0");
             try {
                 v1.incrementPreReleaseVersion();
             } catch (NullPointerException e) {
@@ -483,8 +481,8 @@ class VersionTest {
         @Test
         public
         void shouldBeConsistent() {
-            Version v1 = Version.from("2.3.7");
-            Version v2 = Version.from("2.3.7");
+            Version v1 = new Version("2.3.7");
+            Version v2 = new Version("2.3.7");
             assertTrue(v1.equals(v2));
             assertTrue(v1.equals(v2));
             assertTrue(v1.equals(v2));
@@ -493,15 +491,15 @@ class VersionTest {
         @Test
         public
         void shouldBeReflexive() {
-            Version v1 = Version.from("2.3.7");
+            Version v1 = new Version("2.3.7");
             assertTrue(v1.equals(v1));
         }
 
         @Test
         public
         void shouldBeSymmetric() {
-            Version v1 = Version.from("2.3.7");
-            Version v2 = Version.from("2.3.7");
+            Version v1 = new Version("2.3.7");
+            Version v2 = new Version("2.3.7");
             assertTrue(v1.equals(v2));
             assertTrue(v2.equals(v1));
         }
@@ -509,9 +507,9 @@ class VersionTest {
         @Test
         public
         void shouldBeTransitive() {
-            Version v1 = Version.from("2.3.7");
-            Version v2 = Version.from("2.3.7");
-            Version v3 = Version.from("2.3.7");
+            Version v1 = new Version("2.3.7");
+            Version v2 = new Version("2.3.7");
+            Version v3 = new Version("2.3.7");
             assertTrue(v1.equals(v2));
             assertTrue(v2.equals(v3));
             assertTrue(v1.equals(v3));
@@ -520,15 +518,15 @@ class VersionTest {
         @Test
         public
         void shouldIgnoreBuildMetadataWhenCheckingForEquality() {
-            Version v1 = Version.from("2.3.7-beta+build");
-            Version v2 = Version.from("2.3.7-beta");
+            Version v1 = new Version("2.3.7-beta+build");
+            Version v2 = new Version("2.3.7-beta");
             assertTrue(v1.equals(v2));
         }
 
         @Test
         public
         void shouldReturnFalseIfOtherVersionIsNull() {
-            Version v1 = Version.from("2.3.7");
+            Version v1 = new Version("2.3.7");
             Version v2 = null;
             assertFalse(v1.equals(v2));
         }
@@ -536,7 +534,7 @@ class VersionTest {
         @Test
         public
         void shouldReturnFalseIfOtherVersionIsOfDifferentType() {
-            Version v1 = Version.from("2.3.7");
+            Version v1 = new Version("2.3.7");
             assertFalse(v1.equals(new String("2.3.7")));
         }
     }
@@ -548,8 +546,8 @@ class VersionTest {
         @Test
         public
         void shouldReturnSameHashCodeIfVersionsAreEqual() {
-            Version v1 = Version.from("2.3.7-beta+build");
-            Version v2 = Version.from("2.3.7-beta");
+            Version v1 = new Version("2.3.7-beta+build");
+            Version v2 = new Version("2.3.7-beta");
             assertTrue(v1.equals(v2));
             assertEquals(v1.hashCode(), v2.hashCode());
         }
@@ -563,7 +561,7 @@ class VersionTest {
         public
         void shouldReturnStringRepresentation() {
             String value = "1.2.3-beta+build";
-            Version v = Version.from(value);
+            Version v = new Version(value);
             assertEquals(value, v.toString());
         }
     }
@@ -576,7 +574,7 @@ class VersionTest {
         public
         void shouldBuildVersionFromNormalVersion() {
             Version.Builder builder = new Version.Builder("1.0.0");
-            assertEquals(Version.from("1.0.0"), builder.build());
+            assertEquals(new Version("1.0.0"), builder.build());
         }
 
         @Test
@@ -586,7 +584,7 @@ class VersionTest {
             builder.setNormalVersion("1.0.0");
             builder.setPreReleaseVersion("alpha");
             builder.setBuildMetadata("build");
-            assertEquals(Version.from("1.0.0-alpha+build"), builder.build());
+            assertEquals(new Version("1.0.0-alpha+build"), builder.build());
         }
 
         @Test
@@ -594,7 +592,7 @@ class VersionTest {
         void shouldBuildVersionWithBuildMetadata() {
             Version.Builder builder = new Version.Builder("1.0.0");
             builder.setBuildMetadata("build");
-            assertEquals(Version.from("1.0.0+build"), builder.build());
+            assertEquals(new Version("1.0.0+build"), builder.build());
         }
 
         @Test
@@ -602,7 +600,7 @@ class VersionTest {
         void shouldBuildVersionWithPreReleaseVersion() {
             Version.Builder builder = new Version.Builder("1.0.0");
             builder.setPreReleaseVersion("alpha");
-            assertEquals(Version.from("1.0.0-alpha"), builder.build());
+            assertEquals(new Version("1.0.0-alpha"), builder.build());
         }
 
         @Test
@@ -611,7 +609,7 @@ class VersionTest {
             Version.Builder builder = new Version.Builder("1.0.0");
             builder.setPreReleaseVersion("alpha");
             builder.setBuildMetadata("build");
-            assertEquals(Version.from("1.0.0-alpha+build"), builder.build());
+            assertEquals(new Version("1.0.0-alpha+build"), builder.build());
         }
 
         @Test
@@ -619,7 +617,7 @@ class VersionTest {
         void shouldImplementFluentInterface() {
             Version.Builder builder = new Version.Builder();
             Version version = builder.setNormalVersion("1.0.0").setPreReleaseVersion("alpha").setBuildMetadata("build").build();
-            assertEquals(Version.from("1.0.0-alpha+build"), version);
+            assertEquals(new Version("1.0.0-alpha+build"), version);
         }
     }
 
@@ -642,8 +640,8 @@ class VersionTest {
                                  "1.3.7+build.2.b8f12d7",
                                  "1.3.7+build.11.e0f985a"};
             for (int i = 1; i < versions.length; i++) {
-                Version v1 = Version.from(versions[i - 1]);
-                Version v2 = Version.from(versions[i]);
+                Version v1 = new Version(versions[i - 1]);
+                Version v2 = new Version(versions[i]);
                 assertTrue(0 > Version.BUILD_AWARE_ORDER.compare(v1, v2));
             }
         }
@@ -685,7 +683,7 @@ class VersionTest {
                                  "1.3.7+build.11.e0f985a"};
 
             for (int i = 1; i < versions.length; i++) {
-                Version v1a = Version.from(versions[i - 1]);
+                Version v1a = new Version(versions[i - 1]);
                 byte[] v1ba = pickle(v1a);
                 Version v1b = unpickle(v1ba, Version.class);
                 assertTrue(v1a.equals(v1b));

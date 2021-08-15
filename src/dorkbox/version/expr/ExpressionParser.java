@@ -15,12 +15,6 @@
  */
 package dorkbox.version.expr;
 
-import static dorkbox.version.expr.CompositeExpression.Helper.eq;
-import static dorkbox.version.expr.CompositeExpression.Helper.gt;
-import static dorkbox.version.expr.CompositeExpression.Helper.gte;
-import static dorkbox.version.expr.CompositeExpression.Helper.lt;
-import static dorkbox.version.expr.CompositeExpression.Helper.lte;
-import static dorkbox.version.expr.CompositeExpression.Helper.neq;
 import static dorkbox.version.expr.Lexer.Token.Type.AND;
 import static dorkbox.version.expr.Lexer.Token.Type.CARET;
 import static dorkbox.version.expr.Lexer.Token.Type.DOT;
@@ -553,6 +547,6 @@ class ExpressionParser implements Parser<Expression> {
      */
     private
     Version versionFor(int major, int minor, int patch) {
-        return Version.from(major, minor, patch);
+        return new Version(major, minor, patch);
     }
 }

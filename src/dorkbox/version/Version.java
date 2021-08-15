@@ -30,6 +30,7 @@ import dorkbox.version.expr.UnexpectedTokenException;
  * It is also immutable, which makes the class thread-safe.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
+ * @author dorkbox, llc <info@dorkbox.com>
  */
 public
 class Version implements Comparable<Version>, Serializable {
@@ -173,7 +174,6 @@ class Version implements Comparable<Version>, Serializable {
      */
     private static
     class BuildAwareOrder implements Comparator<Version> {
-
         /**
          * Compares two {@code Version} instances taking
          * into account their build metadata.
@@ -197,7 +197,7 @@ class Version implements Comparable<Version>, Serializable {
             if (result == 0) {
                 result = v1.build.compareTo(v2.build);
                 if (v1.build == MetadataVersion.NULL || v2.build == MetadataVersion.NULL) {
-                    /**
+                    /*
                      * Build metadata should have a higher precedence
                      * than the associated normal version which is the
                      * opposite compared to pre-release versions.
@@ -217,88 +217,9 @@ class Version implements Comparable<Version>, Serializable {
         return "2.4";
     }
 
-    /**
-     * Creates a new instance of {@code Version} as a
-     * result of parsing the specified version string.
-     *
-     * @param version the version string to parse
-     *
-     * @return a new instance of the {@code Version} class
-     *
-     * @throws IllegalArgumentException if the input string is {@code NULL} or empty
-     * @throws ParseException when invalid version string is provided
-     * @throws UnexpectedCharacterException is a special case of {@code ParseException}
-     */
-    public static
-    Version from(String version) {
-        return VersionParser.parseValidSemVer(version);
-    }
-
-    /**
-     * Creates a new instance of {@code Version}
-     * for the specified version numbers.
-     *
-     * @param majorAndMinor the major and minor version number, in double notation
-     *
-     * @return a new instance of the {@code Version} class
-     *
-     * @throws IllegalArgumentException if a negative double is passed
-     */
-    public static
-    Version from(double majorAndMinor) {
-        if (majorAndMinor < 0.0) {
-            throw new IllegalArgumentException("Major.minor number MUST be non-negative!");
-        }
-        return VersionParser.parseValidSemVer(Double.toString(majorAndMinor));
-    }
-
-
-    /**
-     * Creates a new instance of {@code Version}
-     * for the specified version numbers.
-     *
-     * @param major the major version number
-     *
-     * @return a new instance of the {@code Version} class
-     *
-     * @throws IllegalArgumentException if a negative integer is passed
-     */
-    public static
-    Version from(int major) {
-        return new Version(new NormalVersion(major, 0));
-    }
-
-    /**
-     * Creates a new instance of {@code Version}
-     * for the specified version numbers.
-     *
-     * @param major the major version number
-     * @param minor the minor version number
-     *
-     * @return a new instance of the {@code Version} class
-     *
-     * @throws IllegalArgumentException if a negative integer is passed
-     */
-    public static
-    Version from(int major, int minor) {
-        return new Version(new NormalVersion(major, minor));
-    }
-
-    /**
-     * Creates a new instance of {@code Version}
-     * for the specified version numbers.
-     *
-     * @param major the major version number
-     * @param minor the minor version number
-     * @param patch the patch version number
-     *
-     * @return a new instance of the {@code Version} class
-     *
-     * @throws IllegalArgumentException if a negative integer is passed
-     */
-    public static
-    Version from(int major, int minor, int patch) {
-        return new Version(new NormalVersion(major, minor, patch));
+    static {
+        // Add this project to the updates system, which verifies this class + UUID + version information
+        dorkbox.updates.Updates.INSTANCE.add(Version.class, "ccdb2067336845faa33b04ac57892205", getVersion());
     }
 
     /**
@@ -313,6 +234,81 @@ class Version implements Comparable<Version>, Serializable {
      * The build metadata.
      */
     private final MetadataVersion build;
+
+    /**
+     * Creates a new instance of {@code Version} as a
+     * result of parsing the specified version string.
+     *
+     * @param version the version string to parse
+     *
+     * @throws IllegalArgumentException if the input string is {@code NULL} or empty
+     * @throws ParseException when invalid version string is provided
+     * @throws UnexpectedCharacterException is a special case of {@code ParseException}
+     */
+    public Version(String version) {
+        this(VersionParser.parseValidSemVer(version));
+    }
+
+    /**
+     * Creates a new instance of {@code Version}
+     * for the specified version numbers.
+     *
+     * @param majorAndMinor the major and minor version number, in double notation
+     *
+     * @throws IllegalArgumentException if a negative double is passed
+     */
+    public Version(double majorAndMinor) {
+        this(VersionParser.parseValidSemVer(majorAndMinor));
+    }
+
+
+    /**
+     * Creates a new instance of {@code Version}
+     * for the specified version numbers.
+     *
+     * @param major the major version number
+     *
+     * @throws IllegalArgumentException if a negative integer is passed
+     */
+    public Version(int major) {
+        this(new NormalVersion(major, 0));
+    }
+
+    /**
+     * Creates a new instance of {@code Version}
+     * for the specified version numbers.
+     *
+     * @param major the major version number
+     * @param minor the minor version number
+     *
+     * @throws IllegalArgumentException if a negative integer is passed
+     */
+    public Version(int major, int minor) {
+        this(new NormalVersion(major, minor));
+    }
+
+    /**
+     * Creates a new instance of {@code Version}
+     * for the specified version numbers.
+     *
+     * @param major the major version number
+     * @param minor the minor version number
+     * @param patch the patch version number
+     *
+     * @throws IllegalArgumentException if a negative integer is passed
+     */
+    public Version(int major, int minor, int patch) {
+        this(new NormalVersion(major, minor, patch));
+    }
+
+    /**
+     * Creates a new instance of {@code Version} for the specified version numbers.
+     *
+     * @param version the version information to make a copy of
+     */
+    public Version(Version version) {
+        this(version.normal, version.preRelease, version.build);
+    }
 
     /**
      * Constructs a {@code Version} instance with the normal version.

@@ -32,9 +32,9 @@ class GreaterTest {
     @Test
     public
     void shouldCheckIfVersionIsGreaterThanParsedVersion() {
-        Version parsed = Version.from("2.0.0");
+        Version parsed = new Version("2.0.0");
         Greater gt = new Greater(parsed);
-        assertTrue(gt.interpret(Version.from("3.2.1")));
-        assertFalse(gt.interpret(Version.from("1.2.3")));
+        assertTrue(gt.interpret(new Version("3.2.1")));
+        assertFalse(gt.interpret(new Version("1.2.3")));
     }
 }

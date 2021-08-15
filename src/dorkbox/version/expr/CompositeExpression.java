@@ -74,7 +74,7 @@ class CompositeExpression implements Expression {
          */
         public static
         CompositeExpression eq(String version) {
-            return eq(Version.from(version));
+            return eq(new Version(version));
         }
 
         /**
@@ -104,7 +104,7 @@ class CompositeExpression implements Expression {
          */
         public static
         CompositeExpression neq(String version) {
-            return neq(Version.from(version));
+            return neq(new Version(version));
         }
 
         /**
@@ -134,7 +134,7 @@ class CompositeExpression implements Expression {
          */
         public static
         CompositeExpression gt(String version) {
-            return gt(Version.from(version));
+            return gt(new Version(version));
         }
 
         /**
@@ -164,7 +164,7 @@ class CompositeExpression implements Expression {
          */
         public static
         CompositeExpression gte(String version) {
-            return gte(Version.from(version));
+            return gte(new Version(version));
         }
 
         /**
@@ -194,7 +194,7 @@ class CompositeExpression implements Expression {
          */
         public static
         CompositeExpression lt(String version) {
-            return lt(Version.from(version));
+            return lt(new Version(version));
         }
 
         /**
@@ -224,7 +224,7 @@ class CompositeExpression implements Expression {
          */
         public static
         CompositeExpression lte(String version) {
-            return lte(Version.from(version));
+            return lte(new Version(version));
         }
     }
 
@@ -272,7 +272,7 @@ class CompositeExpression implements Expression {
      */
     public
     boolean interpret(String version) {
-        return interpret(Version.from(version));
+        return interpret(new Version(version));
     }
 
     /**

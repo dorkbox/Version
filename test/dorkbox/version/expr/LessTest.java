@@ -32,9 +32,9 @@ class LessTest {
     @Test
     public
     void shouldCheckIfVersionIsLessThanParsedVersion() {
-        Version parsed = Version.from("2.0.0");
+        Version parsed = new Version("2.0.0");
         Less lt = new Less(parsed);
-        assertTrue(lt.interpret(Version.from("1.2.3")));
-        assertFalse(lt.interpret(Version.from("3.2.1")));
+        assertTrue(lt.interpret(new Version("1.2.3")));
+        assertFalse(lt.interpret(new Version("3.2.1")));
     }
 }

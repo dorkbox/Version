@@ -21,7 +21,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import dorkbox.version.Version;
-import dorkbox.version.expr.Equal;
 
 /**
  * @author Zafar Khaja <zafarkhaja@gmail.com>
@@ -32,9 +31,9 @@ class EqualTest {
     @Test
     public
     void shouldCheckIfVersionIsEqualToParsedVersion() {
-        Version parsed = Version.from("1.2.3");
+        Version parsed = new Version("1.2.3");
         Equal eq = new Equal(parsed);
-        assertTrue(eq.interpret(Version.from("1.2.3")));
-        assertFalse(eq.interpret(Version.from("3.2.1")));
+        assertTrue(eq.interpret(new Version("1.2.3")));
+        assertFalse(eq.interpret(new Version("3.2.1")));
     }
 }

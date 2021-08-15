@@ -219,6 +219,27 @@ class VersionParser implements Parser<Version> {
     /**
      * Parses the whole version including pre-release version and build metadata.
      *
+     * @param majorAndMinor the major and minor version number, in double notation
+     *
+     * @return a valid version object
+     *
+     * @throws IllegalArgumentException if the input string is {@code NULL} or empty
+     * @throws ParseException when there is a grammar error
+     * @throws UnexpectedCharacterException when encounters an unexpected character type
+     */
+    static
+    Version parseValidSemVer(double majorAndMinor) {
+        if (majorAndMinor < 0.0) {
+            throw new IllegalArgumentException("Major.minor number MUST be non-negative!");
+        }
+
+        VersionParser parser = new VersionParser(Double.toString(majorAndMinor));
+        return parser.parseValidSemVer();
+    }
+
+    /**
+     * Parses the whole version including pre-release version and build metadata.
+     *
      * @param version the version string to parse
      *
      * @return a valid version object
