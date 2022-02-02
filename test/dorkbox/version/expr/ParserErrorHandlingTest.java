@@ -31,9 +31,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import dorkbox.version.expr.ExpressionParser;
 import dorkbox.version.expr.Lexer.Token;
-import dorkbox.version.expr.UnexpectedTokenException;
 
 /**
  * @author Zafar Khaja <zafarkhaja@gmail.com>
@@ -67,7 +65,7 @@ class ParserErrorHandlingTest {
     public
     void shouldCorrectlyHandleParseErrors() {
         try {
-            ExpressionParser.newInstance().parse(invalidExpr);
+            ExpressionParser.Companion.newInstance().parse(invalidExpr);
         } catch (UnexpectedTokenException e) {
             assertEquals(unexpected, e.getUnexpectedToken());
             assertArrayEquals(expected, e.getExpectedTokenTypes());
