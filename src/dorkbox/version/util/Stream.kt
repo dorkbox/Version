@@ -232,12 +232,12 @@ class Stream<E>(elements: Array<E>) : Iterable<E> {
         /**
          * Checks if the specified element matches this type.
          *
-         * @param element the element to be tested
+         * @param char the element to be tested
          *
          * @return `true` if the element matches this type
          * or `false` otherwise
          */
-        fun isMatchedBy(element: E?): Boolean
+        fun isMatchedBy(char: E?): Boolean
     }
 
     /**
