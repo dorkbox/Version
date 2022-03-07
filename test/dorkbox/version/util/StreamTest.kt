@@ -33,21 +33,21 @@ class StreamTest {
     fun shouldCheckIfElementOfExpectedTypesExistBeforeGivenType() {
         val stream = Stream(arrayOf('1', '.', '0', '.', '0'))
         Assert.assertTrue(stream.positiveLookaheadBefore(object : Stream.ElementType<Char> {
-            override fun isMatchedBy(element: Char?): Boolean {
-                return element == '.'
+            override fun isMatchedBy(char: Char?): Boolean {
+                return char == '.'
             }
         }, object : Stream.ElementType<Char> {
-            override fun isMatchedBy(element: Char?): Boolean {
-                return element == '1'
+            override fun isMatchedBy(char: Char?): Boolean {
+                return char == '1'
             }
         }))
         Assert.assertFalse(stream.positiveLookaheadBefore(object : Stream.ElementType<Char> {
-            override fun isMatchedBy(element: Char?): Boolean {
-                return element == '1'
+            override fun isMatchedBy(char: Char?): Boolean {
+                return char == '1'
             }
         }, object : Stream.ElementType<Char> {
-            override fun isMatchedBy(element: Char?): Boolean {
-                return element == '.'
+            override fun isMatchedBy(char: Char?): Boolean {
+                return char == '.'
             }
         }))
     }
@@ -56,13 +56,13 @@ class StreamTest {
     fun shouldCheckIfElementOfExpectedTypesExistUntilGivenPosition() {
         val stream = Stream(arrayOf('1', '.', '0', '.', '0'))
         Assert.assertTrue(stream.positiveLookaheadUntil(3, object : Stream.ElementType<Char> {
-            override fun isMatchedBy(element: Char?): Boolean {
-                return element == '0'
+            override fun isMatchedBy(char: Char?): Boolean {
+                return char == '0'
             }
         }))
         Assert.assertFalse(stream.positiveLookaheadUntil(3, object : Stream.ElementType<Char> {
-            override fun isMatchedBy(element: Char?): Boolean {
-                return element == 'a'
+            override fun isMatchedBy(char: Char?): Boolean {
+                return char == 'a'
             }
         }))
     }
@@ -71,13 +71,13 @@ class StreamTest {
     fun shouldCheckIfLookaheadIsOfExpectedTypes() {
         val stream = Stream(arrayOf('a', 'b', 'c'))
         Assert.assertTrue(stream.positiveLookahead(object : Stream.ElementType<Char> {
-            override fun isMatchedBy(element: Char?): Boolean {
-                return element == 'a'
+            override fun isMatchedBy(char: Char?): Boolean {
+                return char == 'a'
             }
         }))
         Assert.assertFalse(stream.positiveLookahead(object : Stream.ElementType<Char> {
-            override fun isMatchedBy(element: Char?): Boolean {
-                return element == 'c'
+            override fun isMatchedBy(char: Char?): Boolean {
+                return char == 'c'
             }
         }))
     }
@@ -149,7 +149,7 @@ class StreamTest {
         val stream: Stream<Char> = Stream(arrayOf('a', 'b', 'c'))
         try {
             val expected: Stream.ElementType<Char> = object : Stream.ElementType<Char> {
-                override fun isMatchedBy(element: Char?): Boolean {
+                override fun isMatchedBy(char: Char?): Boolean {
                     return false
                 }
             }

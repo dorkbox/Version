@@ -51,6 +51,7 @@ class UnexpectedCharacterException : ParseException {
     internal constructor(cause: UnexpectedElementException) {
         position = cause.position
         unexpectedCharacter = cause.unexpectedElement as Char?
+        @Suppress("UNCHECKED_CAST")
         expectedCharTypes = cause.expectedElementTypes as Array<CharType>
     }
 
@@ -65,6 +66,7 @@ class UnexpectedCharacterException : ParseException {
     internal constructor(unexpected: Char?, position: Int, vararg expected: CharType) {
         unexpectedCharacter = unexpected
         this.position = position
+        @Suppress("UNCHECKED_CAST")
         expectedCharTypes = expected as Array<CharType>
     }
 
@@ -82,8 +84,8 @@ class UnexpectedCharacterException : ParseException {
             ), unexpectedCharacter, position
         )
 
-        if (expectedCharTypes.size > 0) {
-            message += String.format(", expecting '%s'", Arrays.toString(expectedCharTypes))
+        if (expectedCharTypes.isNotEmpty()) {
+            message += String.format(", expecting '%s'", expectedCharTypes.contentToString())
         }
 
         return message

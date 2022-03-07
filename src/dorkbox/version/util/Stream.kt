@@ -210,13 +210,13 @@ class Stream<E>(elements: Array<E>) : Iterable<E> {
     }
 
     /**
-     * Returns an array containing all of the
-     * elements that are left in this stream.
+     * Returns an array containing all the
+     * chars that are left in this stream.
      *
      *
      * The returned array is a safe copy.
      *
-     * @return an array containing all of elements in this stream
+     * @return an array containing all the chars in this stream
      */
     fun toArray(): Array<E> {
         return elements.copyOfRange(offset, elements.size)

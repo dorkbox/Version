@@ -271,6 +271,7 @@ class ExpressionParser
      * @return the expression AST
      */
     private fun parseMoreExpressions(expr: CompositeExpression): CompositeExpression {
+        @Suppress("NAME_SHADOWING")
         var expr = expr
         if (tokens!!.positiveLookahead(Lexer.Token.Type.AND)) {
             tokens!!.consume()

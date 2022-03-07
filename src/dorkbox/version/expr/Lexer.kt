@@ -125,11 +125,11 @@ class Lexer
             /**
              * {@inheritDoc}
              */
-            override fun isMatchedBy(token: Token?): Boolean {
-                return if (token == null) {
+            override fun isMatchedBy(char: Token?): Boolean {
+                return if (char == null) {
                     false
                 } else {
-                    this == token.type
+                    this == char.type
                 }
             }
 
@@ -154,6 +154,7 @@ class Lexer
      * @throws LexerException when encounters an illegal character
      */
     fun tokenize(input: String): Stream<Token> {
+        @Suppress("NAME_SHADOWING")
         var input = input
         val tokens: MutableList<Token> = ArrayList()
         var tokenPos = 0
