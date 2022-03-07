@@ -324,6 +324,29 @@ Bugs and Features
 Bug reports and feature requests can be submitted at https://git.dorkbox.com/dorkbox/Version/issues.
 
 
+Maven Info
+---------
+```
+<dependencies>
+    ...
+    <dependency>
+      <groupId>com.dorkbox</groupId>
+      <artifactId>Version</artifactId>
+      <version>3.0</version>
+    </dependency>
+</dependencies>
+```
+
+Gradle Info
+---------
+```
+dependencies {
+    ...
+    implementation("com.dorkbox:Version:3.0")
+}
+```
+
+
 License
 -------
 Java Semantic Versioning is licensed under the MIT License - see the `LICENSE` file for details.
