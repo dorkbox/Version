@@ -24,7 +24,7 @@ plugins {
     id("com.dorkbox.VersionUpdate") version "2.4"
     id("com.dorkbox.GradlePublish") version "1.12"
 
-    kotlin("jvm") version "1.5.21"
+    kotlin("jvm") version "1.6.10"
 }
 
 object Extras {
@@ -85,9 +85,9 @@ tasks.jar.get().apply {
 }
 
 dependencies {
-    implementation("com.dorkbox:Updates:1.1")
+    api("com.dorkbox:Updates:1.1")
 
-    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.13.2")
 }
 
 publishToSonatype {
