@@ -22,7 +22,7 @@ import dorkbox.version.Version
  *
  * @author Zafar Khaja <zafarkhaja></zafarkhaja>@gmail.com>
  */
-internal class And(
+class And(
     /**
      * The left-hand operand of expression.
      */

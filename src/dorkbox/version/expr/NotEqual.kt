@@ -22,12 +22,7 @@ import dorkbox.version.Version
  *
  * @author Zafar Khaja <zafarkhaja></zafarkhaja>@gmail.com>
  */
-internal class NotEqual
-/**
- * Constructs a `NotEqual` expression with the parsed version.
- *
- * @param parsedVersion the parsed version
- */(
+class NotEqual(
     /**
      * The parsed version, the right-hand operand of the "not equal" operator.
      */

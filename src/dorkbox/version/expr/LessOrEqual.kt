@@ -22,12 +22,7 @@ import dorkbox.version.Version
  *
  * @author Zafar Khaja <zafarkhaja></zafarkhaja>@gmail.com>
  */
-internal class LessOrEqual
-/**
- * Constructs a `LessOrEqual` expression with the parsed version.
- *
- * @param parsedVersion the parsed version
- */(
+class LessOrEqual(
     /**
      * The parsed version, the right-hand operand
      * of the "less than or equal to" operator.

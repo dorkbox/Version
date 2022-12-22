@@ -22,14 +22,7 @@ import dorkbox.version.Version
  *
  * @author Zafar Khaja <zafarkhaja></zafarkhaja>@gmail.com>
  */
-internal class Or
-/**
- * Constructs a `Or` expression with
- * the left-hand and right-hand operands.
- *
- * @param left the left-hand operand of expression
- * @param right the right-hand operand of expression
- */(
+class Or(
     /**
      * The left-hand operand of expression.
      */

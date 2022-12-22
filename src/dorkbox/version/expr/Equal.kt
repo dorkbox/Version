@@ -22,7 +22,7 @@ import dorkbox.version.Version
  *
  * @author Zafar Khaja <zafarkhaja></zafarkhaja>@gmail.com>
  */
-internal class Equal(
+class Equal(
     /**
      * The parsed version, the right-hand operand of the "equal" operator.
      */

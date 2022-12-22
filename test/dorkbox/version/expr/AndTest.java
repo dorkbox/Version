@@ -20,8 +20,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import dorkbox.version.Version;
-import dorkbox.version.expr.And;
-import dorkbox.version.expr.Expression;
 
 /**
  * @author Zafar Khaja <zafarkhaja@gmail.com>

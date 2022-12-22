@@ -22,12 +22,7 @@ import dorkbox.version.Version
  *
  * @author Zafar Khaja <zafarkhaja></zafarkhaja>@gmail.com>
  */
-internal class Not
-/**
- * Constructs a `Not` expression with an expression to negate.
- *
- * @param expr the expression to negate
- */(
+class Not(
     /**
      * The expression to negate.
      */

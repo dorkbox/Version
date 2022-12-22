@@ -22,12 +22,7 @@ import dorkbox.version.Version
  *
  * @author Zafar Khaja <zafarkhaja></zafarkhaja>@gmail.com>
  */
-internal class Greater
-/**
- * Constructs a `Greater` expression with the parsed version.
- *
- * @param parsedVersion the parsed version
- */(
+class Greater(
     /**
      * The parsed version, the right-hand
      * operand of the "greater than" operator.
