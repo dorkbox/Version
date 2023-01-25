@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,17 @@ package dorkbox.version
 import dorkbox.updates.Updates.add
 import dorkbox.version.expr.Expression
 import dorkbox.version.expr.ExpressionParser.Companion.newInstance
+import dorkbox.version.expr.LexerException
+import dorkbox.version.expr.UnexpectedTokenException
 import java.io.Serializable
 
 /**
  * The `Version` class is the main class of the Java SemVer library.
- *
- *
+ * ```
+ * ```
  * This class implements the Facade design pattern.
+ * ```
+ * ```
  * It is also immutable, which makes the class thread-safe.
  *
  * @author Zafar Khaja <zafarkhaja></zafarkhaja>@gmail.com>
@@ -37,7 +41,9 @@ class Version
  *
  * @param normal the normal version
  * @param preRelease the pre-release version
- */ @JvmOverloads internal constructor(
+ * @param build the build metadata info
+ */
+internal constructor(
     /**
      * The normal version.
      */
@@ -77,8 +83,7 @@ class Version
         constructor() {}
 
         /**
-         * Constructs a `Builder` instance with the
-         * string representation of the normal version.
+         * Constructs a `Builder` instance with the string representation of the normal version.
          *
          * @param normal the string representation of the normal version
          */
@@ -161,21 +166,17 @@ class Version
      */
     private class BuildAwareOrder : Comparator<Version> {
         /**
-         * Compares two `Version` instances taking
-         * into account their build metadata.
-         *
-         *
-         * When compared build metadata is divided into identifiers. The
-         * numeric identifiers are compared numerically, and the alphanumeric
+         * Compares two `Version` instances taking into account their build metadata.
+         * ```
+         * ```
+         * When compared build metadata is divided into identifiers. The numeric identifiers are compared numerically, and the alphanumeric
          * identifiers are compared in the ASCII sort order.
-         *
-         *
-         * If one of the compared versions has no defined build
-         * metadata, this version is considered to have a lower
+         * ```
+         * ```
+         * If one of the compared versions has no defined build metadata, this version is considered to have a lower
          * precedence than that of the other.
          *
-         * @return a negative integer, zero, or a positive integer as the
-         * first argument is less than, equal to, or greater than the
+         * @return a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the
          * second.
          */
         override fun compare(v1: Version, v2: Version): Int {
@@ -204,21 +205,19 @@ class Version
         val BUILD_AWARE_ORDER: Comparator<Version> = BuildAwareOrder()
 
         /**
-         * A separator that separates the build metadata from
-         * the normal version or the pre-release version.
+         * A separator that separates the build metadata from the normal version or the pre-release version.
          */
         private const val BUILD_PREFIX = "+"
 
         /**
-         * A separator that separates the pre-release
-         * version from the normal version.
+         * A separator that separates the pre-release version from the normal version.
          */
         private const val PRE_RELEASE_PREFIX = "-"
 
         /**
          * Gets the version number.
          */
-        val version = "3.1"
+        const val version = "3.1"
 
         init {
             // Add this project to the updates system, which verifies this class + UUID + version information
@@ -227,8 +226,7 @@ class Version
     }
 
     /**
-     * Creates a new instance of `Version` as a
-     * result of parsing the specified version string.
+     * Creates a new instance of `Version` as a result of parsing the specified version string.
      *
      * @param version the version string to parse
      *
@@ -239,8 +237,7 @@ class Version
     constructor(version: String) : this(VersionParser.parseValidSemVer(version))
 
     /**
-     * Creates a new instance of `Version`
-     * for the specified version numbers.
+     * Creates a new instance of `Version` for the specified version numbers.
      *
      * @param majorAndMinor the major and minor version number, in double notation
      *
@@ -249,8 +246,7 @@ class Version
     constructor(majorAndMinor: Double) : this(VersionParser.parseValidSemVer(majorAndMinor))
 
     /**
-     * Creates a new instance of `Version`
-     * for the specified version numbers.
+     * Creates a new instance of `Version` for the specified version numbers.
      *
      * @param major the major version number
      *
@@ -259,8 +255,7 @@ class Version
     constructor(major: Int) : this(NormalVersion(major.toLong(), 0))
 
     /**
-     * Creates a new instance of `Version`
-     * for the specified version numbers.
+     * Creates a new instance of `Version` for the specified version numbers.
      *
      * @param major the major version number
      * @param minor the minor version number
@@ -270,8 +265,7 @@ class Version
     constructor(major: Int, minor: Int) : this(NormalVersion(major.toLong(), minor.toLong()))
 
     /**
-     * Creates a new instance of `Version`
-     * for the specified version numbers.
+     * Creates a new instance of `Version` for the specified version numbers.
      *
      * @param major the major version number
      * @param minor the minor version number
@@ -335,19 +329,16 @@ class Version
      * Compares this version to the other version.
      *
      *
-     * This method does not take into account the versions' build
-     * metadata. If you want to compare the versions' build metadata
-     * use the `Version.compareWithBuildsTo` method or the
-     * `Version.BUILD_AWARE_ORDER` comparator.
+     * This method does not take into account the versions' build metadata. If you want to compare the versions' build metadata
+     * use the `Version.compareWithBuildsTo` method or the `Version.BUILD_AWARE_ORDER` comparator.
      *
      * @param other the other version to compare to
      *
-     * @return a negative integer, zero or a positive integer if this version
-     * is less than, equal to or greater the the specified version
+     * @return a negative integer, zero or a positive integer if this version is less than, equal to or greater the the specified version
      *
      * @see .BUILD_AWARE_ORDER
      *
-     * @see .compareWithBuildsTo
+     * @see [compareWithBuildsTo]
      */
     override fun compareTo(other: Version): Int {
         var result = normal.compareTo(other.normal)
@@ -358,18 +349,16 @@ class Version
     }
 
     /**
-     * Compare this version to the other version
-     * taking into account the build metadata.
+     * Compare this version to the other version taking into account the build metadata.
      *
      *
      * The method makes use of the `Version.BUILD_AWARE_ORDER` comparator.
      *
      * @param other the other version to compare to
      *
-     * @return integer result of comparison compatible with
-     * that of the `Comparable.compareTo` method
+     * @return integer result of comparison compatible with that of the `Comparable.compareTo` method
      *
-     * @see .BUILD_AWARE_ORDER
+     * @see [BUILD_AWARE_ORDER]
      */
     fun compareWithBuildsTo(other: Version): Int {
         return BUILD_AWARE_ORDER.compare(this, other)
@@ -383,10 +372,9 @@ class Version
      *
      * @param other the other version to compare to
      *
-     * @return `true` if this version equals the other version
-     * or `false` otherwise
+     * @return `true` if this version equals the other version or `false` otherwise
      *
-     * @see .compareTo
+     * @see [compareTo]
      */
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -432,10 +420,9 @@ class Version
      *
      * @param other the other version to compare to
      *
-     * @return `true` if this version is greater than the other version
-     * or `false` otherwise
+     * @return `true` if this version is greater than the other version or `false` otherwise
      *
-     * @see .compareTo
+     * @see [compareTo]
      */
     fun greaterThan(other: Version): Boolean {
         return compareTo(other) > 0
@@ -446,10 +433,9 @@ class Version
      *
      * @param other the other version to compare to
      *
-     * @return `true` if this version is greater than or equal
-     * to the other version or `false` otherwise
+     * @return `true` if this version is greater than or equal to the other version or `false` otherwise
      *
-     * @see .compareTo
+     * @see [compareTo]
      */
     fun greaterThanOrEqualTo(other: Version): Boolean {
         return compareTo(other) >= 0
@@ -553,34 +539,28 @@ class Version
     }
 
     /**
-     * Checks if this version is compatible with the
-     * other version in terms of their major versions.
+     * Checks if this version is compatible with the other version in terms of their major versions.
      *
      *
-     * When checking compatibility no assumptions
-     * are made about the versions' precedence.
+     * When checking compatibility no assumptions are made about the versions' precedence.
      *
      * @param other the other version to check with
      *
-     * @return `true` if this version is compatible with
-     * the other version or `false` otherwise
+     * @return `true` if this version is compatible with the other version or `false` otherwise
      */
     fun isMajorVersionCompatible(other: Version): Boolean {
         return this.major == other.major
     }
 
     /**
-     * Checks if this version is compatible with the
-     * other version in terms of their minor versions.
+     * Checks if this version is compatible with the other version in terms of their minor versions.
      *
      *
-     * When checking compatibility no assumptions
-     * are made about the versions' precedence.
+     * When checking compatibility no assumptions are made about the versions' precedence.
      *
      * @param other the other version to check with
      *
-     * @return `true` if this version is compatible with
-     * the other version or `false` otherwise
+     * @return `true` if this version is compatible with the other version or `false` otherwise
      */
     fun isMinorVersionCompatible(other: Version): Boolean {
         return this.major == other.major && this.minor == other.minor
@@ -591,10 +571,9 @@ class Version
      *
      * @param other the other version to compare to
      *
-     * @return `true` if this version is less than the other version
-     * or `false` otherwise
+     * @return `true` if this version is less than the other version or `false` otherwise
      *
-     * @see .compareTo
+     * @see [compareTo]
      */
     fun lessThan(other: Version): Boolean {
         return compareTo(other) < 0
@@ -605,10 +584,9 @@ class Version
      *
      * @param other the other version to compare to
      *
-     * @return `true` if this version is less than or equal
-     * to the other version or `false` otherwise
+     * @return `true` if this version is less than or equal to the other version or `false` otherwise
      *
-     * @see .compareTo
+     * @see [compareTo]
      */
     fun lessThanOrEqualTo(other: Version): Boolean {
         return compareTo(other) <= 0
@@ -622,13 +600,13 @@ class Version
      *
      * @param expr the SemVer Expression string
      *
-     * @return `true` if this version satisfies the specified
-     * SemVer Expression or `false` otherwise
+     * @return `true` if this version satisfies the specified SemVer Expression or `false` otherwise
      *
      * @throws ParseException in case of a general parse error
      * @throws LexerException when encounters an illegal character
      * @throws UnexpectedTokenException when comes across an unexpected token
      */
+    @Throws(LexerException::class, UnexpectedTokenException::class)
     fun satisfies(expr: String?): Boolean {
         val parser = newInstance()
         return satisfies(parser.parse(expr!!))
@@ -642,8 +620,7 @@ class Version
      *
      * @param expr the SemVer Expression
      *
-     * @return `true` if this version satisfies the specified
-     * SemVer Expression or `false` otherwise
+     * @return `true` if this version satisfies the specified SemVer Expression or `false` otherwise
      */
     fun satisfies(expr: Expression): Boolean {
         return expr.interpret(this)
@@ -659,17 +636,4 @@ class Version
         }
         return sb.toString()
     }
-    /**
-     * Constructs a `Version` instance with the normal
-     * version, the pre-release version and the build metadata.
-     *
-     * @param normal the normal version
-     * @param preRelease the pre-release version
-     * @param build the build metadata
-     */
-    /**
-     * Constructs a `Version` instance with the normal version.
-     *
-     * @param normal the normal version
-     */
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,8 +36,7 @@ class UnexpectedTokenException : ParseException {
     val expectedTokenTypes: Array<Lexer.Token.Type>
 
     /**
-     * Constructs a `UnexpectedTokenException` instance with
-     * the wrapped `UnexpectedElementException` exception.
+     * Constructs a `UnexpectedTokenException` instance with the wrapped `UnexpectedElementException` exception.
      *
      * @param cause the wrapped exception
      */
@@ -47,8 +46,7 @@ class UnexpectedTokenException : ParseException {
     }
 
     /**
-     * Constructs a `UnexpectedTokenException` instance
-     * with the unexpected token and the expected types.
+     * Constructs a `UnexpectedTokenException` instance with the unexpected token and the expected types.
      *
      * @param token the unexpected token
      * @param expected an array of the expected token types
@@ -59,8 +57,7 @@ class UnexpectedTokenException : ParseException {
     }
 
     /**
-     * Returns the string representation of this exception
-     * containing the information about the unexpected
+     * Returns the string representation of this exception containing the information about the unexpected
      * token and, if available, about the expected types.
      *
      * @return the string representation of this exception

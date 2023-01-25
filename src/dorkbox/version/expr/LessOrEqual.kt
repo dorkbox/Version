@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,20 +24,16 @@ import dorkbox.version.Version
  */
 class LessOrEqual(
     /**
-     * The parsed version, the right-hand operand
-     * of the "less than or equal to" operator.
+     * The parsed version, the right-hand operand of the "less than or equal to" operator.
      */
     private val parsedVersion: Version
 ) : Expression {
     /**
-     * Checks if the current version is less
-     * than or equal to the parsed version.
+     * Checks if the current version is less than or equal to the parsed version.
      *
-     * @param version the version to compare to, the left-hand operand
-     * of the "less than or equal to" operator
+     * @param version the version to compare to, the left-hand operand of the "less than or equal to" operator
      *
-     * @return `true` if the version is less than or equal
-     * to the parsed version or `false` otherwise
+     * @return `true` if the version is less than or equal to the parsed version or `false` otherwise
      */
     override fun interpret(version: Version?): Boolean {
         return version!!.lessThanOrEqualTo(parsedVersion)

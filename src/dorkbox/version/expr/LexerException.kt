@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,14 @@ package dorkbox.version.expr
 import dorkbox.version.ParseException
 
 /**
- * Thrown during the lexical analysis when
- * an illegal character is encountered.
+ * Thrown during the lexical analysis when an illegal character is encountered.
  *
  * @author Zafar Khaja <zafarkhaja></zafarkhaja>@gmail.com>
  */
 class LexerException
 
 /**
- * Constructs a `LexerException` instance with
- * a string starting from an illegal character.
+ * Constructs a `LexerException` instance with a string starting from an illegal character.
  *
  * @param expr the string starting from an illegal character
  */

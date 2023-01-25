@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,30 +18,25 @@ package dorkbox.version.expr
 import dorkbox.version.Version
 
 /**
- * This class implements internal DSL for the
- * SemVer Expressions using fluent interface.
+ * This class implements internal DSL for the SemVer Expressions using fluent interface.
  *
  * @author Zafar Khaja <zafarkhaja></zafarkhaja>@gmail.com>
  */
 class CompositeExpression
-/**
- * Constructs a `CompositeExpression`
- * with an underlying `Expression`.
- *
- * @param expr the underlying expression
- */(
     /**
-     * The underlying expression tree.
+     * Constructs a `CompositeExpression` with an underlying `Expression`.
+     *
+     * @param exprTree the underlying expression tree.
      */
-    private var exprTree: Expression
-) : Expression {
+    (private var exprTree: Expression) : Expression {
+
     /**
      * A class with static helper methods.
      */
     object Helper {
+
         /**
-         * Creates a `CompositeExpression` with
-         * an underlying `Not` expression.
+         * Creates a `CompositeExpression` with an underlying `Not` expression.
          *
          * @param expr an `Expression` to negate
          *
@@ -52,8 +47,7 @@ class CompositeExpression
         }
 
         /**
-         * Creates a `CompositeExpression` with
-         * an underlying `Equal` expression.
+         * Creates a `CompositeExpression` with an underlying `Equal` expression.
          *
          * @param version a `Version` to check for equality
          *
@@ -64,8 +58,7 @@ class CompositeExpression
         }
 
         /**
-         * Creates a `CompositeExpression` with
-         * an underlying `Equal` expression.
+         * Creates a `CompositeExpression` with an underlying `Equal` expression.
          *
          * @param version a `Version` string to check for equality
          *
@@ -80,8 +73,7 @@ class CompositeExpression
         }
 
         /**
-         * Creates a `CompositeExpression` with
-         * an underlying `NotEqual` expression.
+         * Creates a `CompositeExpression` with an underlying `NotEqual` expression.
          *
          * @param version a `Version` to check for non-equality
          *
@@ -92,8 +84,7 @@ class CompositeExpression
         }
 
         /**
-         * Creates a `CompositeExpression` with
-         * an underlying `NotEqual` expression.
+         * Creates a `CompositeExpression` with an underlying `NotEqual` expression.
          *
          * @param version a `Version` string to check for non-equality
          *
@@ -108,8 +99,7 @@ class CompositeExpression
         }
 
         /**
-         * Creates a `CompositeExpression` with
-         * an underlying `Greater` expression.
+         * Creates a `CompositeExpression` with an underlying `Greater` expression.
          *
          * @param version a `Version` to compare with
          *
@@ -120,8 +110,7 @@ class CompositeExpression
         }
 
         /**
-         * Creates a `CompositeExpression` with
-         * an underlying `Greater` expression.
+         * Creates a `CompositeExpression` with an underlying `Greater` expression.
          *
          * @param version a `Version` string to compare with
          *
@@ -136,8 +125,7 @@ class CompositeExpression
         }
 
         /**
-         * Creates a `CompositeExpression` with an
-         * underlying `GreaterOrEqual` expression.
+         * Creates a `CompositeExpression` with an underlying `GreaterOrEqual` expression.
          *
          * @param version a `Version` to compare with
          *
@@ -148,8 +136,7 @@ class CompositeExpression
         }
 
         /**
-         * Creates a `CompositeExpression` with an
-         * underlying `GreaterOrEqual` expression.
+         * Creates a `CompositeExpression` with an underlying `GreaterOrEqual` expression.
          *
          * @param version a `Version` string to compare with
          *
@@ -164,8 +151,7 @@ class CompositeExpression
         }
 
         /**
-         * Creates a `CompositeExpression` with
-         * an underlying `Less` expression.
+         * Creates a `CompositeExpression` with an underlying `Less` expression.
          *
          * @param version a `Version` to compare with
          *
@@ -176,8 +162,7 @@ class CompositeExpression
         }
 
         /**
-         * Creates a `CompositeExpression` with
-         * an underlying `Less` expression.
+         * Creates a `CompositeExpression` with an underlying `Less` expression.
          *
          * @param version a `Version` string to compare with
          *
@@ -192,8 +177,7 @@ class CompositeExpression
         }
 
         /**
-         * Creates a `CompositeExpression` with an
-         * underlying `LessOrEqual` expression.
+         * Creates a `CompositeExpression` with an underlying `LessOrEqual` expression.
          *
          * @param version a `Version` to compare with
          *
@@ -204,8 +188,7 @@ class CompositeExpression
         }
 
         /**
-         * Creates a `CompositeExpression` with an
-         * underlying `LessOrEqual` expression.
+         * Creates a `CompositeExpression` with an underlying `LessOrEqual` expression.
          *
          * @param version a `Version` string to compare with
          *
@@ -221,8 +204,7 @@ class CompositeExpression
     }
 
     /**
-     * Adds another `Expression` to `CompositeExpression`
-     * using `And` logical expression.
+     * Adds another `Expression` to `CompositeExpression` using `And` logical expression.
      *
      * @param expr an expression to add
      *
@@ -256,8 +238,7 @@ class CompositeExpression
     }
 
     /**
-     * Adds another `Expression` to `CompositeExpression`
-     * using `Or` logical expression.
+     * Adds another `Expression` to `CompositeExpression` using `Or` logical expression.
      *
      * @param expr an expression to add
      *

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,8 +39,7 @@ class UnexpectedElementException internal constructor(
 ) : RuntimeException() {
 
     /**
-     * Returns the string representation of this exception
-     * containing the information about the unexpected
+     * Returns the string representation of this exception containing the information about the unexpected
      * element and, if available, about the expected types.
      *
      * @return the string representation of this exception

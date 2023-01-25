@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,8 +43,7 @@ class UnexpectedCharacterException : ParseException {
     val expectedCharTypes: Array<CharType>
 
     /**
-     * Constructs a `UnexpectedCharacterException` instance with
-     * the wrapped `UnexpectedElementException` exception.
+     * Constructs a `UnexpectedCharacterException` instance with the wrapped `UnexpectedElementException` exception.
      *
      * @param cause the wrapped exception
      */
@@ -56,8 +55,7 @@ class UnexpectedCharacterException : ParseException {
     }
 
     /**
-     * Constructs a `UnexpectedCharacterException` instance
-     * with the unexpected character, its position and the expected types.
+     * Constructs a `UnexpectedCharacterException` instance with the unexpected character, its position and the expected types.
      *
      * @param unexpected the unexpected character, can be null
      * @param position the position of the unexpected character
@@ -71,8 +69,7 @@ class UnexpectedCharacterException : ParseException {
     }
 
     /**
-     * Returns the string representation of this exception
-     * containing the information about the unexpected
+     * Returns the string representation of this exception containing the information about the unexpected
      * element and, if available, about the expected types.
      *
      * @return the string representation of this exception

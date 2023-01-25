@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,14 @@
 package dorkbox.version.expr
 
 import dorkbox.version.util.Stream
-import java.util.regex.Pattern
+import java.util.regex.*
 
 /**
  * A lexer for the SemVer Expressions.
  *
  * @author Zafar Khaja <zafarkhaja></zafarkhaja>@gmail.com>
  */
-class Lexer
-/**
- * Constructs a `Lexer` instance.
- */
-{
+class Lexer {
     /**
      * This class holds the information about lexemes in the input stream.
      */
@@ -35,22 +31,18 @@ class Lexer
         /**
          * The type of this token.
          */
-        val type: Type, lexeme: String? = "", position: Int
-    ) {
+        val type: Type,
+
         /**
          * The lexeme of this token.
          */
-        val lexeme: String
+        val lexeme: String = "",
 
         /**
          * The position of this token.
          */
         val position: Int
-
-        init {
-            this.lexeme = lexeme ?: ""
-            this.position = position
-        }
+    ) {
 
         /**
          * {@inheritDoc}
@@ -181,7 +173,7 @@ class Lexer
             }
         }
 
-        tokens.add(Token(Token.Type.EOI, null, tokenPos))
+        tokens.add(Token(Token.Type.EOI, "", tokenPos))
         return Stream(tokens.toTypedArray())
     }
 }

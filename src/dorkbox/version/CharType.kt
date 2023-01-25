@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 dorkbox, llc
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package dorkbox.version
 
 import dorkbox.version.util.Stream
@@ -13,8 +29,7 @@ enum class CharType : Stream.ElementType<Char> {
          *
          * @param char the element to be tested
          *
-         * @return `true` if the element matches this type
-         * or `false` otherwise
+         * @return `true` if the element matches this type or `false` otherwise
          */
         override fun isMatchedBy(char: Char?): Boolean {
             return if (char == null) {
@@ -30,8 +45,7 @@ enum class CharType : Stream.ElementType<Char> {
          *
          * @param char the element to be tested
          *
-         * @return `true` if the element matches this type
-         * or `false` otherwise
+         * @return `true` if the element matches this type or `false` otherwise
          */
         override fun isMatchedBy(char: Char?): Boolean {
             return if (char == null) {
@@ -47,8 +61,7 @@ enum class CharType : Stream.ElementType<Char> {
          *
          * @param char the element to be tested
          *
-         * @return `true` if the element matches this type
-         * or `false` otherwise
+         * @return `true` if the element matches this type or `false` otherwise
          */
         override fun isMatchedBy(char: Char?): Boolean {
             return if (char == null) {
@@ -64,8 +77,7 @@ enum class CharType : Stream.ElementType<Char> {
          *
          * @param char the element to be tested
          *
-         * @return `true` if the element matches this type
-         * or `false` otherwise
+         * @return `true` if the element matches this type or `false` otherwise
          */
         override fun isMatchedBy(char: Char?): Boolean {
             return if (char == null) {
@@ -81,8 +93,7 @@ enum class CharType : Stream.ElementType<Char> {
          *
          * @param char the element to be tested
          *
-         * @return `true` if the element matches this type
-         * or `false` otherwise
+         * @return `true` if the element matches this type or `false` otherwise
          */
         override fun isMatchedBy(char: Char?): Boolean {
             return if (char == null) {
@@ -98,8 +109,7 @@ enum class CharType : Stream.ElementType<Char> {
          *
          * @param char the element to be tested
          *
-         * @return `true` if the element matches this type
-         * or `false` otherwise
+         * @return `true` if the element matches this type or `false` otherwise
          */
         override fun isMatchedBy(char: Char?): Boolean {
             return if (char == null) {
@@ -115,8 +125,7 @@ enum class CharType : Stream.ElementType<Char> {
          *
          * @param char the element to be tested
          *
-         * @return `true` if the element matches this type
-         * or `false` otherwise
+         * @return `true` if the element matches this type or `false` otherwise
          */
         override fun isMatchedBy(char: Char?): Boolean {
             return if (char == null) {
@@ -132,8 +141,7 @@ enum class CharType : Stream.ElementType<Char> {
          *
          * @param char the element to be tested
          *
-         * @return `true` if the element matches this type
-         * or `false` otherwise
+         * @return `true` if the element matches this type or `false` otherwise
          */
         override fun isMatchedBy(char: Char?): Boolean {
             return char == null
@@ -145,8 +153,7 @@ enum class CharType : Stream.ElementType<Char> {
          *
          * @param char the element to be tested
          *
-         * @return `true` if the element matches this type
-         * or `false` otherwise
+         * @return `true` if the element matches this type or `false` otherwise
          */
         override fun isMatchedBy(char: Char?): Boolean {
             val itself = EnumSet.of(ILLEGAL)

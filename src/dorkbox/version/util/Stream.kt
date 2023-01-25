@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,8 +43,7 @@ class Stream<E>(elements: Array<E>) : Iterable<E> {
     /**
      * Consumes the next element in this stream.
      *
-     * @return the next element in this stream
-     * or `null` if no more elements left
+     * @return the next element in this stream or `null` if no more elements left
      */
     fun consume(): E? {
         return if (offset >= elements.size) {
@@ -55,8 +54,7 @@ class Stream<E>(elements: Array<E>) : Iterable<E> {
     }
 
     /**
-     * Consumes the next element in this stream
-     * only if it is of the expected types.
+     * Consumes the next element in this stream only if it is of the expected types.
      *
      * @param <T> represents the element type of this stream
      *
@@ -82,9 +80,7 @@ class Stream<E>(elements: Array<E>) : Iterable<E> {
     /**
      * Checks to see if the next element is contained in this stream.
      *
-     * @param <T> represents the element type of this stream, removes the
-     * "unchecked generic array creation for varargs parameter"
-     * warnings
+     * @param <T> represents the element type of this stream, removes the "unchecked generic array creation for varargs parameter" warnings
      *
      * @param expected the types which are expected
      *
@@ -115,8 +111,7 @@ class Stream<E>(elements: Array<E>) : Iterable<E> {
      *
      * @param position the position of the element to return
      *
-     * @return the element at the specified position
-     * or `null` if no more elements left
+     * @return the element at the specified position or `null` if no more elements left
      */
     fun lookahead(position: Int = 1): E? {
         val idx = offset + position - 1
@@ -134,8 +129,7 @@ class Stream<E>(elements: Array<E>) : Iterable<E> {
      *
      * @param expected the expected types
      *
-     * @return `true` if the next element is of the expected types
-     * or `false` otherwise
+     * @return `true` if the next element is of the expected types or `false` otherwise
      */
     @SafeVarargs
     fun <T : ElementType<E>> positiveLookahead(vararg expected: T): Boolean {
@@ -148,16 +142,14 @@ class Stream<E>(elements: Array<E>) : Iterable<E> {
     }
 
     /**
-     * Checks if there exists an element in this stream of
-     * the expected types before the specified type.
+     * Checks if there exists an element in this stream of the expected types before the specified type.
      *
      * @param <T> represents the element type of this stream
      *
      * @param before the type before which to search
      * @param expected the expected types
      *
-     * @return `true` if there is an element of the expected types
-     * before the specified type or `false` otherwise
+     * @return `true` if there is an element of the expected types before the specified type or `false` otherwise
      */
     @SafeVarargs
     fun <T : ElementType<E>?> positiveLookaheadBefore(before: ElementType<E>, vararg expected: T): Boolean {
@@ -178,8 +170,7 @@ class Stream<E>(elements: Array<E>) : Iterable<E> {
     }
 
     /**
-     * Checks if there is an element in this stream of
-     * the expected types until the specified position.
+     * Checks if there is an element in this stream of the expected types until the specified position.
      *
      * @param <T> represents the element type of this stream
      *
@@ -210,8 +201,7 @@ class Stream<E>(elements: Array<E>) : Iterable<E> {
     }
 
     /**
-     * Returns an array containing all the
-     * chars that are left in this stream.
+     * Returns an array containing all the chars that are left in this stream.
      *
      *
      * The returned array is a safe copy.
@@ -223,8 +213,7 @@ class Stream<E>(elements: Array<E>) : Iterable<E> {
     }
 
     /**
-     * The `ElementType` interface represents types of the elements
-     * held by this stream and can be used for stream filtering.
+     * The `ElementType` interface represents types of the elements held by this stream and can be used for stream filtering.
      *
      * @param <E> type of elements held by this stream
      */
@@ -248,19 +237,15 @@ class Stream<E>(elements: Array<E>) : Iterable<E> {
     override fun iterator(): MutableIterator<E> {
         return object : MutableIterator<E> {
             /**
-             * The index to indicate the current position
-             * of this iterator.
+             * The index to indicate the current position of this iterator.
              *
-             * The starting point is set to the current
-             * value of this stream's offset, so that it
-             * doesn't iterate over consumed elements.
+             * The starting point is set to the current value of this stream's offset, so that it doesn't iterate over consumed elements.
              */
             private var index = offset
 
             /**
              * Returns `true` if the iteration has more elements.
-             * (In other words, returns `true` if [.next] would
-             * return an element rather than throwing an exception.)
+             * (In other words, returns `true` if [.next] would return an element rather than throwing an exception.)
              *
              * @return `true` if the iteration has more elements
              */
@@ -283,23 +268,16 @@ class Stream<E>(elements: Array<E>) : Iterable<E> {
             }
 
             /**
-             * Removes from the underlying collection the last element returned
-             * by this iterator (optional operation).  This method can be called
-             * only once per call to [.next].  The behavior of an iterator
-             * is unspecified if the underlying collection is modified while the
-             * iteration is in progress in any way other than by calling this
-             * method.
+             * Removes from the underlying collection the last element returned by this iterator (optional operation).  This method can be called
+             * only once per call to [.next].  The behavior of an iterator is unspecified if the underlying collection is modified while the
+             * iteration is in progress in any way other than by calling this method.
              *
-             * @throws UnsupportedOperationException if the `remove`
-             * operation is not supported by this iterator
+             * @throws UnsupportedOperationException if the `remove` operation is not supported by this iterator
              *
-             * @throws IllegalStateException if the `next` method has not
-             * yet been called, or the `remove` method has already
-             * been called after the last call to the `next`
-             * method
+             * @throws IllegalStateException if the `next` method has not yet been called, or the `remove` method has already
+             * been called after the last call to the `next` method
              *
-             * @implSpec The default implementation throws an instance of
-             * [UnsupportedOperationException] and performs no other action.
+             * @implSpec The default implementation throws an instance of [UnsupportedOperationException] and performs no other action.
              */
             override fun remove() {
                 throw UnsupportedOperationException()

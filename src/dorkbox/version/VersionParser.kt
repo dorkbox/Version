@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,21 +22,25 @@ import dorkbox.version.util.UnexpectedElementException
  * A parser for the SemVer Version.
  *
  * @author Zafar Khaja <zafarkhaja@gmail.com>
+ * @author dorkbox, llc <info></info>@dorkbox.com>
  */
-internal class VersionParser(input: String) : Parser<Version> {
+internal class VersionParser
     /**
-     * The stream of characters.
-     */
-    private val chars: Stream<Char>
-
-    /**
-     * Constructs a `VersionParser` instance
-     * with the input string to parse.
+     * Constructs a `VersionParser` instance with the input string to parse.
      *
      * @param input the input string to parse
      *
      * @throws IllegalArgumentException if the input string is `NULL` or empty
      */
+    (input: String) : Parser<Version> {
+
+
+    /**
+     * The stream of characters.
+     */
+    private val chars: Stream<Char>
+
+
     init {
         require(input.isNotEmpty()) { "Input string is empty" }
 
@@ -45,15 +49,15 @@ internal class VersionParser(input: String) : Parser<Version> {
     }
 
     /**
-     * Parses the &lt;alphanumeric identifier&gt; non-terminal.
+     * ```
+     * Parses the <alphanumeric identifier> non-terminal.
      *
-     * <pre>
-     * &lt;alphanumeric identifier&gt; ::= &lt;non-digit&gt;
-     * | &lt;non-digit&gt; &lt;identifier characters&gt;
-     * | &lt;identifier characters&gt; &lt;non-digit&gt;
-     * | &lt;identifier characters&gt; &lt;non-digit&gt; &lt;identifier characters&gt;
-     *
-    </pre> *
+     * <alphanumeric identifier> ::=
+     * | <non-digit>
+     * | <non-digit> <identifier characters>
+     * | <identifier characters> <non-digit>
+     * | <identifier characters> <non-digit> <identifier characters>
+     *```
      *
      * @return a string representing the alphanumeric identifier
      */
@@ -66,13 +70,13 @@ internal class VersionParser(input: String) : Parser<Version> {
     }
 
     /**
-     * Parses the &lt;build identifier&gt; non-terminal.
+     * ```
+     * Parses the <build identifier> non-terminal.
      *
-     * <pre>
-     * &lt;build identifier&gt; ::= &lt;alphanumeric identifier&gt;
-     * | &lt;digits&gt;
-     *
-    </pre> *
+     * <build identifier> ::=
+     * | <alphanumeric identifier>
+     * | <digits>
+     * ```
      *
      * @return a single build identifier
      */
@@ -94,8 +98,7 @@ internal class VersionParser(input: String) : Parser<Version> {
     /**
      * Checks for empty identifiers in the pre-release version or build metadata.
      *
-     * @throws ParseException if the pre-release version or build
-     * metadata have empty identifier(s)
+     * @throws ParseException if the pre-release version or build metadata have empty identifier(s)
      */
     private fun checkForEmptyIdentifier() {
         val la = chars.lookahead(1)
@@ -149,13 +152,13 @@ internal class VersionParser(input: String) : Parser<Version> {
     }
 
     /**
-     * Parses the &lt;digits&gt; non-terminal.
+     * ```
+     * Parses the <digits> non-terminal.
      *
-     * <pre>
-     * &lt;digits&gt; ::= &lt;digit&gt;
-     * | &lt;digit&gt; &lt;digits&gt;
-     *
-    </pre> *
+     * <digits> ::=
+     * | <digit>
+     * | <digit> <digits>
+     * ```
      *
      * @return a string representing the digits
      */
@@ -199,14 +202,14 @@ internal class VersionParser(input: String) : Parser<Version> {
     }
 
     /**
-     * Parses the &lt;numeric identifier&gt; non-terminal.
+     * ```
+     * Parses the <numeric identifier> non-terminal.
      *
-     * <pre>
-     * &lt;numeric identifier&gt; ::= &quot;0&quot;
-     * | &lt;positive digit&gt;
-     * | &lt;positive digit&gt; &lt;digits&gt;
-     *
-    </pre> *
+     * <numeric identifier> ::=
+     * | 0
+     * | <positive digit>
+     * | <positive digit> <digits>
+     * ```
      *
      * @return a string representing the numeric identifier
      */
@@ -218,8 +221,7 @@ internal class VersionParser(input: String) : Parser<Version> {
     /**
      * Parses the input string.
      *
-     * @param input the input string to parse. Although `input` is not used
-     * in the method, it's present to override `Parser.parse(String)`
+     * @param input the input string to parse. Although `input` is not used in the method, it's present to override `Parser.parse(String)`
      *
      * @return a valid version object
      *
@@ -231,15 +233,15 @@ internal class VersionParser(input: String) : Parser<Version> {
     }
 
     /**
-     * Parses the &lt;build&gt; non-terminal.
+     * ```
+     * Parses the <build> non-terminal.
      *
-     * <pre>
-     * &lt;build&gt; ::= &lt;dot-separated build identifiers&gt;
+     * <build> ::= <dot-separated build identifiers>
      *
-     * &lt;dot-separated build identifiers&gt; ::= &lt;build identifier&gt;
-     * | &lt;build identifier&gt; &quot;.&quot; &lt;dot-separated build identifiers&gt;
-     *
-    </pre> *
+     * <dot-separated build identifiers> ::=
+     * | <build identifier>
+     * | <build identifier>.<dot-separated build identifiers>
+     * ```
      *
      * @return a valid build metadata object
      */
@@ -258,15 +260,15 @@ internal class VersionParser(input: String) : Parser<Version> {
     }
 
     /**
-     * Parses the &lt;pre-release&gt; non-terminal.
+     * ```
+     * Parses the <pre-release> non-terminal.
      *
-     * <pre>
-     * &lt;pre-release&gt; ::= &lt;dot-separated pre-release identifiers&gt;
+     * <pre-release> ::= <dot-separated pre-release identifiers>
      *
-     * &lt;dot-separated pre-release identifiers&gt; ::= &lt;pre-release identifier&gt;
-     * | &lt;pre-release identifier&gt; &quot;.&quot; &lt;dot-separated pre-release identifiers&gt;
-     *
-    </pre> *
+     * <dot-separated pre-release identifiers> ::=
+     * | <pre-release identifier>
+     * | <pre-release identifier>.<dot-separated pre-release identifiers>
+     * ```
      *
      * @return a valid pre-release version object
      */
@@ -285,15 +287,15 @@ internal class VersionParser(input: String) : Parser<Version> {
     }
 
     /**
-     * Parses the &lt;valid semver&gt; non-terminal.
+     * ```
+     * Parses the <valid semver> non-terminal.
      *
-     * <pre>
-     * &lt;valid semver&gt; ::= &lt;version core&gt;
-     * | &lt;version core&gt; &quot;-&quot; &lt;pre-release&gt;
-     * | &lt;version core&gt; &quot;+&quot; &lt;build&gt;
-     * | &lt;version core&gt; &quot;-&quot; &lt;pre-release&gt; &quot;+&quot; &lt;build&gt;
-     *
-    </pre> *
+     * <valid semver> ::=
+     * | <version core>
+     * | <version core>-<pre-release>
+     * | <version core>+<build>
+     * | <version core>-<pre-release>+<build>
+     * ```
      *
      * @return a valid version object
      */
@@ -355,15 +357,14 @@ internal class VersionParser(input: String) : Parser<Version> {
     }
 
     /**
-     * Parses the &lt;version core&gt; non-terminal.
+     * ```
+     * Parses the <version core> non-terminal.
      *
-     * <pre>
-     * &lt;version core&gt; ::= &lt;major&gt;
-     * &lt;version core&gt; ::= &lt;major&gt; &quot;.&quot; &lt;minor&gt;
-     * &lt;version core&gt; ::= &lt;major&gt; &quot;.&quot; &lt;minor&gt; &quot;.&quot; &lt;patch&gt;
-     * &lt;version core&gt; ::= &lt;major&gt; &quot;.&quot; &lt;minor&gt; &quot;.&quot; &lt;build&gt;
-     *
-    </pre> *
+     * <version core> ::= <major>
+     * <version core> ::= <major>.<minor>
+     * <version core> ::= <major>.<minor>.<patch>
+     * <version core> ::= <major>.<minor>.<build>
+     * ```
      *
      * @return a valid normal version object
      */
@@ -388,13 +389,13 @@ internal class VersionParser(input: String) : Parser<Version> {
     }
 
     /**
-     * Parses the &lt;pre-release identifier&gt; non-terminal.
+     * ```
+     * Parses the <pre-release identifier> non-terminal.
      *
-     * <pre>
-     * &lt;pre-release identifier&gt; ::= &lt;alphanumeric identifier&gt;
-     * | &lt;numeric identifier&gt;
-     *
-    </pre> *
+     * <pre-release identifier> ::=
+     * | <alphanumeric identifier>
+     * | <numeric identifier>
+     * ```
      *
      * @return a single pre-release identifier
      */

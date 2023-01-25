@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,11 +31,9 @@ class Equal(
     /**
      * Checks if the current version equals the parsed version.
      *
-     * @param version the version to compare to, the left-hand
-     * operand of the "equal" operator
+     * @param version the version to compare to, the left-hand operand of the "equal" operator
      *
-     * @return `true` if the version equals the
-     * parsed version or `false` otherwise
+     * @return `true` if the version equals the parsed version or `false` otherwise
      */
     override fun interpret(version: Version?): Boolean {
         return version == parsedVersion

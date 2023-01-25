@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,6 @@ import java.io.Serializable
  * @author Zafar Khaja <zafarkhaja></zafarkhaja>@gmail.com>
  */
 internal class NormalVersion
-
     /**
      * Constructs a `NormalVersion` with the
      * major, minor and patch version numbers.
@@ -45,8 +44,7 @@ internal class NormalVersion
     : Comparable<NormalVersion>, Serializable {
 
     /**
-     * Constructs a `NormalVersion` with the
-     * major version number.
+     * Constructs a `NormalVersion` with the major version number.
      *
      * @param major the major version number
      *
@@ -55,8 +53,7 @@ internal class NormalVersion
     constructor(major: Long) : this(major, 0, 0, false, false)
 
     /**
-     * Constructs a `NormalVersion` with the
-     * major and minor version numbers.
+     * Constructs a `NormalVersion` with the major and minor version numbers.
      *
      * @param major the major version number
      * @param minor the minor version number
@@ -66,8 +63,7 @@ internal class NormalVersion
     constructor(major: Long, minor: Long) : this(major, minor, 0, true, false)
 
     /**
-     * Constructs a `NormalVersion` with the
-     * major, minor and patch version numbers.
+     * Constructs a `NormalVersion` with the major, minor and patch version numbers.
      *
      * @param major the major version number
      * @param minor the minor version number
@@ -76,6 +72,10 @@ internal class NormalVersion
      * @throws IllegalArgumentException if one of the version numbers is a negative integer
      */
     constructor(major: Long, minor: Long, patch: Long) : this(major, minor, patch, true, true)
+
+    companion object {
+        private const val serialVersionUID = -5646200921684070847L
+    }
 
     init {
         require(major >= 0 && minor >= 0 && patch >= 0) {
@@ -88,32 +88,32 @@ internal class NormalVersion
      * Compares this object with the specified object for order.  Returns a
      * negative integer, zero, or a positive integer as this object is less
      * than, equal to, or greater than the specified object.
-     *
-     *
+     * ```
+     * ```
      * The implementor must ensure <tt>sgn(x.compareTo(y)) ==
      * -sgn(y.compareTo(x))</tt> for all <tt>x</tt> and <tt>y</tt>.  (This
      * implies that <tt>x.compareTo(y)</tt> must throw an exception iff
      * <tt>y.compareTo(x)</tt> throws an exception.)
-     *
-     *
+     * ```
+     * ```
      * The implementor must also ensure that the relation is transitive:
-     * <tt>(x.compareTo(y)&gt;0 &amp;&amp; y.compareTo(z)&gt;0)</tt> implies
-     * <tt>x.compareTo(z)&gt;0</tt>.
-     *
-     *
+     * <tt>(x.compareTo(y)>0 &amp;&amp; y.compareTo(z)>0)</tt> implies
+     * <tt>x.compareTo(z)>0</tt>.
+     * ```
+     * ```
      * Finally, the implementor must ensure that <tt>x.compareTo(y)==0</tt>
      * implies that <tt>sgn(x.compareTo(z)) == sgn(y.compareTo(z))</tt>, for
      * all <tt>z</tt>.
-     *
-     *
+     * ```
+     * ```
      * It is strongly recommended, but *not* strictly required that
      * <tt>(x.compareTo(y)==0) == (x.equals(y))</tt>.  Generally speaking, any
      * class that implements the <tt>Comparable</tt> interface and violates
      * this condition should clearly indicate this fact.  The recommended
      * language is "Note: this class has a natural ordering that is
      * inconsistent with equals."
-     *
-     *
+     * ```
+     * ```
      * In the foregoing description, the notation
      * <tt>sgn(</tt>*expression*<tt>)</tt> designates the mathematical
      * *signum* function, which is defined to return one of <tt>-1</tt>,
@@ -214,10 +214,4 @@ internal class NormalVersion
             String.format("%d.%d.%d", major, minor, patch)
         }
     }
-
-    companion object {
-        private const val serialVersionUID = -5646200921684070847L
-    }
-
-
 }
