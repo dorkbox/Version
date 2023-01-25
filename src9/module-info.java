@@ -1,5 +1,3 @@
-module com.dorkbox.Version {
+module com.dorkbox.version {
     exports dorkbox.version;
-
-    requires java.base;
 }
