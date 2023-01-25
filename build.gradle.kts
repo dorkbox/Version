@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ object Extras {
     const val description = "Java Semantic Versioning with exceptions."
 
     const val group = "com.dorkbox"
-    const val version = "3.1"
+    const val version = "3.0"
 
     // set as project.ext
     const val name = "Version"

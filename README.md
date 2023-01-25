@@ -60,27 +60,6 @@ The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL 
 * [License](#license)
 
 
-Installation
-------------
-To install the Java SemanticVersioning library add the following dependency to your project.
-
-**Maven**
-~~~ xml
-<dependency>
-  <groupId>com.dorkbox</groupId>
-  <artifactId>Version</artifactId>
-  <version>2.3</version>
-</dependency>
-~~~
-
-**Gradle**
-~~~ xml
-dependencies {
-    ...
-    compile "com.dorkbox:Version:2.3"
-}
-~~~
-
 
 Usage
 -----
@@ -98,7 +77,7 @@ One of the methods is the `Version.from` method.
 ~~~ java
 import com.dorkbox.version.Version;
 
-Version v = Version.from("1.0.0-rc.1+build.1");
+Version v = Version("1.0.0-rc.1+build.1");
 
 int major = v.getMajorVersion(); // 1
 int minor = v.getMinorVersion(); // 0
@@ -116,9 +95,9 @@ The other static factory method is `Version.from` which is also overloaded to al
 ~~~ java
 import com.dorkbox.version.Version;
 
-Version v1 = Version.from(1);
-Version v2 = Version.from(1, 2);
-Version v3 = Version.from(1, 2, 3);
+Version v1 = Version(1);
+Version v2 = Version(1, 2);
+Version v3 = Version(1, 2, 3);
 ~~~
 
 Another way to create a `Version` is to use a _builder_ class `Version.Builder`.
@@ -152,7 +131,7 @@ as an argument.
 ~~~ java
 import com.dorkbox.version.Version;
 
-Version v1 = Version.from("1.2.3");
+Version v1 = Version("1.2.3");
 
 // Incrementing the major version (note optional patch information)
 Version v2 = v1.incrementMajorVersion();        // "2.0"
@@ -177,12 +156,12 @@ metadata.
 import com.dorkbox.version.Version;
 
 // Incrementing the pre-release version
-Version v1 = Version.from("1.2.3-rc");        // considered as "rc.0"
+Version v1 = Version("1.2.3-rc");                // considered as "rc.0"
 Version v2 = v1.incrementPreReleaseVersion();    // "1.2.3-rc.1"
 Version v3 = v2.incrementPreReleaseVersion();    // "1.2.3-rc.2"
 
 // Incrementing the build metadata
-Version v1 = Version.from("1.2.3-rc+build");  // considered as "build.0"
+Version v1 = Version("1.2.3-rc+build");          // considered as "build.0"
 Version v2 = v1.incrementBuildMetadata();        // "1.2.3-rc+build.1"
 Version v3 = v2.incrementBuildMetadata();        // "1.2.3-rc+build.2"
 ~~~
@@ -193,7 +172,7 @@ always dropped.
 ~~~ java
 import com.dorkbox.version.Version;
 
-Version v1 = Version.from("1.2.3-beta+build");
+Version v1 = Version("1.2.3-beta+build");
 
 // Incrementing the normal version (note optional patch information)
 Version v2 = v1.incrementMajorVersion();        // "2.0"
@@ -220,8 +199,8 @@ some more methods for convenient comparing.
 ~~~ java
 import com.dorkbox.version.Version;
 
-Version v1 = Version.from("1.0.0-rc.1+build.1");
-Version v2 = Version.from("1.3.7+build.2.b8f12d7");
+Version v1 = Version("1.0.0-rc.1+build.1");
+Version v2 = Version("1.3.7+build.2.b8f12d7");
 
 int result = v1.compareTo(v2);  // < 0
 boolean result = v1.equals(v2); // false
@@ -237,8 +216,8 @@ When determining version precedence the build metadata is ignored (SemVer p.10).
 ~~~ java
 import com.dorkbox.version.Version;
 
-Version v1 = Version.from("1.0.0+build.1");
-Version v2 = Version.from("1.0.0+build.2");
+Version v1 = Version("1.0.0+build.1");
+Version v2 = Version("1.0.0+build.2");
 
 int result = v1.compareTo(v2);  // = 0
 boolean result = v1.equals(v2); // true
@@ -251,8 +230,8 @@ and a convenience method `Version.compareWithBuildsTo`.
 ~~~ java
 import com.dorkbox.version.Version;
 
-Version v1 = Version.from("1.0.0+build.1");
-Version v2 = Version.from("1.0.0+build.2");
+Version v1 = Version("1.0.0+build.1");
+Version v2 = Version("1.0.0+build.2");
 
 int result = Version.BUILD_AWARE_ORDER.compare(v1, v2);  // < 0
 
@@ -277,7 +256,7 @@ helper methods.
 import com.dorkbox.version.Version;
 import static com.dorkbox.version.expr.CompositeExpression.Helper.*;
 
-Version v = Version.from("1.0.0-beta");
+Version v = Version("1.0.0-beta");
 boolean result = v.satisfies(gte("1.0.0").and(lt("2.0.0")));  // false
 ~~~
 
@@ -288,7 +267,7 @@ The BNF grammar for the external DSL can be found in the corresponding
 ~~~ java
 import com.dorkbox.version.Version;
 
-Version v = Version.from("1.0.0-beta");
+Version v = Version("1.0.0-beta");
 boolean result = v.satisfies(">=1.0.0 & <2.0.0");  // false
 ~~~
 
@@ -332,7 +311,7 @@ Maven Info
     <dependency>
       <groupId>com.dorkbox</groupId>
       <artifactId>Version</artifactId>
-      <version>3.1</version>
+      <version>3.0</version>
     </dependency>
 </dependencies>
 ```
@@ -342,7 +321,7 @@ Gradle Info
 ```
 dependencies {
     ...
-    implementation("com.dorkbox:Version:3.1")
+    implementation("com.dorkbox:Version:3.0")
 }
 ```
 

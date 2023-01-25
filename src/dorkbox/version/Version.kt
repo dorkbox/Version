@@ -80,7 +80,7 @@ internal constructor(
         /**
          * Constructs a `Builder` instance.
          */
-        constructor() {}
+        constructor()
 
         /**
          * Constructs a `Builder` instance with the string representation of the normal version.
@@ -121,7 +121,7 @@ internal constructor(
          * @return `true` if the string is filled or `false` otherwise
          */
         private fun isFilled(str: String?): Boolean {
-            return str != null && !str.isEmpty()
+            return !str.isNullOrEmpty()
         }
 
         /**
@@ -217,7 +217,7 @@ internal constructor(
         /**
          * Gets the version number.
          */
-        const val version = "3.1"
+        const val version = "3.0"
 
         init {
             // Add this project to the updates system, which verifies this class + UUID + version information
