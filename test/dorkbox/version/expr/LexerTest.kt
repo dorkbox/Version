@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ class LexerTest {
             Lexer.Token(
                 Lexer.Token.Type.NUMERIC, "3", 4
             ),
-            Lexer.Token(Lexer.Token.Type.EOI, null, 5)
+            Lexer.Token(Lexer.Token.Type.EOI, "", 5)
         )
         val lexer = Lexer()
         val stream = lexer.tokenize("1.2.3")
@@ -56,7 +56,7 @@ class LexerTest {
     fun shouldSkipWhitespaces() {
         val expected = arrayOf(
             Lexer.Token(Lexer.Token.Type.GREATER, ">", 0), Lexer.Token(Lexer.Token.Type.NUMERIC, "1", 2), Lexer.Token(
-                Lexer.Token.Type.EOI, null, 3
+                Lexer.Token.Type.EOI, "", 3
             )
         )
         val lexer = Lexer()
@@ -77,7 +77,7 @@ class LexerTest {
                 Lexer.Token.Type.DOT, ".", 4
             ),
             Lexer.Token(Lexer.Token.Type.NUMERIC, "0", 5),
-            Lexer.Token(Lexer.Token.Type.EOI, null, 6)
+            Lexer.Token(Lexer.Token.Type.EOI, "", 6)
         )
         val lexer = Lexer()
         val stream = lexer.tokenize(">1.0.0")

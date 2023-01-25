@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2023 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ class MetadataVersionTest {
         fun mustCompareEachIdentifierSeparately() {
             val v1 = MetadataVersion(arrayOf("beta", "2", "abc"))
             val v2 = MetadataVersion(arrayOf("beta", "1", "edf"))
-            Assert.assertTrue(0 < v1.compareTo(v2))
+            Assert.assertTrue(v1 > v2)
         }
 
         @Test
@@ -51,21 +51,21 @@ class MetadataVersionTest {
         fun shouldComapareDigitsOnlyIdentifiersNumerically() {
             val v1 = MetadataVersion(arrayOf("alpha", "123"))
             val v2 = MetadataVersion(arrayOf("alpha", "321"))
-            Assert.assertTrue(0 > v1.compareTo(v2))
+            Assert.assertTrue(v1 < v2)
         }
 
         @Test
         fun shouldCompareIdentifiersCountIfCommonIdentifiersAreEqual() {
             val v1 = MetadataVersion(arrayOf("beta", "abc"))
             val v2 = MetadataVersion(arrayOf("beta", "abc", "def"))
-            Assert.assertTrue(0 > v1.compareTo(v2))
+            Assert.assertTrue(v1 < v2)
         }
 
         @Test
         fun shouldCompareMixedIdentifiersLexicallyInAsciiSortOrder() {
             val v1 = MetadataVersion(arrayOf("beta", "abc"))
             val v2 = MetadataVersion(arrayOf("beta", "111"))
-            Assert.assertTrue(0 < v1.compareTo(v2))
+            Assert.assertTrue(v1 > v2)
         }
 
         @Test
@@ -73,8 +73,8 @@ class MetadataVersionTest {
             val v1 = MetadataVersion(arrayOf("alpha", "123"))
             val v2 = MetadataVersion(arrayOf("alpha", "123"))
             val v3 = MetadataVersion(arrayOf("alpha", "321"))
-            Assert.assertTrue(v1.equals(v2))
-            Assert.assertFalse(v1.equals(v3))
+            Assert.assertTrue(v1 == v2)
+            Assert.assertFalse(v1 == v3)
         }
 
         @Test
@@ -88,7 +88,7 @@ class MetadataVersionTest {
         fun shouldReturnNegativeWhenComparedToNullMetadataVersion() {
             val v1 = MetadataVersion(arrayOf())
             val v2 = MetadataVersion.NULL
-            Assert.assertTrue(0 > v1.compareTo(v2))
+            Assert.assertTrue(v1 < v2)
         }
     }
 
@@ -98,9 +98,9 @@ class MetadataVersionTest {
             val v1 = MetadataVersion.NULL
             val v2 = MetadataVersion.NULL
             val v3 = MetadataVersion(arrayOf())
-            Assert.assertTrue(v1.equals(v2))
-            Assert.assertTrue(v2.equals(v1))
-            Assert.assertFalse(v1.equals(v3))
+            Assert.assertTrue(v1 == v2)
+            Assert.assertTrue(v2 == v1)
+            Assert.assertFalse(v1 == v3)
         }
 
         @Test
@@ -113,7 +113,7 @@ class MetadataVersionTest {
         fun shouldReturnPositiveWhenComparedToNonNullMetadataVersion() {
             val v1 = MetadataVersion.NULL
             val v2 = MetadataVersion(arrayOf())
-            Assert.assertTrue(0 < v1.compareTo(v2))
+            Assert.assertTrue(v1 > v2)
         }
 
         @Test
@@ -145,23 +145,23 @@ class MetadataVersionTest {
         fun shouldBeConsistent() {
             val v1 = MetadataVersion(arrayOf("alpha", "123"))
             val v2 = MetadataVersion(arrayOf("alpha", "123"))
-            Assert.assertTrue(v1.equals(v2))
-            Assert.assertTrue(v1.equals(v2))
-            Assert.assertTrue(v1.equals(v2))
+            Assert.assertTrue(v1 == v2)
+            Assert.assertTrue(v1 == v2)
+            Assert.assertTrue(v1 == v2)
         }
 
         @Test
         fun shouldBeReflexive() {
             val v = MetadataVersion(arrayOf("alpha", "123"))
-            Assert.assertTrue(v.equals(v))
+            Assert.assertTrue(v == v)
         }
 
         @Test
         fun shouldBeSymmetric() {
             val v1 = MetadataVersion(arrayOf("alpha", "123"))
             val v2 = MetadataVersion(arrayOf("alpha", "123"))
-            Assert.assertTrue(v1.equals(v2))
-            Assert.assertTrue(v2.equals(v1))
+            Assert.assertTrue(v1 == v2)
+            Assert.assertTrue(v2 == v1)
         }
 
         @Test
@@ -169,16 +169,16 @@ class MetadataVersionTest {
             val v1 = MetadataVersion(arrayOf("alpha", "123"))
             val v2 = MetadataVersion(arrayOf("alpha", "123"))
             val v3 = MetadataVersion(arrayOf("alpha", "123"))
-            Assert.assertTrue(v1.equals(v2))
-            Assert.assertTrue(v2.equals(v3))
-            Assert.assertTrue(v1.equals(v3))
+            Assert.assertTrue(v1 == v2)
+            Assert.assertTrue(v2 == v3)
+            Assert.assertTrue(v1 == v3)
         }
 
         @Test
         fun shouldReturnFalseIfOtherVersionIsNull() {
             val v1 = MetadataVersion(arrayOf("alpha", "123"))
             val v2: MetadataVersion? = null
-            Assert.assertFalse(v1.equals(v2))
+            Assert.assertFalse(v1 == v2)
         }
 
         @Test
@@ -193,7 +193,7 @@ class MetadataVersionTest {
         fun shouldReturnSameHashCodeIfVersionsAreEqual() {
             val v1 = MetadataVersion(arrayOf("alpha", "123"))
             val v2 = MetadataVersion(arrayOf("alpha", "123"))
-            Assert.assertTrue(v1.equals(v2))
+            Assert.assertTrue(v1 == v2)
             Assert.assertEquals(v1.hashCode().toLong(), v2.hashCode().toLong())
         }
     }
