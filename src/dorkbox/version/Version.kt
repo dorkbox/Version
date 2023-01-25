@@ -218,7 +218,7 @@ class Version
         /**
          * Gets the version number.
          */
-        val version = "3.0"
+        val version = "3.1"
 
         init {
             // Add this project to the updates system, which verifies this class + UUID + version information

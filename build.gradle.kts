@@ -19,12 +19,12 @@ import java.time.Instant
 gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS   // always show the stacktrace!
 
 plugins {
-    id("com.dorkbox.GradleUtils") version "3.3.1"
-    id("com.dorkbox.Licensing") version "2.17"
+    id("com.dorkbox.GradleUtils") version "3.9"
+    id("com.dorkbox.Licensing") version "2.19.1"
     id("com.dorkbox.VersionUpdate") version "2.5"
-    id("com.dorkbox.GradlePublish") version "1.13"
+    id("com.dorkbox.GradlePublish") version "1.17"
 
-    kotlin("jvm") version "1.7.20"
+    kotlin("jvm") version "1.8.0"
 }
 
 object Extras {
@@ -34,7 +34,7 @@ object Extras {
     const val description = "Java Semantic Versioning with exceptions."
 
     const val group = "com.dorkbox"
-    const val version = "3.0"
+    const val version = "3.1"
 
     // set as project.ext
     const val name = "Version"

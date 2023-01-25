@@ -15,10 +15,7 @@
  */
 package dorkbox.version.expr;
 
-import static dorkbox.version.expr.Lexer.Token.Type.AND;
-import static dorkbox.version.expr.Lexer.Token.Type.EOI;
-import static dorkbox.version.expr.Lexer.Token.Type.NUMERIC;
-import static dorkbox.version.expr.Lexer.Token.Type.RIGHT_PAREN;
+import static dorkbox.version.expr.Lexer.Token.Type.*;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
