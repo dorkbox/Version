@@ -34,7 +34,7 @@ object Extras {
     const val description = "Java Semantic Versioning with exceptions."
 
     const val group = "com.dorkbox"
-    const val version = "3.0"
+    const val version = "3.1"
 
     // set as project.ext
     const val name = "Version"
