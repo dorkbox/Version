@@ -1,3 +1,3 @@
-module com.dorkbox.version {
+module dorkbox.version {
     exports dorkbox.version;
 }
