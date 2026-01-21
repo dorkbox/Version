@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2026 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,7 +59,6 @@ class ParserErrorHandlingTest(
 
     companion object {
         @Parameterized.Parameters(name = "{0}")
-        @JvmStatic
         fun parameters(): Array<Array<Any?>> {
             return arrayOf(
 //                arrayOf("1", null, 1, arrayOf(DOT)), // exception to semver, is that '1' is permitted (ie: leaving out the minor number)
