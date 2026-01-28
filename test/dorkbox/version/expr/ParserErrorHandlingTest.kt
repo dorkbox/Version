@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 dorkbox, llc
+ * Copyright 2026 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,64 +13,64 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dorkbox.version.expr;
+package dorkbox.version.expr
 
-import static dorkbox.version.expr.Lexer.Token.Type.AND;
-import static dorkbox.version.expr.Lexer.Token.Type.EOI;
-import static dorkbox.version.expr.Lexer.Token.Type.NUMERIC;
-import static dorkbox.version.expr.Lexer.Token.Type.RIGHT_PAREN;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
-import dorkbox.version.expr.Lexer.Token;
+import dorkbox.version.expr.ExpressionParser.Companion.newInstance
+import dorkbox.version.expr.Lexer.Token
+import dorkbox.version.expr.Lexer.Token.Type.EOI
+import dorkbox.version.expr.Lexer.Token.Type.NUMERIC
+import dorkbox.version.expr.Lexer.Token.Type.RIGHT_PAREN
+import org.junit.Assert
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
 /**
- * @author Zafar Khaja <zafarkhaja@gmail.com>
+ * @author Zafar Khaja <zafarkhaja></zafarkhaja>@gmail.com>
  */
-@RunWith(Parameterized.class)
-public
-class ParserErrorHandlingTest {
-
-    @Parameters(name = "{0}")
-    public static
-    Collection<Object[]> parameters() {
-        return Arrays.asList(new Object[][] {{"1)", new Token(RIGHT_PAREN, ")", 1), new Token.Type[] {EOI}},
-                                             {"(>1.0.1", new Token(EOI, "", 7), new Token.Type[] {RIGHT_PAREN}},
-                                             {"((>=1 & <2)", new Token(EOI, "", 11), new Token.Type[] {RIGHT_PAREN}},
-                                             {">=1.0.0 &", new Token(EOI, "", 9), new Token.Type[] {NUMERIC}},
-                                             {"(>2.0 |)", new Token(RIGHT_PAREN, ")", 7), new Token.Type[] {NUMERIC}},
-                                             {"& 1.2", new Token(AND, "&", 0), new Token.Type[] {NUMERIC}},});
-    }
-    private final String invalidExpr;
-    private final Token unexpected;
-    private final Token.Type[] expected;
-
-    public
-    ParserErrorHandlingTest(String invalidExpr, Token unexpected, Token.Type[] expected) {
-        this.invalidExpr = invalidExpr;
-        this.unexpected = unexpected;
-        this.expected = expected;
-    }
-
+@RunWith(Parameterized::class)
+class ParserErrorHandlingTest(
+    private val invalidExpr: String,
+    private val unexpected: Token?,
+    private val expected: Array<Token.Type?>?
+) {
     @Test
-    public
-    void shouldCorrectlyHandleParseErrors() {
+    fun shouldCorrectlyHandleParseErrors() {
         try {
-            ExpressionParser.Companion.newInstance().parse(invalidExpr);
-        } catch (UnexpectedTokenException e) {
-            assertEquals(unexpected, e.getUnexpectedToken());
-            assertArrayEquals(expected, e.getExpectedTokenTypes());
-            return;
+            newInstance().parse(invalidExpr)
         }
-        fail("Uncaught exception");
+        catch (e: UnexpectedTokenException) {
+            Assert.assertEquals(unexpected, e.unexpectedToken)
+            Assert.assertArrayEquals(expected, e.expectedTokenTypes)
+            return
+        }
+        Assert.fail("Uncaught exception")
+    }
+
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters(name = "{0}")
+        fun parameters(): Collection<Array<Any?>?> {
+            return listOf(
+                arrayOf("1)",
+                        Token(RIGHT_PAREN, ")", 1),
+                        arrayOf(EOI)),
+                arrayOf("(>1.0.1",
+                        Token(EOI, "", 7),
+                        arrayOf(RIGHT_PAREN)),
+                arrayOf("((>=1 & <2)",
+                        Token(EOI, "", 11),
+                        arrayOf(RIGHT_PAREN)),
+                arrayOf(">=1.0.0 &",
+                        Token(EOI, "", 9),
+                        arrayOf(NUMERIC)),
+                arrayOf("(>2.0 |)",
+                           Token(RIGHT_PAREN, ")", 7),
+                           arrayOf(NUMERIC)),
+                arrayOf("& 1.2",
+                        Token(Token.Type.AND, "&", 0),
+                        arrayOf(NUMERIC))
+            )
+        }
     }
 }

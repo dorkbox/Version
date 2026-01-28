@@ -15,12 +15,7 @@
  */
 package dorkbox.version
 
-import dorkbox.version.CharType.DIGIT
-import dorkbox.version.CharType.EOI
-import dorkbox.version.CharType.HYPHEN
-import dorkbox.version.CharType.LETTER
-import dorkbox.version.CharType.PLUS
-import dorkbox.version.CharType.UNDER_SCORE
+import dorkbox.version.CharType.*
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -58,6 +53,7 @@ class ParserErrorHandlingTest(
     }
 
     companion object {
+        @JvmStatic
         @Parameterized.Parameters(name = "{0}")
         fun parameters(): Array<Array<Any?>> {
             return arrayOf(
