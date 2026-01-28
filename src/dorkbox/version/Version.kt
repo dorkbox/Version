@@ -217,7 +217,7 @@ internal constructor(
         /**
          * Gets the version number.
          */
-        const val version = "3.1"
+        const val version = "3.2"
 
         init {
             // Add this project to the updates system, which verifies this class + UUID + version information
