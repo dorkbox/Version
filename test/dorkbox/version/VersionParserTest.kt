@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 dorkbox, llc
+ * Copyright 2026 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,15 @@ class VersionParserTest {
             VersionParser.parseBuild("build.01")
         } catch (e: ParseException) {
             Assert.fail("Should allow digits in build metadata")
+        }
+    }
+
+    @Test
+    fun shouldAllowTestAsPreReleaseVersion() {
+        try {
+            VersionParser.parsePreRelease("TEST")
+        } catch (e: ParseException) {
+            Assert.fail("Should allow test in pre-release version")
         }
     }
 

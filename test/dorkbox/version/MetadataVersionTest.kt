@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 dorkbox, llc
+ * Copyright 2026 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ class MetadataVersionTest {
         }
 
         @Test
-        fun shouldComapareDigitsOnlyIdentifiersNumerically() {
+        fun shouldCompareDigitsOnlyIdentifiersNumerically() {
             val v1 = MetadataVersion(arrayOf("alpha", "123"))
             val v2 = MetadataVersion(arrayOf("alpha", "321"))
             Assert.assertTrue(v1 < v2)
@@ -153,7 +153,7 @@ class MetadataVersionTest {
         @Test
         fun shouldBeReflexive() {
             val v = MetadataVersion(arrayOf("alpha", "123"))
-            Assert.assertTrue(v == v)
+            Assert.assertTrue(v.equals(v))
         }
 
         @Test

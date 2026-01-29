@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 dorkbox, llc
+ * Copyright 2026 dorkbox, llc
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -231,7 +231,7 @@ internal constructor(
      * @param version the version string to parse
      *
      * @throws IllegalArgumentException if the input string is `NULL` or empty
-     * @throws ParseException when invalid version string is provided
+     * @throws ParseException when an invalid version string is provided
      * @throws UnexpectedCharacterException is a special case of `ParseException`
      */
     constructor(version: String) : this(VersionParser.parseValidSemVer(version))
