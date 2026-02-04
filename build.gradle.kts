@@ -15,6 +15,7 @@
  */
 
 gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS   // always show the stacktrace!
+gradle.startParameter.warningMode = WarningMode.All
 
 plugins {
     id("com.dorkbox.GradleUtils") version "4.8"
